@@ -10,7 +10,7 @@ const Home = () => {
             <NavLink to="/" className={classes.logolink}>
               CampGrounds
             </NavLink>
-            <NavLink to="/" className={classes.link}>
+            <NavLink to="/campgrounds" className={classes.link}>
               All campgrounds
             </NavLink>
             <NavLink to="/login" className={classes.link}>
