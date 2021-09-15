@@ -90,13 +90,13 @@ p {
   line-height: 1.5;
   letter-spacing: -0.5px;
   margin: 0px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   text-align: center;
 }
 .homeButton {
   padding: 15px 19px;
   color: #333;
-  background-color: #ffffff;
+  background-color:  rgba(255, 255, 255, 0.883);
   font-weight: 700;
   border-color: #fff;
   border-radius: 5px;
@@ -105,8 +105,12 @@ p {
   letter-spacing: -0.5px;
   width: unset;
 }
+.homeButton:hover {
+  background-color: white;
+  cursor: pointer;
+}
 .homeFooter {
-  margin-top: 243px;
+  margin-top: 233px;
   font-weight: 500;
   justify-content: flex-end;
   color: rgba(255, 255, 255, 0.5) !important;
