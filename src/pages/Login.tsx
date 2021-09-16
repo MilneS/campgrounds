@@ -6,11 +6,12 @@ import Button from "react-bootstrap/Button";
 
 const Login = () => {
   return (
-    <div>
+    <div className={classes.cardContainer}>
+    <div className={classes.card}>
       <Card style={{ width: "18rem" }}>
         <Card.Img variant="top" src={pic} />
         <Card.Body>
-          <Card.Title>Login</Card.Title>
+          <Card.Title className="mb-3">Login</Card.Title>
           <Form>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Control type="email" placeholder="Enter email" />
@@ -18,12 +19,15 @@ const Login = () => {
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Control type="password" placeholder="Password" />
             </Form.Group>
-            <Button variant="success" type="submit">
+            <div className="d-grid gap-2">
+            <Button variant="success" size="lg" type="submit">
               Login
             </Button>
+            </div>
           </Form>
         </Card.Body>
       </Card>
+    </div>
     </div>
   );
 };
