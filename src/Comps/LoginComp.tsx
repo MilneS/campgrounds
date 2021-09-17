@@ -9,10 +9,9 @@ import React from "react";
 const LoginComp = () => {
   const dispatch = useDispatch();
 
-  const showSignupFunc = (e:React.MouseEvent) => {
-    e.preventDefault()
-    dispatch({type:'signupComp'})
-
+  const showSignupFunc = (e: React.MouseEvent) => {
+    e.preventDefault();
+    dispatch({ type: "signupComp" });
   };
 
   return (
@@ -41,7 +40,9 @@ const LoginComp = () => {
               </Button>
             </div>
           </Form>
-          <p className={classes.signUp} onClick={showSignupFunc}>Or Sign up here</p>
+          <p className={classes.signUp} onClick={showSignupFunc}>
+            Or Sign up
+          </p>
         </Card.Body>
       </Card>
     </>

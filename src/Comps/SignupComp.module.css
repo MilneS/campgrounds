@@ -1,5 +1,14 @@
-.signin {
+.signup {
   font-size: 30px;
   margin-top: 20px;
   margin-bottom: 40px;
+}
+
+.login {
+  color: rgb(0, 60, 255);
+  width: max-content;
+}
+.login:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }
