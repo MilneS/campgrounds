@@ -3,14 +3,26 @@ import pic from "../utils/LoginPic.jpeg";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import { useDispatch } from "react-redux";
+import React from "react";
 
 const LoginComp = () => {
+  const dispatch = useDispatch();
+
+  const showSignupFunc = (e:React.MouseEvent) => {
+    e.preventDefault()
+    dispatch({type:'signupComp'})
+
+  };
+
   return (
     <>
-      <Card style={{ width: "27rem"}}>
-        <Card.Img variant="top" src={pic}/>
+      <Card style={{ width: "27rem" }}>
+        <Card.Img variant="top" src={pic} />
         <Card.Body>
-          <Card.Title className="mb-4"><p className={classes.login}>Login</p></Card.Title>
+          <Card.Title className="mb-4">
+            <p className={classes.login}>Login</p>
+          </Card.Title>
           <Form>
             <Form.Group className="mb-4" controlId="formBasicEmail">
               <Form.Control type="email" placeholder="Enter email" />
@@ -19,12 +31,17 @@ const LoginComp = () => {
               <Form.Control type="password" placeholder="Password" />
             </Form.Group>
             <div className="d-grid gap-2">
-            <Button variant="success" size="lg" type="submit" className="mb-4">
-              Login
-            </Button>
+              <Button
+                variant="success"
+                size="lg"
+                type="submit"
+                className="mb-4"
+              >
+                Login
+              </Button>
             </div>
           </Form>
-          <p className={classes.signUp}>Or Sign up here</p>
+          <p className={classes.signUp} onClick={showSignupFunc}>Or Sign up here</p>
         </Card.Body>
       </Card>
     </>

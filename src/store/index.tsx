@@ -1,8 +1,8 @@
 import { createStore } from "redux";
 
 const initialState: { login: boolean; signup: boolean } = {
-  login: false,
-  signup: true,
+  login: true,
+  signup: false,
 };
 
 const reducerFunc = (state= initialState, action:any) => {
