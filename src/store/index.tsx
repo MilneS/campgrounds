@@ -1,16 +1,16 @@
 import { createStore } from "redux";
 
-const initialState: { loggedIn: boolean; signedIn: boolean } = {
-  loggedIn: true,
-  signedIn: false,
+const initialState: { login: boolean; signup: boolean } = {
+  login: false,
+  signup: true,
 };
 
 const reducerFunc = (state= initialState, action:any) => {
   if (action.type === "loginComp") {
-    return { ...state, loggedIn: true, signedIn: false };
+    return { ...state, login: true, signup: false };
   }
-  if (action.type === "signInComp") {
-    return { ...state, signedIn: true, loggedIn: false };
+  if (action.type === "signupComp") {
+    return { ...state, signup: true, login: false };
   }
   return state;
 };

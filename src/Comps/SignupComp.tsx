@@ -1,16 +1,16 @@
-import classes from "./SigninComp.module.css";
+import classes from "./SignupComp.module.css";
 import pic from "../utils/LoginPic.jpeg";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-const SigninComp = () => {
+const SignupComp = () => {
   return (
     <>
       <Card style={{ width: "27rem"}}>
         <Card.Img variant="top" src={pic}/>
         <Card.Body>
-          <Card.Title className="mb-4"><p className={classes.signin}>Sign in</p></Card.Title>
+          <Card.Title className="mb-4"><p className={classes.signin}>Sign up</p></Card.Title>
           <Form>
           <Form.Group className="mb-4" controlId="formBasicEmail">
               <Form.Control type="email" placeholder="Username" />
@@ -23,7 +23,7 @@ const SigninComp = () => {
             </Form.Group>
             <div className="d-grid gap-2">
             <Button variant="success" size="lg" type="submit">
-              Sign in
+              Sign up
             </Button>
             </div>
           </Form>
@@ -32,4 +32,4 @@ const SigninComp = () => {
       </>
   );
 };
-export default SigninComp;
+export default SignupComp;
