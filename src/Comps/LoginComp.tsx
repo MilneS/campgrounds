@@ -15,15 +15,16 @@ const LoginComp = () => {
             <Form.Group className="mb-4" controlId="formBasicEmail">
               <Form.Control type="email" placeholder="Enter email" />
             </Form.Group>
-            <Form.Group className="mb-5" controlId="formBasicPassword">
+            <Form.Group className="mb-4" controlId="formBasicPassword">
               <Form.Control type="password" placeholder="Password" />
             </Form.Group>
             <div className="d-grid gap-2">
-            <Button variant="success" size="lg" type="submit">
+            <Button variant="success" size="lg" type="submit" className="mb-4">
               Login
             </Button>
             </div>
           </Form>
+          <p className={classes.signUp}>Or Sign up here</p>
         </Card.Body>
       </Card>
     </>
