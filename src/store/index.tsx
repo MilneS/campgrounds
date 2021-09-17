@@ -5,7 +5,7 @@ const initialState: { loggedIn: boolean; signedIn: boolean } = {
   signedIn: false,
 };
 
-const reducerFunc = (state= initialState, action) => {
+const reducerFunc = (state= initialState, action:any) => {
   if (action.type === "loginComp") {
     return { ...state, loggedIn: true, signedIn: false };
   }
