@@ -1,7 +1,7 @@
 import { createStore } from "redux";
 
 const initialState: { login: boolean; signup: boolean } = {
-  login: true,
+  login: false,
   signup: false,
 };
 
