@@ -15,27 +15,17 @@ const NavbarComp = (props: any) => {
         className={classes.navbar}
       >
         <Container>
-          <NavLink to="/">
-            <Navbar.Brand  className={classes.campgroundsLogo}>
+          <NavLink to="/" className={classes.campgroundsLogo}>
               CampGrounds
-            </Navbar.Brand>
           </NavLink>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="me-auto">
-              <NavLink to="/campgrounds">
-                <Nav className={classes.campgroundsLink}>
+              <NavLink to="/campgrounds" className={classes.campgroundsLink}>
                   All campgrounds
-                </Nav>
               </NavLink>
-            </Nav>
-            <Nav className="me-auto">
-              <NavLink to="/login">
-                <Nav  className={classes.loginLink}>
+              <NavLink to="/login" className={classes.loginLink}>
                   Login
-                </Nav>
               </NavLink>
-            </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
