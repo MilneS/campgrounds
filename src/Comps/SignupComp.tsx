@@ -5,7 +5,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { useState, useEffect } from "react";
+import { useState} from "react";
 import { State } from "../store/state.model";
 
 const SignupComp = () => {
@@ -28,13 +28,12 @@ const SignupComp = () => {
   const getFormDataHandler = (e: React.MouseEvent) => {
     e.preventDefault();
     dispatch({ type: "signupFormData", payload: inputData });
-        sendDataHandler() 
+    sendDataHandler();
   };
 
-
-  const sendDataHandler = async() => {
-    const url:any = process.env.REACT_APP_API_SIGNUP_KEY
-    const response= await fetch( url, {
+  const sendDataHandler = async () => {
+    const url: any = process.env.REACT_APP_API_SIGNUP_KEY;
+    const response = await fetch(url, {
       method: "POST",
       body: JSON.stringify({
         displayName: inputData.username,
@@ -46,25 +45,19 @@ const SignupComp = () => {
     });
     const data = await response.json();
     if (response.ok) {
-         console.log(data);
-         setShowErrMsg(false)
+      console.log(data);
+      setShowErrMsg(false);
 
       return data;
     } else {
-      let errorMessage:any = "Authentication failed!";
+      let errorMessage: any = "Authentication failed!";
       if (data && data.error && data.error.message) {
-        errorMessage=data.error.message
-        setErrMsg(errorMessage)
-        setShowErrMsg(true)
-
-
+        errorMessage = data.error.message;
+        setErrMsg(errorMessage);
+        setShowErrMsg(true);
       }
-      
     }
   };
-  // useEffect(()=>{
-  //   sendDataHandler()
-  // },[])
 
   return (
     <>
@@ -74,10 +67,7 @@ const SignupComp = () => {
           <Card.Title className="mb-4">
             <p className={classes.signup}>Sign up</p>
           </Card.Title>
-          {showErrMsg&&
-          <p>
-            {errMsg}
-          </p>}
+          {showErrMsg && <p className={classes.errorMsg}>{errMsg}</p>}
           <Form>
             <Form.Group className="mb-4">
               <Form.Control
