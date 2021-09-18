@@ -5,7 +5,7 @@ import { State } from "./state.model";
 const initialState: State = {
   showLogin: true,
   showSignup: false,
-  signUpFormData: {},
+  signUpFormData: {username:"", email:"", password:""},
 };
 
 const reducerFunc = (state= initialState, action:Action) => {
