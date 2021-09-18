@@ -6,6 +6,7 @@ const initialState: State = {
   showLogin: true,
   showSignup: false,
   signUpFormData: {username:"", email:"", password:""},
+  loginFormData: { email:"", password:""},
 };
 
 const reducerFunc = (state= initialState, action:Action) => {
@@ -17,6 +18,9 @@ const reducerFunc = (state= initialState, action:Action) => {
   }
   if (action.type === "signupFormData") {
     return { ...state, signUpFormData: action.payload };
+  }
+  if (action.type === "loginFormData") {
+    return { ...state, loginFormData: action.payload };
   }
   return state;
 };
