@@ -4,16 +4,16 @@ import Home from "./pages/Home";
 import Camps from "./pages/Camps";
 import Login from "./pages/Login";
 import NewCamp from "./pages/NewCamp";
-import NavbarComp from './comps/NavbarComp';
+import NavbarComp from "./comps/NavbarComp";
 
 function App() {
   return (
     <div className="App">
+      <Route path="/" exact>
+        <Home />
+      </Route>
+      <NavbarComp />
       <Switch>
-        <Route path="/" exact>
-          <Home />
-        </Route>
-        <NavbarComp>
         <Route path="/campgrounds" exact>
           <Camps />
         </Route>
@@ -23,7 +23,6 @@ function App() {
         <Route path="/login">
           <Login />
         </Route>
-        </NavbarComp>
         <Route path="/*">
           <Redirect to="/" />
         </Route>

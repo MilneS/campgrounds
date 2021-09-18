@@ -2,38 +2,39 @@ import classes from "./NavbarComp.module.css";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
-import NavDropdown from "react-bootstrap/NavDropdown";
+import { Link } from "react-router-dom";
 
-const NavbarComp = (props:any) => {
+const NavbarComp = (props: any) => {
   return (
     <>
-      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+      <Navbar
+        collapseOnSelect
+        expand="lg"
+        bg="dark"
+        variant="dark"
+        className={classes.navbar}
+      >
         <Container>
-          <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+          <Link to="/">
+            <Navbar.Brand href="#home" className={classes.campgroundsLogo}>
+              CampGrounds
+            </Navbar.Brand>
+          </Link>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link href="#features">Features</Nav.Link>
-              <Nav.Link href="#pricing">Pricing</Nav.Link>
-              <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">
-                  Another action
-                </NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">
-                  Something
-                </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">
-                  Separated link
-                </NavDropdown.Item>
-              </NavDropdown>
+              <Link to="/campgrounds">
+                <Nav.Link href="#pricing" className={classes.campgroundsLink}>
+                  All campgrounds
+                </Nav.Link>
+              </Link>
             </Nav>
-            <Nav>
-              <Nav.Link href="#deets">More deets</Nav.Link>
-              <Nav.Link eventKey={2} href="#memes">
-                Dank memes
-              </Nav.Link>
+            <Nav className="me-auto">
+              <Link to="/login">
+                <Nav.Link href="#deets" className={classes.campgroundsLink}>
+                  Login
+                </Nav.Link>
+              </Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
