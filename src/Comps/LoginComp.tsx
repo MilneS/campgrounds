@@ -64,7 +64,7 @@ const LoginComp = () => {
           <Card.Title className="mb-4">
             <p className={classes.login}>Login</p>
           </Card.Title>
-          {/* {showErrMsg && <p className={classes.errorMsg}>{errMsg}</p>} */}
+          {showErrMsg && <p className={classes.errorMsg}>{errMsg}</p>}
           <Form>
             <Form.Group className="mb-4">
               <Form.Control
