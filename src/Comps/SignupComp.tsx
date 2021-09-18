@@ -5,7 +5,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { useState} from "react";
+import { useState } from "react";
 import { State } from "../store/state.model";
 
 const SignupComp = () => {

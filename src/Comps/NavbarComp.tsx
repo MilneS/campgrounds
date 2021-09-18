@@ -1,10 +1,13 @@
-import classes from "./Navbar.module.css";
+import classes from "./NavbarComp.module.css";
 import Navbar from "react-bootstrap/Navbar";
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+import NavDropdown from "react-bootstrap/NavDropdown";
 
-const Nav = () => {
+const NavbarComp = (props:any) => {
   return (
     <>
-      {/* <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
         <Container>
           <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -34,8 +37,8 @@ const Nav = () => {
             </Nav>
           </Navbar.Collapse>
         </Container>
-      </Navbar> */}
+      </Navbar>
     </>
   );
 };
-export default Nav;
+export default NavbarComp;

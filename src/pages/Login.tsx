@@ -1,6 +1,6 @@
 import classes from "./Login.module.css";
-import LoginComp from "../Comps/LoginComp";
-import SignupComp from "../Comps/SignupComp";
+import LoginComp from "../comps/LoginComp";
+import SignupComp from "../comps/SignupComp";
 import { useSelector} from "react-redux";
 import { State } from "../store/state.model";
 

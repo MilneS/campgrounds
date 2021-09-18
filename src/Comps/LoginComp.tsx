@@ -20,7 +20,6 @@ const LoginComp = () => {
 
   const getInputDataHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputData({ ...inputData, [e.target.id]: e.currentTarget.value });
-    // console.log(e.currentTarget.value)
   };
 
   const getFormDataHandler = (e: React.MouseEvent) => {
@@ -44,7 +43,6 @@ const LoginComp = () => {
     if (response.ok) {
       console.log(data);
       setShowErrMsg(false);
-
       return data;
     } else {
       let errorMessage: any = "Authentication failed!";
