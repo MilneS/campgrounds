@@ -4,8 +4,8 @@ import SignupComp from "../Comps/SignupComp";
 import { useSelector, RootStateOrAny } from "react-redux";
 
 const Login = () => {
-  const showLogin = useSelector((state: RootStateOrAny) => state.login);
-  const showSignup = useSelector((state: RootStateOrAny) => state.signup);
+  const showLogin = useSelector((state: RootStateOrAny) => state.showLogin);
+  const showSignup = useSelector((state: RootStateOrAny) => state.showSignup);
   return (
     <div className={classes.cardContainer}>
       <div className={classes.card}>

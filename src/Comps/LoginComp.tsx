@@ -41,7 +41,7 @@ const LoginComp = () => {
             </div>
           </Form>
           <p className={classes.signUp} onClick={showSignupFunc}>
-            Or Sign up
+            Or sign up.
           </p>
         </Card.Body>
       </Card>

@@ -21,7 +21,7 @@ const SignupComp = () => {
           <Card.Title className="mb-4"><p className={classes.signup}>Sign up</p></Card.Title>
           <Form>
           <Form.Group className="mb-4" controlId="formBasicEmail">
-              <Form.Control type="email" placeholder="Username" />
+              <Form.Control type="text" placeholder="Username" />
             </Form.Group>
             <Form.Group className="mb-4" controlId="formBasicEmail">
               <Form.Control type="email" placeholder="Email" />
@@ -36,7 +36,7 @@ const SignupComp = () => {
             </div>
           </Form>
           <p className={classes.login} onClick={showLoginFunc}>
-            Or login
+            Or login.
           </p>
         </Card.Body>
       </Card>
