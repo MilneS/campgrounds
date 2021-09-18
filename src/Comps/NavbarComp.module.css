@@ -1,9 +1,6 @@
 .navbar {
-  height: 60px;
+  height: 70px;
   font-size: 20px;
-}
-.container{
-  margin-left:100px
 }
 a,
 a:link,
@@ -27,7 +24,7 @@ a:hover {
   font-weight: 500;
 }
 .loginLink {
-  margin-left: 1000px;
+  margin-left: 900px;
   width: 100px;
   text-align: center;
   font-weight: 500;

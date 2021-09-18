@@ -13,7 +13,7 @@ const NavbarComp = (props: any) => {
         variant="dark"
         className={classes.navbar}
       >
-        <Container className={classes.container}>
+        <Container>
           <NavLink to="/" className={classes.campgroundsLogo}>
             CampGrounds
           </NavLink>
