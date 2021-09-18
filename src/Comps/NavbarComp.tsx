@@ -4,7 +4,6 @@ import Container from "react-bootstrap/Container";
 import { NavLink } from "react-router-dom";
 
 const NavbarComp = (props: any) => {
-
   return (
     <>
       <Navbar
@@ -14,7 +13,7 @@ const NavbarComp = (props: any) => {
         variant="dark"
         className={classes.navbar}
       >
-        <Container>
+        <Container className={classes.container}>
           <NavLink to="/" className={classes.campgroundsLogo}>
             CampGrounds
           </NavLink>
@@ -33,7 +32,6 @@ const NavbarComp = (props: any) => {
               id="login"
               className={classes.loginLink}
               activeClassName={classes.active}
-
             >
               Login
             </NavLink>
