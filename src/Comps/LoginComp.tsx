@@ -64,7 +64,7 @@ const LoginComp = () => {
           </Card.Title>
           {showErrMsg && <p className={classes.errorMsg}>{errMsg}</p>}
           <Form>
-            <Form.Group className="mb-4">
+            <Form.Group className="mb-3">
               <Form.Control
                 id="email"
                 type="email"
@@ -72,7 +72,7 @@ const LoginComp = () => {
                 onChange={getInputDataHandler}
               />
             </Form.Group>
-            <Form.Group className="mb-4">
+            <Form.Group className="mb-3">
               <Form.Control
                 id="password"
                 type="password"
@@ -86,7 +86,7 @@ const LoginComp = () => {
                 variant="success"
                 size="lg"
                 type="submit"
-                className="mb-4"
+                className="mb-3"
               >
                 Login
               </Button>

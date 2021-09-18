@@ -69,7 +69,7 @@ const SignupComp = () => {
           </Card.Title>
           {showErrMsg && <p className={classes.errorMsg}>{errMsg}</p>}
           <Form>
-            <Form.Group className="mb-4">
+            <Form.Group className="mb-3">
               <Form.Control
                 type="text"
                 id="username"
@@ -77,7 +77,7 @@ const SignupComp = () => {
                 onChange={getInputDataHandler}
               />
             </Form.Group>
-            <Form.Group className="mb-4">
+            <Form.Group className="mb-3">
               <Form.Control
                 type="email"
                 id="email"
@@ -85,7 +85,7 @@ const SignupComp = () => {
                 onChange={getInputDataHandler}
               />
             </Form.Group>
-            <Form.Group className="mb-4">
+            <Form.Group className="mb-3">
               <Form.Control
                 type="password"
                 id="password"
@@ -99,7 +99,7 @@ const SignupComp = () => {
                 variant="success"
                 size="lg"
                 type="submit"
-                className="mb-4"
+                className="mb-3"
               >
                 Sign up
               </Button>
