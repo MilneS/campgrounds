@@ -4,27 +4,32 @@ import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useDispatch } from "react-redux";
-// import { useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
-// import { State } from "../store/state.model";
+import { State } from "../store/state.model";
 
 const SignupComp = () => {
   const initialData = { username: "", email: "", password: "" };
   const [formData, setFormData] = useState(initialData);
   const dispatch = useDispatch();
-  // const signupdata = useSelector((state: State) => state.signUpData);
+  const signupdata = useSelector((state: State) => state.signUpData);
 
-  const showLoginFunc = (e: React.MouseEvent) => {
+  const showLoginHandler = (e: React.MouseEvent) => {
     e.preventDefault();
     dispatch({ type: "loginComp" });
   };
-  const getFormData = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const getFormDataHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.id]: e.currentTarget.value });
     // console.log(e.currentTarget.value)
   };
-  useEffect(() => {
+  const sendDataHandler=(e: React.MouseEvent) => {
+    e.preventDefault();
     dispatch({ type: "signupData", payload: formData });
-  }, [formData, dispatch]);
+
+  };
+  useEffect(() => {
+console.log(signupdata)
+  }, [signupdata]);
 
   return (
     <>
@@ -40,7 +45,7 @@ const SignupComp = () => {
                 type="text"
                 id="username"
                 placeholder="Username"
-                onChange={getFormData}
+                onChange={getFormDataHandler}
               />
             </Form.Group>
             <Form.Group className="mb-4">
@@ -48,7 +53,7 @@ const SignupComp = () => {
                 type="email"
                 id="email"
                 placeholder="Email"
-                onChange={getFormData}
+                onChange={getFormDataHandler}
               />
             </Form.Group>
             <Form.Group className="mb-4">
@@ -56,11 +61,11 @@ const SignupComp = () => {
                 type="password"
                 id="password"
                 placeholder="Password"
-                onChange={getFormData}
+                onChange={getFormDataHandler}
               />
             </Form.Group>
             <div className="d-grid gap-2">
-              <Button
+              <Button onClick={sendDataHandler}
                 variant="success"
                 size="lg"
                 type="submit"
@@ -70,7 +75,7 @@ const SignupComp = () => {
               </Button>
             </div>
           </Form>
-          <p className={classes.login} onClick={showLoginFunc}>
+          <p className={classes.login} onClick={showLoginHandler}>
             Or login.
           </p>
         </Card.Body>
