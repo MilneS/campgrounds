@@ -3,26 +3,25 @@ import pic from "../utils/LoginPic.jpeg";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+// import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
-import { State } from "../store/state.model";
+// import { State } from "../store/state.model";
 
 const SignupComp = () => {
-  const dispatch = useDispatch();
-  const signupdata = useSelector((state: State) => state.signUpData);
   const initialData = { username: "", email: "", password: "" };
   const [formData, setFormData] = useState(initialData);
+  const dispatch = useDispatch();
+  // const signupdata = useSelector((state: State) => state.signUpData);
 
   const showLoginFunc = (e: React.MouseEvent) => {
     e.preventDefault();
     dispatch({ type: "loginComp" });
   };
-
   const getFormData = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.id]: e.currentTarget.value });
     // console.log(e.currentTarget.value)
   };
-
   useEffect(() => {
     dispatch({ type: "signupData", payload: formData });
   }, [formData, dispatch]);
