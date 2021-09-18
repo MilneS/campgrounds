@@ -10,26 +10,30 @@ import { State } from "../store/state.model";
 
 const SignupComp = () => {
   const initialData = { username: "", email: "", password: "" };
-  const [formData, setFormData] = useState(initialData);
+  const [inputData, setInputData] = useState(initialData);
   const dispatch = useDispatch();
-  const signupdata = useSelector((state: State) => state.signUpData);
+  const signupFormdata = useSelector((state: State) => state.signUpFormData);
 
   const showLoginHandler = (e: React.MouseEvent) => {
     e.preventDefault();
     dispatch({ type: "loginComp" });
   };
-  const getFormDataHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.id]: e.currentTarget.value });
+  const getInputDataHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputData({ ...inputData, [e.target.id]: e.currentTarget.value });
     // console.log(e.currentTarget.value)
   };
-  const sendDataHandler=(e: React.MouseEvent) => {
+  const getFormDataHandler = (e: React.MouseEvent) => {
     e.preventDefault();
-    dispatch({ type: "signupData", payload: formData });
-
+    dispatch({ type: "signupFormData", payload: inputData });
   };
   useEffect(() => {
-console.log(signupdata)
-  }, [signupdata]);
+    console.log(signupFormdata);
+  }, [signupFormdata]);
+
+
+
+  // const sendDataHandler
+
 
   return (
     <>
@@ -45,7 +49,7 @@ console.log(signupdata)
                 type="text"
                 id="username"
                 placeholder="Username"
-                onChange={getFormDataHandler}
+                onChange={getInputDataHandler}
               />
             </Form.Group>
             <Form.Group className="mb-4">
@@ -53,7 +57,7 @@ console.log(signupdata)
                 type="email"
                 id="email"
                 placeholder="Email"
-                onChange={getFormDataHandler}
+                onChange={getInputDataHandler}
               />
             </Form.Group>
             <Form.Group className="mb-4">
@@ -61,11 +65,12 @@ console.log(signupdata)
                 type="password"
                 id="password"
                 placeholder="Password"
-                onChange={getFormDataHandler}
+                onChange={getInputDataHandler}
               />
             </Form.Group>
             <div className="d-grid gap-2">
-              <Button onClick={sendDataHandler}
+              <Button
+                onClick={getFormDataHandler}
                 variant="success"
                 size="lg"
                 type="submit"

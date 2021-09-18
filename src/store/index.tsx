@@ -5,7 +5,7 @@ import { State } from "./state.model";
 const initialState: State = {
   showLogin: true,
   showSignup: false,
-  signUpData: {},
+  signUpFormData: {},
 };
 
 const reducerFunc = (state= initialState, action:Action) => {
@@ -15,8 +15,8 @@ const reducerFunc = (state= initialState, action:Action) => {
   if (action.type === "signupComp") {
     return { ...state, showSignup: true, showLogin: false };
   }
-  if (action.type === "signupData") {
-    return { ...state, signUpData: action.payload };
+  if (action.type === "signupFormData") {
+    return { ...state, signUpFormData: action.payload };
   }
   return state;
 };
