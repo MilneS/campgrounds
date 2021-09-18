@@ -30,7 +30,7 @@ a:hover {
   font-weight: 500;
 }
 .loginLink:hover,
-.campgroundsLink:hover {
+.campgroundsLink:hover, .active{
   color: white;
   font-weight: 700;
 }
