@@ -3,36 +3,72 @@ import pic from "../utils/LoginPic.jpeg";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import { State } from "../store/state.model";
 
 const SignupComp = () => {
   const dispatch = useDispatch();
+  const signupdata = useSelector((state: State) => state.signUpData);
+  const initialData = { username: "", email: "", password: "" };
+  const [formData, setFormData] = useState(initialData);
 
   const showLoginFunc = (e: React.MouseEvent) => {
     e.preventDefault();
     dispatch({ type: "loginComp" });
   };
 
+  const getFormData = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.id]: e.currentTarget.value });
+    // console.log(e.currentTarget.value)
+  };
+
+  useEffect(() => {
+    dispatch({ type: "signupData", payload: formData });
+  }, [formData, dispatch]);
+
   return (
     <>
-      <Card style={{ width: "27rem"}}>
-        <Card.Img variant="top" src={pic}/>
+      <Card style={{ width: "27rem" }}>
+        <Card.Img variant="top" src={pic} />
         <Card.Body>
-          <Card.Title className="mb-4"><p className={classes.signup}>Sign up</p></Card.Title>
+          <Card.Title className="mb-4">
+            <p className={classes.signup}>Sign up</p>
+          </Card.Title>
           <Form>
-          <Form.Group className="mb-4" controlId="formBasicEmail">
-              <Form.Control type="text" placeholder="Username" />
+            <Form.Group className="mb-4">
+              <Form.Control
+                type="text"
+                id="username"
+                placeholder="Username"
+                onChange={getFormData}
+              />
             </Form.Group>
-            <Form.Group className="mb-4" controlId="formBasicEmail">
-              <Form.Control type="email" placeholder="Email" />
+            <Form.Group className="mb-4">
+              <Form.Control
+                type="email"
+                id="email"
+                placeholder="Email"
+                onChange={getFormData}
+              />
             </Form.Group>
-            <Form.Group className="mb-4" controlId="formBasicPassword">
-              <Form.Control type="password" placeholder="Password" />
+            <Form.Group className="mb-4">
+              <Form.Control
+                type="password"
+                id="password"
+                placeholder="Password"
+                onChange={getFormData}
+              />
             </Form.Group>
             <div className="d-grid gap-2">
-            <Button variant="success" size="lg" type="submit" className="mb-4">
-              Sign up
-            </Button>
+              <Button
+                variant="success"
+                size="lg"
+                type="submit"
+                className="mb-4"
+              >
+                Sign up
+              </Button>
             </div>
           </Form>
           <p className={classes.login} onClick={showLoginFunc}>
@@ -40,7 +76,7 @@ const SignupComp = () => {
           </p>
         </Card.Body>
       </Card>
-      </>
+    </>
   );
 };
 export default SignupComp;
