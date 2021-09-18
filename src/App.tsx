@@ -9,10 +9,12 @@ import NavbarComp from "./comps/NavbarComp";
 function App() {
   return (
     <div className="App">
+            <Switch>
       <Route path="/" exact>
         <Home />
       </Route>
       <NavbarComp />
+      </Switch>
       <Switch>
         <Route path="/campgrounds" exact>
           <Camps />

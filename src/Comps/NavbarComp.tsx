@@ -2,7 +2,7 @@ import classes from "./NavbarComp.module.css";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const NavbarComp = (props: any) => {
   return (
@@ -15,26 +15,26 @@ const NavbarComp = (props: any) => {
         className={classes.navbar}
       >
         <Container>
-          <Link to="/">
-            <Navbar.Brand href="#home" className={classes.campgroundsLogo}>
+          <NavLink to="/">
+            <Navbar.Brand  className={classes.campgroundsLogo}>
               CampGrounds
             </Navbar.Brand>
-          </Link>
+          </NavLink>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
-              <Link to="/campgrounds">
-                <Nav.Link href="#pricing" className={classes.campgroundsLink}>
+              <NavLink to="/campgrounds">
+                <Nav className={classes.campgroundsLink}>
                   All campgrounds
-                </Nav.Link>
-              </Link>
+                </Nav>
+              </NavLink>
             </Nav>
             <Nav className="me-auto">
-              <Link to="/login">
-                <Nav.Link href="#deets" className={classes.campgroundsLink}>
+              <NavLink to="/login">
+                <Nav  className={classes.loginLink}>
                   Login
-                </Nav.Link>
-              </Link>
+                </Nav>
+              </NavLink>
             </Nav>
           </Navbar.Collapse>
         </Container>
