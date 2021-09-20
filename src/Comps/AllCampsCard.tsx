@@ -1,6 +1,7 @@
 import classes from "./AllCampsCard.module.css";
 import LoginPic from "../utils/LoginPic.jpeg";
 import Button from "react-bootstrap/Button";
+import {NavLink} from 'react-router-dom'
 
 const AllCampsCard = () => {
 
@@ -16,9 +17,10 @@ const AllCampsCard = () => {
         <div className={classes.description}>descr</div>
         <div className={classes.location}>location</div>
         <div className={classes.button}>
-          <Button variant="primary" size="lg" type="button" className="mb-3">
+          <NavLink to='/details/c'><Button variant="primary" size="lg" type="button" className="mb-3">
             View
           </Button>
+          </NavLink>
         </div>
       </div>
     </div>
