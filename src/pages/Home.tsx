@@ -27,7 +27,9 @@ const Home = () => {
               to share some of your own and comment on others!
             </p>
           </div>
-          <button className={classes.homeButton}>View Campgrounds</button>
+          <NavLink to="/campgrounds">
+<button className={classes.homeButton}>View Campgrounds</button></NavLink>
+
           <div className={classes.homeFooter}>© 2021</div>
         </div>
       </div>
