@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  justify-content: center;
+  margin: 50px 100px;
+  flex-direction: column;
+}
+.img {
+  height: 300px;
+  width: 350px;
+}
+.title {
+  font-weight: 500;
+  font-size: 25px;
+}
+.DescrAuthPrice {
+  font-size: 20px;
+}
+.location {
+  font-size: 20px;
+  color: grey
+}
