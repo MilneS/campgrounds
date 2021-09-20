@@ -3,6 +3,9 @@ import LoginPic from "../utils/LoginPic.jpeg";
 import Button from "react-bootstrap/Button";
 
 const AllCampsCard = () => {
+
+  // onClick button: redirect to details page and use Params
+
   return (
     <div className={classes.container}>
       <div className={classes.containerImg}>
