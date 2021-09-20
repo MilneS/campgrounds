@@ -5,6 +5,7 @@ import Camps from "./pages/Camps";
 import Login from "./pages/Login";
 import NewCamp from "./pages/NewCamp";
 import NavbarComp from "./comps/NavbarComp";
+import Details from "./pages/Details";
 
 function App() {
   return (
@@ -18,6 +19,9 @@ function App() {
       <Switch>
         <Route path="/campgrounds" exact>
           <Camps />
+        </Route>
+        <Route path="/details/:camp" exact>
+          <Details />
         </Route>
         <Route path="/newcamp">
           <NewCamp />
