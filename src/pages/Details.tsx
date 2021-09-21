@@ -3,6 +3,7 @@ import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import ListGroupItem from "react-bootstrap/ListGroupItem";
 import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 import LoginPic from "../utils/LoginPic.jpeg";
 
 const Details = () => {
@@ -35,7 +36,19 @@ const Details = () => {
           <Form.Group className="mb-3">
             <Form.Control as="textarea" rows={3} />
           </Form.Group>
+          <Button variant="success" size="lg" type="button" className="mb-5">
+            Submit
+          </Button>
         </Form>
+        <Card className={classes.reviewCard}>
+          <Card.Title>Author</Card.Title>
+          <Card.Text>Review: Text</Card.Text>
+          <div className={classes.reviewButton}>
+            <Button variant="danger" type="button" className="mb-1">
+              Delete
+            </Button>
+          </div>
+        </Card>
       </div>
     </div>
   );
