@@ -16,6 +16,9 @@ const NavbarComp = (props: any) => {
   const loginHandler = () => {
     dispatch({ type: "loginComp" });
   };
+  const btnHandler = () => {
+    dispatch({ type: "logoutFromCampsBtn" });
+  };
 
   return (
     <>
@@ -27,12 +30,17 @@ const NavbarComp = (props: any) => {
         className={classes.navbar}
       >
         <Container>
-          <NavLink to="/" className={classes.campgroundsLogo}>
+          <NavLink
+            to="/"
+            className={classes.campgroundsLogo}
+            onClick={btnHandler}
+          >
             CampGrounds
           </NavLink>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <NavLink
+              onClick={btnHandler}
               to="/campgrounds"
               id="all"
               className={classes.campgroundsLink}

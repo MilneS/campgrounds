@@ -4,5 +4,5 @@ export interface State {
   signUpFormData: {username:string, email:string, password: string};
   loginFormData: {email:string, password: string};
   isLoggedin: boolean;
-
+  logginFromCamps:boolean;
 }

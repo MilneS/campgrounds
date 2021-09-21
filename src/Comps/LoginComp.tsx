@@ -3,11 +3,16 @@ import pic from "../utils/LoginPic.jpeg";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { State } from "../store/state.model";
 
 const LoginComp = () => {
+  const logginFromCampsBtn = useSelector(
+    (state: State) => state.logginFromCamps
+  );
+
   const history = useHistory();
   const dispatch = useDispatch();
   const [errMsg, setErrMsg] = useState();
@@ -44,8 +49,12 @@ const LoginComp = () => {
     const data = await response.json();
     if (response.ok) {
       dispatch({ type: "loggedin" });
-      history.push("/campgrounds");
-
+      if (logginFromCampsBtn) {
+        history.push("/newcamp");
+      } else {
+        history.push("/campgrounds");
+        dispatch({ type: "logoutFromCampsBtn" });
+      }
       console.log(data);
       setShowErrMsg(false);
       return data;

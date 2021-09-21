@@ -7,7 +7,8 @@ const initialState: State = {
   showSignup: false,
   signUpFormData: {username:"", email:"", password:""},
   loginFormData: { email:"", password:""},
-  isLoggedin: false
+  isLoggedin: false,
+  logginFromCamps:false,
 };
 
 const reducerFunc = (state= initialState, action:Action) => {
@@ -28,6 +29,12 @@ const reducerFunc = (state= initialState, action:Action) => {
   }
   if (action.type === "loggedout") {
     return { ...state, isLoggedin:false };
+  }
+  if (action.type === "logginFromCampsBtn") {
+    return { ...state, logginFromCamps:true };
+  }
+  if (action.type === "logoutFromCampsBtn") {
+    return { ...state, logginFromCamps:false };
   }
   return state;
 };

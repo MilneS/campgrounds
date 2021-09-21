@@ -4,9 +4,16 @@ import Button from "react-bootstrap/Button";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { State } from "../store/state.model";
+import { useDispatch } from "react-redux";
+
 
 const Camps = () => {
+  const dispatch = useDispatch();
+
   const isLoggedin = useSelector((state: State) => state.isLoggedin);
+  const addHandler=()=>{
+    dispatch({ type: "logginFromCampsBtn" });
+  }
 
   // fetch camps
 
@@ -17,6 +24,13 @@ const Camps = () => {
         {isLoggedin && (
           <NavLink to="/newcamp">
             <Button variant="success" size="lg" type="button" className="mb-3">
+              Add Campground
+            </Button>
+          </NavLink>
+        )}
+        {!isLoggedin && (
+          <NavLink to="/login">
+            <Button variant="success" size="lg" type="button" className="mb-3" onClick={addHandler}>
               Add Campground
             </Button>
           </NavLink>
