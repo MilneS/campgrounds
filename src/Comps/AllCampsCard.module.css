@@ -1,37 +1,33 @@
 .container {
-    display: flex;
-    flex-direction:row ;
-    width:inherit;
-    border:1px solid rgb(224, 224, 224);
-}
-.containerImg {
-
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  width: inherit;
+  border: 1px solid rgb(224, 224, 224);
 }
 .img {
-    height:300px;
-    width:350px;
+  height: 300px;
+  width: 350px;
 }
 .containerInfo {
-    display: flex;
-    flex-direction:column ;
-    padding: 20px 50px;
-
+  display: flex;
+  flex-direction: column;
+  padding: 20px 50px;
 }
 .title {
-    font-weight: 500;
-    font-size: 30px;
-    margin-bottom: 8px;
+  font-weight: 500;
+  font-size: 30px;
+  margin-bottom: 8px;
 }
 .description {
-    font-weight: 400;
-    font-size: 20px;
-    margin-bottom: 20px;
-
+  font-weight: 400;
+  font-size: 20px;
+  margin-bottom: 20px;
 }
 .location {
-    font-size: 18px;
-    color: rgb(95, 94, 94);
+  font-size: 18px;
+  color: rgb(95, 94, 94);
 }
 .button {
-    margin-top: 20px
+  margin-top: 20px;
 }

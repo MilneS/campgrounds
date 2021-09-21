@@ -38,6 +38,9 @@ const Camps = () => {
       </div>
       {/* map on fetched camps here */}
       <AllCampsCard />
+      <AllCampsCard />
+      <AllCampsCard />
+
     </div>
   );
 };
