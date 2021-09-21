@@ -21,13 +21,6 @@ const Camps = () => {
             </Button>
           </NavLink>
         )}
-        {!isLoggedin && (
-          <NavLink to="/login">
-            <Button variant="success" size="lg" type="button" className="mb-3">
-              Add Campground
-            </Button>
-          </NavLink>
-        )}
       </div>
       {/* map on fetched camps here */}
       <AllCampsCard />
