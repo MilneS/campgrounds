@@ -7,6 +7,7 @@ const initialState: State = {
   showSignup: false,
   signUpFormData: {username:"", email:"", password:""},
   loginFormData: { email:"", password:""},
+  isLoggedin: false
 };
 
 const reducerFunc = (state= initialState, action:Action) => {
@@ -21,6 +22,9 @@ const reducerFunc = (state= initialState, action:Action) => {
   }
   if (action.type === "loginFormData") {
     return { ...state, loginFormData: action.payload };
+  }
+  if (action.type === "loggedin") {
+    return { ...state, isLoggedin:true };
   }
   return state;
 };

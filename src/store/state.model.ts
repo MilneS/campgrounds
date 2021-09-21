@@ -3,4 +3,6 @@ export interface State {
   showSignup: boolean;
   signUpFormData: {username:string, email:string, password: string};
   loginFormData: {email:string, password: string};
+  isLoggedin: boolean;
+
 }

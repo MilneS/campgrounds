@@ -45,6 +45,7 @@ const SignupComp = () => {
     });
     const data = await response.json();
     if (response.ok) {
+      dispatch({ type: "loggedin"});
       console.log(data);
       setShowErrMsg(false);
 
