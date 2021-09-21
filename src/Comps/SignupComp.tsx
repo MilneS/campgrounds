@@ -7,8 +7,10 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import { State } from "../store/state.model";
+import { useHistory } from "react-router-dom";
 
 const SignupComp = () => {
+  const history = useHistory();
   const initialData = { username: "", email: "", password: "" };
   const [inputData, setInputData] = useState(initialData);
   const [errMsg, setErrMsg] = useState();
@@ -45,7 +47,8 @@ const SignupComp = () => {
     });
     const data = await response.json();
     if (response.ok) {
-      dispatch({ type: "loggedin"});
+      dispatch({ type: "loggedin" });
+      history.push("/campgrounds");
       console.log(data);
       setShowErrMsg(false);
 

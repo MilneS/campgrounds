@@ -5,8 +5,10 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
 
 const LoginComp = () => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const [errMsg, setErrMsg] = useState();
   const [showErrMsg, setShowErrMsg] = useState(false);
@@ -41,7 +43,9 @@ const LoginComp = () => {
     });
     const data = await response.json();
     if (response.ok) {
-      dispatch({ type: "loggedin"});
+      dispatch({ type: "loggedin" });
+      history.push("/campgrounds");
+
       console.log(data);
       setShowErrMsg(false);
       return data;
