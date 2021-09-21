@@ -13,6 +13,9 @@ const NavbarComp = (props: any) => {
   const logoutHandler = () => {
     dispatch({ type: "loggedout" });
   };
+  const loginHandler = () => {
+    dispatch({ type: "loginComp" });
+  };
 
   return (
     <>
@@ -43,6 +46,7 @@ const NavbarComp = (props: any) => {
                 id="login"
                 className={classes.loginLink}
                 activeClassName={classes.active}
+                onClick={loginHandler}
               >
                 Login
               </NavLink>
