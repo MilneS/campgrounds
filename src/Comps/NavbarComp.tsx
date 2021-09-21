@@ -6,15 +6,13 @@ import { useSelector } from "react-redux";
 import { State } from "../store/state.model";
 import { useDispatch } from "react-redux";
 
-
 const NavbarComp = (props: any) => {
   const dispatch = useDispatch();
 
   const isLoggedin = useSelector((state: State) => state.isLoggedin);
-  const logoutHandler=()=>{
-    dispatch({ type: "loggedout"});
-
-  }
+  const logoutHandler = () => {
+    dispatch({ type: "loggedout" });
+  };
 
   return (
     <>
