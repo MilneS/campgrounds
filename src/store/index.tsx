@@ -26,6 +26,9 @@ const reducerFunc = (state= initialState, action:Action) => {
   if (action.type === "loggedin") {
     return { ...state, isLoggedin:true };
   }
+  if (action.type === "loggedout") {
+    return { ...state, isLoggedin:false };
+  }
   return state;
 };
 
