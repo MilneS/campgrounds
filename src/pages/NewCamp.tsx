@@ -2,8 +2,13 @@ import classes from "./NewCamp.module.css";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useState } from "react";
+import {useSelector} from 'react-redux'
+import { State } from "../store/state.model";
 
 const Details = () => {
+  const authorData = useSelector(
+    (state: State) => state.loginFormData
+  );
   const initialData = {
     title: "",
     location: "",
@@ -32,6 +37,7 @@ const Details = () => {
         price: inputData.price,
         description: inputData.description,
         image: inputData.image,
+        author: authorData.email
       }),
     });
     const data = await response.json();
