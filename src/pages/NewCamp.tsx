@@ -1,8 +1,30 @@
 import classes from "./NewCamp.module.css";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import { useState } from "react";
 
 const Details = () => {
+
+  const initialData = { title: "", location: "", price: "", description:"", image: ""  };
+  const [inputData, setInputData] = useState(initialData);
+
+
+
+  const newCampHandler = async () => {
+    const newCampApi: any = process.env.REACT_APP_API_NEWCAMPS;
+    const response = await fetch(newCampApi, {
+      method: "POST",
+      body: JSON.stringify({
+        e: "e",
+        f: "f",
+      }),
+    });
+    const data = await response.json();
+    if (response.ok) {
+      console.log(data);
+    }
+  };
+
   return (
     <div className={classes.container}>
       <h1 className={classes.h1}>New CampGround</h1>
@@ -27,11 +49,16 @@ const Details = () => {
           <Form.Control type="file" />
         </Form.Group>
         <div className={classes.button}>
-          <Button variant="success" size="lg" type="button" className="mb-3">
+          <Button
+            variant="success"
+            size="lg"
+            type="button"
+            className="mb-3"
+            onClick={newCampHandler}
+          >
             Add campground
           </Button>
         </div>
-
       </Form>
     </div>
   );
