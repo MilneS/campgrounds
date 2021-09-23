@@ -27,8 +27,11 @@ const Details = () => {
     const response = await fetch(newCampApi, {
       method: "POST",
       body: JSON.stringify({
-        e: "e",
-        f: "f",
+        title: inputData.title,
+        location: inputData.location,
+        price: inputData.price,
+        description: inputData.description,
+        image: inputData.image,
       }),
     });
     const data = await response.json();
@@ -46,22 +49,35 @@ const Details = () => {
       <Form className={classes.form}>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>Title</Form.Label>
-          <Form.Control type="text" onChange={getInputDataHandler}/>
+          <Form.Control type="text" id="title" onChange={getInputDataHandler} />
         </Form.Group>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>Location</Form.Label>
-          <Form.Control type="text" onChange={getInputDataHandler}/>
+          <Form.Control
+            type="text"
+            id="location"
+            onChange={getInputDataHandler}
+          />
         </Form.Group>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>Campground price</Form.Label>
-          <Form.Control type="number" onChange={getInputDataHandler}/>
+          <Form.Control
+            type="number"
+            id="price"
+            onChange={getInputDataHandler}
+          />
         </Form.Group>
         <Form.Group className="mb-4" controlId="exampleForm.ControlTextarea1">
           <Form.Label>Description</Form.Label>
-          <Form.Control as="textarea" rows={3} onChange={getInputDataHandler}/>
+          <Form.Control
+            as="textarea"
+            rows={3}
+            id="description"
+            onChange={getInputDataHandler}
+          />
         </Form.Group>
         <Form.Group controlId="formFile" className="mb-4">
-          <Form.Control type="file" onChange={getInputDataHandler}/>
+          <Form.Control type="file" id="image" onChange={getInputDataHandler} />
         </Form.Group>
         <div className={classes.button}>
           <Button
