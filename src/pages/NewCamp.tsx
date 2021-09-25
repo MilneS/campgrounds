@@ -6,6 +6,10 @@ import { useSelector } from "react-redux";
 import { State } from "../store/state.model";
 import { useHistory } from "react-router-dom";
 
+import { app} from "../firebase/firebase";
+import File from "../utils/file";
+import { log } from "console";
+
 const Details = () => {
   const history = useHistory();
   const authorData = useSelector((state: State) => state.loginFormData);
@@ -17,22 +21,47 @@ const Details = () => {
     // image: "",
   };
   const [inputData, setInputData] = useState(initialData);
-  const [inputImage, setInputImage] = useState({});
+  const [imageAsFile, setImageAsFile] = useState<File>();
+  const [imageAsUrl, setImageAsUrl] = useState({ imageUrl: "" });
 
   const getInputDataHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputData({ ...inputData, [e.target.id]: e.currentTarget.value });
-    const files: any = e.currentTarget.files;
-    if (files) {
-      setInputImage({ ...inputImage, image: files[0] });
+console.log(e.target.value);
+
+    setInputData({ ...inputData, [e.target.id]: e.target.value });
+  };
+
+  let storageRef:any;
+  let fileRef;
+  const getImageDataHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file: File = e.target.files[0];
+      console.log(file);
+      storageRef = app.storage().ref();
+      fileRef = storageRef.child(file.name);
+      if (file) {
+        setImageAsFile(file);
+      }
+      debugger
+      fileRef.put(file).then(() => {
+        "Uploaded file";
+      });
     }
   };
-  useEffect(() => {
-    console.log(inputImage);
-  }, [inputImage]);
 
   const getFormDataHandler = (e: React.MouseEvent) => {
     e.preventDefault();
     newCampDataHandler();
+    // if (!imageAsFile) {
+    //   console.error(`not an image, the image file is a ${typeof imageAsFile}`);
+    // } else {
+    //   const uploadTask = storage;
+    //   const imagesRef = ref(storageRef, "images");
+    //   const fileName = imageAsFile.name;
+    //   const spaceRef = ref(imagesRef, fileName);
+    //   const path = spaceRef.fullPath;
+    //   const name = spaceRef.name;
+    //   const imagesRefAgain = spaceRef.parent;
+    // }
   };
 
   const newCampDataHandler = async () => {
@@ -92,7 +121,7 @@ const Details = () => {
           />
         </Form.Group>
         <Form.Group className="mb-4">
-          <Form.Control type="file" id="image" onChange={getInputDataHandler} />
+          <Form.Control type="file" id="image" onChange={getImageDataHandler} />
         </Form.Group>
         <div className={classes.button}>
           <Button
