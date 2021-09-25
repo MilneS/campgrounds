@@ -41,7 +41,6 @@ console.log(e.target.value);
       if (file) {
         setImageAsFile(file);
       }
-      debugger
       fileRef.put(file).then(() => {
         "Uploaded file";
       });
