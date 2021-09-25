@@ -49,7 +49,7 @@ const SignupComp = () => {
     if (response.ok) {
       dispatch({ type: "loggedin" });
       history.push("/campgrounds");
-      console.log(data);
+      // console.log(data);
       setShowErrMsg(false);
 
       return data;

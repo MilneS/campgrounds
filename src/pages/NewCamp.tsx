@@ -1,7 +1,7 @@
 import classes from "./NewCamp.module.css";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { State } from "../store/state.model";
 import { useHistory } from "react-router-dom";
@@ -14,13 +14,21 @@ const Details = () => {
     location: "",
     price: "",
     description: "",
-    image: "",
+    // image: "",
   };
   const [inputData, setInputData] = useState(initialData);
+  const [inputImage, setInputImage] = useState({});
 
   const getInputDataHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputData({ ...inputData, [e.target.id]: e.currentTarget.value });
+    const files: any = e.currentTarget.files;
+    if (files) {
+      setInputImage({ ...inputImage, image: files[0] });
+    }
   };
+  useEffect(() => {
+    console.log(inputImage);
+  }, [inputImage]);
 
   const getFormDataHandler = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -36,14 +44,14 @@ const Details = () => {
         location: inputData.location,
         price: inputData.price,
         description: inputData.description,
-        image: inputData.image,
+        // image: inputData.image,
         author: authorData.email,
       }),
     });
     const data = await response.json();
     if (response.ok) {
       history.push("/campgrounds");
-      console.log(data);
+      // console.log(data);
     } else {
       let errorMessage: string = "Adding new camp failed!";
       console.log(errorMessage);

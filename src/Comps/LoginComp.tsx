@@ -55,7 +55,7 @@ const LoginComp = () => {
         history.push("/campgrounds");
         dispatch({ type: "logoutFromCampsBtn" });
       }
-      console.log(data);
+      // console.log(data);
       setShowErrMsg(false);
       return data;
     } else {

@@ -7,6 +7,7 @@ import {BrowserRouter} from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import store from './store/index'
 import {Provider} from 'react-redux'
+import {storage} from '../firebase'
 
 ReactDOM.render(
   <React.StrictMode>
