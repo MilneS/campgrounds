@@ -1,16 +1,47 @@
 import classes from "./Camps.module.css";
-import AllCampsCard from "../comps/AllCampsCard";
+import CampCard from "../comps/CampCard";
 import Button from "react-bootstrap/Button";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { State } from "../store/state.model";
 import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 
 const Camps = () => {
   const dispatch = useDispatch();
   const isLoggedin = useSelector((state: State) => state.isLoggedin);
+  const allData = useSelector((state: State) => state.allCamps);
+
+  useEffect(() => {
+    getAllCamps();
+  }, []);
+
   const addHandler = () => {
     dispatch({ type: "logginFromCampsBtn" });
+  };
+
+  const getAllCamps = async () => {
+    const allCampsApi: any = process.env.REACT_APP_API_CAMPS;
+    const response = await fetch(allCampsApi, {
+      method: "GET",
+    });
+    if (response.ok) {
+      const data = await response.json();
+      dispatch({ type: "setAllCamps", payload: data });
+      // console.log(data);
+    } else {
+      let errorMessage: string = "Getting all camps failed!";
+      console.log(errorMessage);
+    }
+  };
+
+  const allCampsData = () => {
+    console.log(allData);
+    if (Object.keys(allData).length) {
+      return Object.keys(allData).map((item) => {
+        return <CampCard item={allData[item]} />;
+      });
+    }
   };
 
   return (
@@ -38,8 +69,7 @@ const Camps = () => {
           </NavLink>
         )}
       </div>
-      {/* map on fetched camps here */}
-      <AllCampsCard/>
+      {allCampsData()}
     </div>
   );
 };
