@@ -1,7 +1,7 @@
 import classes from "./NewCamp.module.css";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { State } from "../store/state.model";
 import { useHistory } from "react-router-dom";
@@ -20,14 +20,12 @@ const Details = () => {
   };
   const [inputData, setInputData] = useState(initialData);
   const [imageAsFile, setImageAsFile] = useState<File>();
-  // const [dataKey, setDataKey] = useState<string>();
-  // const [imageAsUrl, setImageAsUrl] = useState({ imageUrl: "" });
 
   let storageRef: any;
   let fileRef: any;
 
   const newCampDataHandler = async () => {
-    const newCampApi: any = process.env.REACT_APP_API_NEWCAMPS;
+    const newCampApi: any = process.env.REACT_APP_API_CAMPS;
     const response = await fetch(newCampApi, {
       method: "POST",
       body: JSON.stringify({
@@ -68,8 +66,7 @@ const Details = () => {
         imageAsFile.dataKey = dataKey;
         fileRef = storageRef.child(imageAsFile.name);
         fileRef.put(imageAsFile).then(() => {
-          console.log("Uploaded file");
-          console.log(imageAsFile);
+          // console.log("Uploaded file");
           history.push("/campgrounds");
         });
       }

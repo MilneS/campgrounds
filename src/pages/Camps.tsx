@@ -6,16 +6,12 @@ import { useSelector } from "react-redux";
 import { State } from "../store/state.model";
 import { useDispatch } from "react-redux";
 
-
 const Camps = () => {
   const dispatch = useDispatch();
-
   const isLoggedin = useSelector((state: State) => state.isLoggedin);
-  const addHandler=()=>{
+  const addHandler = () => {
     dispatch({ type: "logginFromCampsBtn" });
-  }
-
-  // fetch camps
+  };
 
   return (
     <div className={classes.container}>
@@ -30,14 +26,20 @@ const Camps = () => {
         )}
         {!isLoggedin && (
           <NavLink to="/login">
-            <Button variant="success" size="lg" type="button" className="mb-3" onClick={addHandler}>
+            <Button
+              variant="success"
+              size="lg"
+              type="button"
+              className="mb-3"
+              onClick={addHandler}
+            >
               Add Campground
             </Button>
           </NavLink>
         )}
       </div>
       {/* map on fetched camps here */}
-      <AllCampsCard />
+      <AllCampsCard/>
     </div>
   );
 };

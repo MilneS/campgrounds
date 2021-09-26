@@ -5,4 +5,5 @@ export interface State {
   loginFormData: {email:string, password: string};
   isLoggedin: boolean;
   logginFromCamps:boolean;
+  allCamps:any;
 }

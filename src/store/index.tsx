@@ -9,6 +9,7 @@ const initialState: State = {
   loginFormData: { email:"", password:""},
   isLoggedin: true,
   logginFromCamps:false,
+  allCamps: {},
 };
 
 const reducerFunc = (state= initialState, action:Action) => {
@@ -35,6 +36,9 @@ const reducerFunc = (state= initialState, action:Action) => {
   }
   if (action.type === "logoutFromCampsBtn") {
     return { ...state, logginFromCamps:false };
+  }
+  if (action.type === "setAllCamps") {
+    return { ...state, allCamps: action.payload };
   }
   return state;
 };
