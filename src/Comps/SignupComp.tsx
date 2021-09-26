@@ -4,9 +4,9 @@ import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import { useState } from "react";
-import { State } from "../store/state.model";
+// import { State } from "../store/state.model";
 import { useHistory } from "react-router-dom";
 
 const SignupComp = () => {
@@ -16,7 +16,7 @@ const SignupComp = () => {
   const [errMsg, setErrMsg] = useState();
   const [showErrMsg, setShowErrMsg] = useState(false);
   const dispatch = useDispatch();
-  const signupFormdata = useSelector((state: State) => state.signUpFormData);
+  // const signupFormdata = useSelector((state: State) => state.signUpFormData);
 
   const showLoginHandler = (e: React.MouseEvent) => {
     e.preventDefault();

@@ -7,7 +7,7 @@ const initialState: State = {
   showSignup: false,
   signUpFormData: {username:"", email:"", password:""},
   loginFormData: { email:"", password:""},
-  isLoggedin: false,
+  isLoggedin: true,
   logginFromCamps:false,
 };
 
