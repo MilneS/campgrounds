@@ -1,6 +1,7 @@
 interface File {
   lastModified: number;
   lastModifiedDate?: any;
+  dataKey ?: string;
   name: string;
   size: number;
   type: string;
