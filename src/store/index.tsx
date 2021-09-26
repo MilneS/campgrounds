@@ -5,42 +5,46 @@ import { State } from "./state.model";
 const initialState: State = {
   showLogin: true,
   showSignup: false,
-  signUpFormData: {username:"", email:"", password:""},
-  loginFormData: { email:"", password:""},
+  signUpFormData: { username: "", email: "", password: "" },
+  loginFormData: { email: "", password: "" },
   isLoggedin: true,
-  logginFromCamps:false,
+  logginFromCamps: false,
   allCamps: {},
 };
 
-const reducerFunc = (state= initialState, action:Action) => {
-  if (action.type === "loginComp") {
-    return { ...state, showLogin: true, showSignup: false };
+const reducerFunc = (state = initialState, action: Action) => {
+  switch (action.type) {
+    case "loginComp":
+      return { ...state, showLogin: true, showSignup: false };
+      break;
+    case "signupComp":
+      return { ...state, showSignup: true, showLogin: false };
+      break;
+    case "signupFormData":
+      return { ...state, signUpFormData: action.payload };
+      break;
+    case "loginFormData":
+      return { ...state, loginFormData: action.payload };
+      break;
+    case "loggedin":
+      return { ...state, isLoggedin: true };
+      break;
+    case "loggedout":
+      return { ...state, isLoggedin: false };
+      break;
+    case "logginFromCampsBtn":
+      return { ...state, logginFromCamps: true };
+      break;
+    case "logoutFromCampsBtn":
+      return { ...state, logginFromCamps: false };
+      break;
+    case "setAllCamps":
+      return { ...state, allCamps: action.payload };
+      break;
+    default:
+      return state;
+      break;
   }
-  if (action.type === "signupComp") {
-    return { ...state, showSignup: true, showLogin: false };
-  }
-  if (action.type === "signupFormData") {
-    return { ...state, signUpFormData: action.payload };
-  }
-  if (action.type === "loginFormData") {
-    return { ...state, loginFormData: action.payload };
-  }
-  if (action.type === "loggedin") {
-    return { ...state, isLoggedin:true };
-  }
-  if (action.type === "loggedout") {
-    return { ...state, isLoggedin:false };
-  }
-  if (action.type === "logginFromCampsBtn") {
-    return { ...state, logginFromCamps:true };
-  }
-  if (action.type === "logoutFromCampsBtn") {
-    return { ...state, logginFromCamps:false };
-  }
-  if (action.type === "setAllCamps") {
-    return { ...state, allCamps: action.payload };
-  }
-  return state;
 };
 
 const store = createStore(reducerFunc);
