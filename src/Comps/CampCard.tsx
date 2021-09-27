@@ -5,10 +5,9 @@ import { useState } from "react";
 import { app } from "../firebase/firebase";
 
 const CampCard = (props: any) => {
+  const [itemImage, setItemImage] = useState();
   const item = props.item;
   const dataKey = props.dataKey;
-
-  const [itemImage, setItemImage] = useState();
 
   let storageRef: any;
   let fileRef: any;
