@@ -1,5 +1,5 @@
 import "./App.css";
-import { Route, Switch, Redirect } from "react-router-dom";
+import {HashRouter, Route, Switch, Redirect } from "react-router-dom";
 import Home from "./pages/Home";
 import Camps from "./pages/Camps";
 import Login from "./pages/Login";
@@ -13,6 +13,7 @@ function App() {
   const isLoggedin = useSelector((state: State) => state.isLoggedin);
 
   return (
+    <HashRouter basename='/'>
     <div className="App">
       <Switch>
         <Route path="/campgrounds" exact>
@@ -39,6 +40,7 @@ function App() {
         </Route>
       </Switch>
     </div>
+    </HashRouter>
   );
 }
 
