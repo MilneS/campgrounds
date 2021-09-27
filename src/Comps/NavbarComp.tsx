@@ -31,7 +31,7 @@ const NavbarComp = (props: any) => {
       >
         <Container>
           <NavLink
-            to="/"
+            to="/campgrounds"
             className={classes.campgroundsLogo}
             onClick={btnHandler}
           >
@@ -41,7 +41,7 @@ const NavbarComp = (props: any) => {
           <Navbar.Collapse id="responsive-navbar-nav">
             <NavLink
               onClick={btnHandler}
-              to="/campgrounds"
+              to="/campgrounds/campgrounds"
               id="all"
               className={classes.campgroundsLink}
               activeClassName={classes.active}
@@ -50,7 +50,7 @@ const NavbarComp = (props: any) => {
             </NavLink>
             {!isLoggedin && (
               <NavLink
-                to="/login"
+                to="/campgrounds/login"
                 id="login"
                 className={classes.loginLink}
                 activeClassName={classes.active}
@@ -61,7 +61,7 @@ const NavbarComp = (props: any) => {
             )}
             {isLoggedin && (
               <NavLink
-                to="/login"
+                to="/campgrounds/login"
                 id="login"
                 className={classes.loginLink}
                 activeClassName={classes.active}

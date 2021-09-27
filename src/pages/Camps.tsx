@@ -46,14 +46,14 @@ const Camps = () => {
       <h1 className={classes.h1}>All CampGrounds</h1>
       <div className={classes.button}>
         {isLoggedin && (
-          <NavLink to="/newcamp">
+          <NavLink to="/campgrounds/newcamp">
             <Button variant="success" size="lg" type="button" className="mb-3">
               Add Campground
             </Button>
           </NavLink>
         )}
         {!isLoggedin && (
-          <NavLink to="/login">
+          <NavLink to="/campgrounds/login">
             <Button
               variant="success"
               size="lg"

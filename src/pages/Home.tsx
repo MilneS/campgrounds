@@ -10,10 +10,10 @@ const Home = () => {
             <div className={classes.logolink}>
               CampGrounds
             </div>
-            <NavLink to="/campgrounds" className={classes.link}>
+            <NavLink to="/campgrounds/campgrounds" className={classes.link}>
               All campgrounds
             </NavLink>
-            <NavLink to="/login" className={classes.link}>
+            <NavLink to="/campgrounds/login" className={classes.link}>
               Login
             </NavLink>
           </ul>
@@ -27,7 +27,7 @@ const Home = () => {
               to share some of your own and comment on others!
             </p>
           </div>
-          <NavLink to="/campgrounds">
+          <NavLink to="/campgrounds/campgrounds">
 <button className={classes.homeButton}>View Campgrounds</button></NavLink>
 
           <div className={classes.homeFooter}>© 2021</div>

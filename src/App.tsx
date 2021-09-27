@@ -15,27 +15,27 @@ function App() {
   return (
     <div className="App">
       <Switch>
-        <Route path="/" exact>
+        <Route path="/campgrounds" exact>
           <Home />
         </Route>
         <NavbarComp />
       </Switch>
       <Switch>
-        <Route path="/campgrounds" exact>
+        <Route path="/campgrounds/campgrounds" exact>
           <Camps />
         </Route>
-        <Route path="/details/:camp" exact>
+        <Route path="/campgrounds/details/:camp" exact>
           <Details />
         </Route>
-        <Route path="/newcamp">
+        <Route path="/campgrounds/newcamp">
           {isLoggedin && <NewCamp />}
-          {!isLoggedin && <Redirect to="/login" />}
+          {!isLoggedin && <Redirect to="/campgrounds/login" />}
         </Route>
-        <Route path="/login">
+        <Route path="/campgrounds/login">
           <Login />
         </Route>
-        <Route path="/*">
-          <Redirect to="/" />
+        <Route path="/campgrounds/*">
+          <Redirect to="/campgrounds" />
         </Route>
       </Switch>
     </div>
