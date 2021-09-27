@@ -22,9 +22,7 @@ const Home = () => {
           <h1 className={classes.title}>CampGrounds</h1>
           <div className={classes.message}>
             <p>
-              Welcome to CampGrounds! <br />
-              Jump right in and explore our many campgrounds. <br /> Feel free
-              to share some of your own and comment on others!
+            <u>/!\</u> <b>UNDER CONSTRUCTION</b> <u>/!\</u>
             </p>
           </div>
           <NavLink to="/campgrounds/camps">
