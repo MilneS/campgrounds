@@ -1,27 +1,27 @@
 {
   "files": {
     "main.css": "/campgrounds/static/css/main.bf6eaab4.chunk.css",
-    "main.js": "/campgrounds/static/js/main.7d043338.chunk.js",
-    "main.js.map": "/campgrounds/static/js/main.7d043338.chunk.js.map",
+    "main.js": "/campgrounds/static/js/main.8fbf13a4.chunk.js",
+    "main.js.map": "/campgrounds/static/js/main.8fbf13a4.chunk.js.map",
     "runtime-main.js": "/campgrounds/static/js/runtime-main.a05e918e.js",
     "runtime-main.js.map": "/campgrounds/static/js/runtime-main.a05e918e.js.map",
     "static/css/2.818011ed.chunk.css": "/campgrounds/static/css/2.818011ed.chunk.css",
-    "static/js/2.e5f70133.chunk.js": "/campgrounds/static/js/2.e5f70133.chunk.js",
-    "static/js/2.e5f70133.chunk.js.map": "/campgrounds/static/js/2.e5f70133.chunk.js.map",
+    "static/js/2.20791dc3.chunk.js": "/campgrounds/static/js/2.20791dc3.chunk.js",
+    "static/js/2.20791dc3.chunk.js.map": "/campgrounds/static/js/2.20791dc3.chunk.js.map",
     "static/js/3.1a0a71ea.chunk.js": "/campgrounds/static/js/3.1a0a71ea.chunk.js",
     "static/js/3.1a0a71ea.chunk.js.map": "/campgrounds/static/js/3.1a0a71ea.chunk.js.map",
     "index.html": "/campgrounds/index.html",
     "static/css/2.818011ed.chunk.css.map": "/campgrounds/static/css/2.818011ed.chunk.css.map",
     "static/css/main.bf6eaab4.chunk.css.map": "/campgrounds/static/css/main.bf6eaab4.chunk.css.map",
-    "static/js/2.e5f70133.chunk.js.LICENSE.txt": "/campgrounds/static/js/2.e5f70133.chunk.js.LICENSE.txt",
+    "static/js/2.20791dc3.chunk.js.LICENSE.txt": "/campgrounds/static/js/2.20791dc3.chunk.js.LICENSE.txt",
     "static/media/Home.module.css": "/campgrounds/static/media/HomePic.db9da7fa.jpeg",
     "static/media/LoginPic.e44accc1.jpeg": "/campgrounds/static/media/LoginPic.e44accc1.jpeg"
   },
   "entrypoints": [
     "static/js/runtime-main.a05e918e.js",
     "static/css/2.818011ed.chunk.css",
-    "static/js/2.e5f70133.chunk.js",
+    "static/js/2.20791dc3.chunk.js",
     "static/css/main.bf6eaab4.chunk.css",
-    "static/js/main.7d043338.chunk.js"
+    "static/js/main.8fbf13a4.chunk.js"
   ]
 }
