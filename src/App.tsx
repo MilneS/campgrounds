@@ -35,8 +35,8 @@ function App() {
         <Route path="/campgrounds/login">
           <Login />
         </Route>
-        <Route path="/campgrounds/*">
-          <Redirect to="/campgrounds/camps" />
+        <Route path="*">
+          <Redirect to="/campgrounds" />
         </Route>
       </Switch>
     </div>
