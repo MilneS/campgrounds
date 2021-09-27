@@ -64,7 +64,7 @@ const Details = () => {
       if (imageAsFile && imageAsFile.name) {
         storageRef = app.storage().ref();
         imageAsFile.dataKey = dataKey;
-        fileRef = storageRef.child(imageAsFile.name);
+        fileRef = storageRef.child(`images/${imageAsFile.dataKey}`);
         fileRef.put(imageAsFile).then(() => {
           // console.log("Uploaded file");
           history.push("/campgrounds");

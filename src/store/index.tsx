@@ -34,7 +34,6 @@ const reducerFunc = (state = initialState, action: Action) => {
       return { ...state, allCamps: action.payload };
     default:
       return state;
-
   }
 };
 

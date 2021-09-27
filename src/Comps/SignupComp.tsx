@@ -24,7 +24,6 @@ const SignupComp = () => {
   };
   const getInputDataHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputData({ ...inputData, [e.target.id]: e.currentTarget.value });
-    // console.log(e.currentTarget.value)
   };
 
   const getFormDataHandler = (e: React.MouseEvent) => {
