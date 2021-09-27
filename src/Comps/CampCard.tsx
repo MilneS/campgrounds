@@ -1,4 +1,4 @@
-import classes from "./AllCampsCard.module.css";
+import classes from "./CampsCard.module.css";
 import Button from "react-bootstrap/Button";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
@@ -17,6 +17,7 @@ const CampCard = (props: any) => {
     setItemImage(url);
   });
 
+
   return (
     <div className={classes.container}>
       <div className={classes.containerImg}>
@@ -29,7 +30,7 @@ const CampCard = (props: any) => {
           <div className={classes.location}>{item.location}</div>
         </div>
         <div className={classes.button}>
-          <NavLink to={`/details/${dataKey}`} >
+          <NavLink to={`/details/${dataKey}`}>
             <Button variant="primary" size="lg" type="button" className="mb-3">
               View
             </Button>

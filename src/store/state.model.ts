@@ -6,4 +6,5 @@ export interface State {
   isLoggedin: boolean;
   logginFromCamps:boolean;
   allCamps:any;
+  allImages:any;
 }

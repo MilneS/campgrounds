@@ -7,9 +7,10 @@ const initialState: State = {
   showSignup: false,
   signUpFormData: { username: "", email: "", password: "" },
   loginFormData: { email: "", password: "" },
-  isLoggedin: true,
+  isLoggedin: false,
   logginFromCamps: false,
   allCamps: {},
+  allImages:{},
 };
 
 const reducerFunc = (state = initialState, action: Action) => {
@@ -32,6 +33,8 @@ const reducerFunc = (state = initialState, action: Action) => {
       return { ...state, logginFromCamps: false };
     case "setAllCamps":
       return { ...state, allCamps: action.payload };
+    case "setAllImages":
+      return { ...state, allImages: action.payload };
     default:
       return state;
   }
