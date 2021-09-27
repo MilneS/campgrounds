@@ -29,7 +29,7 @@ const CampCard = (props: any) => {
           <div className={classes.location}>{item.location}</div>
         </div>
         <div className={classes.button}>
-          <NavLink to="/details/c">
+          <NavLink to={`/details/${dataKey}`} >
             <Button variant="primary" size="lg" type="button" className="mb-3">
               View
             </Button>

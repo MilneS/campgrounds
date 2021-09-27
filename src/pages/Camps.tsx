@@ -2,9 +2,8 @@ import classes from "./Camps.module.css";
 import CampCard from "../comps/CampCard";
 import Button from "react-bootstrap/Button";
 import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { State } from "../store/state.model";
-import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 
 const Camps = () => {
