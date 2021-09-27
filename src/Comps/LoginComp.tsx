@@ -50,9 +50,9 @@ const LoginComp = () => {
     if (response.ok) {
       dispatch({ type: "loggedin" });
       if (logginFromCampsBtn) {
-        history.push("/newcamp");
+        history.push("/campgrounds/newcamp");
       } else {
-        history.push("/campgrounds");
+        history.push("/campgrounds/campgrounds");
         dispatch({ type: "logoutFromCampsBtn" });
       }
       setShowErrMsg(false);
