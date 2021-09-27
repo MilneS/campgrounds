@@ -6,7 +6,7 @@ const Home = () => {
     <div className={classes.background}>
       <div className={classes.main}>
         <div className={classes.nav}>
-          <ul className={classes.ul}>
+          {/* <ul className={classes.ul}>
             <div className={classes.logolink}>
               CampGrounds
             </div>
@@ -16,17 +16,17 @@ const Home = () => {
             <NavLink to="/campgrounds/login" className={classes.link}>
               Login
             </NavLink>
-          </ul>
+          </ul> */}
         </div>
         <div className={classes.middleContainer}>
-          <h1 className={classes.title}>CampGrounds</h1>
+          <h1 className={classes.title}><u>/!\</u> <b>UNDER CONSTRUCTION</b> <u>/!\</u></h1>
           <div className={classes.message}>
             <p>
-            <u>/!\</u> <b>UNDER CONSTRUCTION</b> <u>/!\</u>
+            
             </p>
           </div>
-          <NavLink to="/campgrounds/camps">
-<button className={classes.homeButton}>View Campgrounds</button></NavLink>
+          {/* <NavLink to="/campgrounds/camps"> */}
+{/* <button className={classes.homeButton}>View Campgrounds</button></NavLink> */}
 
           <div className={classes.homeFooter}>© 2021</div>
         </div>
