@@ -52,7 +52,7 @@ const LoginComp = () => {
       if (logginFromCampsBtn) {
         history.push("/campgrounds/newcamp");
       } else {
-        history.push("/campgrounds/campgrounds");
+        history.push("/campgrounds/camps");
         dispatch({ type: "logoutFromCampsBtn" });
       }
       setShowErrMsg(false);

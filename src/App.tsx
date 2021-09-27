@@ -22,10 +22,10 @@ function App() {
         <NavbarComp />
       </Switch>
       <Switch>
-        <Route path="/campgrounds/campgrounds" exact>
+        <Route path="/campgrounds/camps">
           <Camps />
         </Route>
-        <Route path="/campgrounds/details/:camp" exact>
+        <Route path="/campgrounds/details/:camp">
           <Details />
         </Route>
         <Route path="/campgrounds/newcamp">
@@ -36,7 +36,7 @@ function App() {
           <Login />
         </Route>
         <Route path="/campgrounds/*">
-          <Redirect to="/campgrounds" />
+          <Redirect to="/campgrounds/camps" />
         </Route>
       </Switch>
     </div>

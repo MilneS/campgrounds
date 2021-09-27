@@ -47,7 +47,7 @@ const SignupComp = () => {
     const data = await response.json();
     if (response.ok) {
       dispatch({ type: "loggedin" });
-      history.push("/campgrounds/campgrounds");
+      history.push("/campgrounds/camps");
       // console.log(data);
       setShowErrMsg(false);
 

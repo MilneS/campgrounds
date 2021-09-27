@@ -41,7 +41,7 @@ const NavbarComp = (props: any) => {
           <Navbar.Collapse id="responsive-navbar-nav">
             <NavLink
               onClick={btnHandler}
-              to="/campgrounds/campgrounds"
+              to="/campgrounds/camps"
               id="all"
               className={classes.campgroundsLink}
               activeClassName={classes.active}
