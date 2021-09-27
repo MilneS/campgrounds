@@ -4,7 +4,6 @@ import ListGroup from "react-bootstrap/ListGroup";
 import ListGroupItem from "react-bootstrap/ListGroupItem";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import LoginPic from "../utils/LoginPic.jpeg";
 import { useParams } from "react-router";
 import { useSelector } from "react-redux";
 import { State } from "../store/state.model";
