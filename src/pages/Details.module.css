@@ -4,10 +4,12 @@
   margin: 50px 100px;
   flex-direction: row;
 }
+.cardButtons>*{
+  margin-right: 10px;
+}
 .img {
   height: 300px;
   width: 350px;
-  border:5px solid red
 }
 .title {
   font-weight: 500;

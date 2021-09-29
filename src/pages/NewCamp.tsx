@@ -67,7 +67,7 @@ const Details = () => {
         fileRef = storageRef.child(`images/${imageAsFile.dataKey}`);
         fileRef.put(imageAsFile).then(() => {
           // console.log("Uploaded file");
-          history.push("/campgrounds");
+          history.push("/campgrounds/camps");
         });
       }
     });

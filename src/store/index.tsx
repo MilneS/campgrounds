@@ -26,7 +26,7 @@ const reducerFunc = (state = initialState, action: Action) => {
     case "loggedin":
       return { ...state, isLoggedin: true };
     case "loggedout":
-      return { ...state, isLoggedin: false };
+      return { ...state, isLoggedin: false, loginFormData: { email: "", password: "" } };
     case "logginFromCampsBtn":
       return { ...state, logginFromCamps: true };
     case "logoutFromCampsBtn":

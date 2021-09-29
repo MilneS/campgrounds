@@ -8,21 +8,45 @@ import { useParams } from "react-router";
 import { useSelector } from "react-redux";
 import { State } from "../store/state.model";
 import { app } from "../firebase/firebase";
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
+// import { NavLink, Redirect } from "react-router-dom";
 
 const Details = () => {
+  const authorData = useSelector((state: State) => state.loginFormData);
   const params: any = useParams();
   const allData = useSelector((state: State) => state.allCamps);
 
   const [itemImage, setItemImage] = useState();
   let storageRef: any;
   let fileRef: any;
-  storageRef = app.storage().ref();
-  fileRef = storageRef.child(`images/${params.camp}`);
-  fileRef.getDownloadURL().then(function (url: any) {
-    setItemImage(url);
-  });
+  let dbRef: any;
+
+  const getCampDetails = () => {
+    storageRef = app.storage().ref();
+    fileRef = storageRef.child(`images/${params.camp}`);
+    fileRef.getDownloadURL().then(function (url: any) {
+      setItemImage(url);
+    });
+  };
+
+  useEffect(() => {
+    getCampDetails();
+  }, []);
+
+  const deleteHandler = (e: React.MouseEvent) => {
+    dbRef = app.database().ref();
+    storageRef = app.storage().ref();
+    dbRef.child(`campgrounds/${params.camp}`).remove();
+    storageRef
+      .child(`images/${params.camp}`)
+      .delete()
+      .then(() => {
+        // File deleted successfully
+      })
+      .catch((error: any) => {
+        console.log(error);
+      });
+  };
 
   const allCampsData = () => {
     if (Object.keys(allData).length) {
@@ -31,6 +55,24 @@ const Details = () => {
           const data = allData[item];
           return (
             <div key={index}>
+              {authorData.email === data.author && (
+                <div className={classes.cardButtons}>
+                  {authorData.email}
+                  {data.author}
+                  <Button variant="primary" type="button" className="mb-2">
+                    Update
+                  </Button>
+                  <Button
+                    variant="danger"
+                    type="button"
+                    className="mb-2"
+                    onClick={deleteHandler}
+                  >
+                    Delete
+                  </Button>
+                </div>
+              )}
+
               <Card style={{ width: "40rem" }}>
                 <Card.Img variant="top" src={itemImage} />
                 <Card.Body>
@@ -60,7 +102,6 @@ const Details = () => {
       });
     }
   };
-  
 
   return (
     <div className={classes.container}>
