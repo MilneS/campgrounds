@@ -9,9 +9,10 @@ import { useSelector } from "react-redux";
 import { State } from "../store/state.model";
 import { app } from "../firebase/firebase";
 import { useEffect, useState } from "react";
-// import { NavLink, Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const Details = () => {
+  const history = useHistory();
   const authorData = useSelector((state: State) => state.loginFormData);
   const params: any = useParams();
   const allData = useSelector((state: State) => state.allCamps);
@@ -41,7 +42,7 @@ const Details = () => {
       .child(`images/${params.camp}`)
       .delete()
       .then(() => {
-        // File deleted successfully
+        history.push("/campgrounds/camps");
       })
       .catch((error: any) => {
         console.log(error);
@@ -57,8 +58,6 @@ const Details = () => {
             <div key={index}>
               {authorData.email === data.author && (
                 <div className={classes.cardButtons}>
-                  {authorData.email}
-                  {data.author}
                   <Button variant="primary" type="button" className="mb-2">
                     Update
                   </Button>

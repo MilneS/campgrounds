@@ -11,7 +11,7 @@ import { useHistory } from "react-router-dom";
 
 const SignupComp = () => {
   const history = useHistory();
-  const initialData = { username: "", email: "", password: "" };
+  const initialData = { email: "", password: "" };
   const [inputData, setInputData] = useState(initialData);
   const [errMsg, setErrMsg] = useState();
   const [showErrMsg, setShowErrMsg] = useState(false);
@@ -28,7 +28,7 @@ const SignupComp = () => {
 
   const getFormDataHandler = (e: React.MouseEvent) => {
     e.preventDefault();
-    dispatch({ type: "signupFormData", payload: inputData });
+    dispatch({ type: "loginFormData", payload: inputData });
     sendDataHandler();
   };
 
@@ -37,7 +37,6 @@ const SignupComp = () => {
     const response = await fetch(url, {
       method: "POST",
       body: JSON.stringify({
-        displayName: inputData.username,
         email: inputData.email,
         password: inputData.password,
         returnSecureToken: true,
@@ -72,14 +71,6 @@ const SignupComp = () => {
           </Card.Title>
           {showErrMsg && <p className={classes.errorMsg}>{errMsg}</p>}
           <Form>
-            <Form.Group className="mb-3">
-              <Form.Control
-                type="text"
-                id="username"
-                placeholder="Username"
-                onChange={getInputDataHandler}
-              />
-            </Form.Group>
             <Form.Group className="mb-3">
               <Form.Control
                 type="email"

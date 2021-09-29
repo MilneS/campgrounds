@@ -5,7 +5,6 @@ import { State } from "./state.model";
 const initialState: State = {
   showLogin: true,
   showSignup: false,
-  signUpFormData: { username: "", email: "", password: "" },
   loginFormData: { email: "", password: "" },
   isLoggedin: false,
   logginFromCamps: false,
