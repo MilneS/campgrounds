@@ -26,9 +26,7 @@ const Camps = () => {
     });
     if (response.ok) {
       const data = await response.json();
-      dispatch({ type: "setAllCamps", payload: data });
-      console.log(data);
-      
+      dispatch({ type: "setAllCamps", payload: data });      
     } else {
       let errorMessage: string = "Getting all camps failed!";
       console.log(errorMessage);

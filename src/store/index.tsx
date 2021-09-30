@@ -5,6 +5,8 @@ import { State } from "./state.model";
 const initialState: State = {
   showLogin: true,
   showSignup: false,
+  showEdit: false,
+  showDetails: true,
   loginFormData: { email: "", password: "" },
   idToken: localStorage.getItem("token"),
   userId: localStorage.getItem("userId"),
@@ -20,6 +22,10 @@ const reducerFunc = (state = initialState, action: Action) => {
       return { ...state, showLogin: true, showSignup: false };
     case "signupComp":
       return { ...state, showSignup: true, showLogin: false };
+    case "detailsComp":
+      return { ...state, showDetails: true, showEdit: false };
+    case "editComp":
+      return { ...state,  showEdit: true, showDetails:false };
     case "signupFormData":
       return { ...state, signUpFormData: action.payload };
     case "loginFormData":

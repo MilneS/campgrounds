@@ -1,11 +1,12 @@
 import classes from "./Details.module.css";
+import Edit from '../comps/Edit'
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import ListGroupItem from "react-bootstrap/ListGroupItem";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useParams } from "react-router";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { State } from "../store/state.model";
 import { app } from "../firebase/firebase";
 import { useEffect, useState } from "react";
@@ -13,10 +14,12 @@ import { useHistory } from "react-router-dom";
 
 const Details = () => {
   const history = useHistory();
-  const authorEmail:any=localStorage.getItem("userEmail");
+  const dispatch = useDispatch();
+  const authorEmail: any = localStorage.getItem("userEmail");
 
   const params: any = useParams();
   const allData = useSelector((state: State) => state.allCamps);
+  const showEditComp = useSelector((state: State) => state.showEdit);
 
   const [itemImage, setItemImage] = useState();
   let storageRef: any;
@@ -27,7 +30,7 @@ const Details = () => {
     storageRef = app.storage().ref();
     fileRef = storageRef.child(`images/${params.camp}`);
     fileRef.getDownloadURL().then(function (url: any) {
-      setItemImage(url);      
+      setItemImage(url);
     });
   };
 
@@ -49,15 +52,15 @@ const Details = () => {
         console.log(error);
       });
   };
-
-  const editHandler = (e: React.MouseEvent) => {};
+  const editHandler = (e: React.MouseEvent) => {
+    dispatch({ type: "editComp" });
+  };
 
   const allCampsData = () => {
     if (Object.keys(allData).length) {
       return Object.keys(allData).map((item, index) => {
         if (item === params.camp) {
           const data = allData[item];
-          console.log(data.author);          
           return (
             <div key={index}>
               {authorEmail === data.author && (
@@ -99,7 +102,7 @@ const Details = () => {
                     Submitted by {data.author}
                   </ListGroupItem>
                   <ListGroupItem className={classes.DescrAuthPrice}>
-                    $Price/night: {data.price}
+                    Price/night: ${data.price}
                   </ListGroupItem>
                 </ListGroup>
               </Card>
@@ -113,30 +116,40 @@ const Details = () => {
   };
 
   return (
-    <div className={classes.container}>
-      {allCampsData()}
-      <div className={classes.reviewContainer}>
-        <h1 className={classes.titleReview}>Leave a review</h1>
-        <p className={classes.textareaTitle}>Review text</p>
-        <Form>
-          <Form.Group className="mb-3">
-            <Form.Control as="textarea" rows={3} />
-          </Form.Group>
-          <Button variant="success" size="lg" type="button" className="mb-5">
-            Submit
-          </Button>
-        </Form>
-        <Card className={classes.reviewCard}>
-          <Card.Title>Author</Card.Title>
-          <Card.Text>Review: Text</Card.Text>
-          <div className={classes.reviewButton}>
-            <Button variant="danger" type="button" className="mb-1">
-              Delete
-            </Button>
+    <>
+      {!showEditComp && (
+        <div className={classes.container}>
+          {allCampsData()}
+          <div className={classes.reviewContainer}>
+            <h1 className={classes.titleReview}>Leave a review</h1>
+            <p className={classes.textareaTitle}>Review text</p>
+            <Form>
+              <Form.Group className="mb-3">
+                <Form.Control as="textarea" rows={3} />
+              </Form.Group>
+              <Button
+                variant="success"
+                size="lg"
+                type="button"
+                className="mb-5"
+              >
+                Submit
+              </Button>
+            </Form>
+            <Card className={classes.reviewCard}>
+              <Card.Title>Author</Card.Title>
+              <Card.Text>Review: Text</Card.Text>
+              <div className={classes.reviewButton}>
+                <Button variant="danger" type="button" className="mb-1">
+                  Delete
+                </Button>
+              </div>
+            </Card>
           </div>
-        </Card>
-      </div>
-    </div>
+        </div>
+      )}
+      {showEditComp && <Edit/>}
+    </>
   );
 };
 

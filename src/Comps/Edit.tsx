@@ -1,9 +1,17 @@
 import classes from "./Edit.module.css";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import { useDispatch } from "react-redux";
+
 
 
 const Edit = () => {
+  const dispatch = useDispatch();
+
+  const cancelHandler=(e: React.MouseEvent)=>{
+    dispatch({ type: "detailsComp" });
+  }
+  const updateHandler=(e: React.MouseEvent)=>{}
 
     return (
       <div className={classes.container}>
@@ -40,13 +48,21 @@ const Edit = () => {
             <Form.Control type="file" id="image" />
           </Form.Group>
           <div className={classes.button}>
-            <Button
+          <Button onClick={updateHandler}
               variant="success"
               size="lg"
               type="button"
               className="mb-3"
             >
-              Update campground
+              Update
+            </Button>            
+            <Button onClick={cancelHandler}
+              variant="danger"
+              size="lg"
+              type="button"
+              className="mb-3"
+            >
+              Cancel
             </Button>
           </div>
         </Form>
