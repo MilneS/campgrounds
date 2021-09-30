@@ -27,13 +27,15 @@ const Camps = () => {
     if (response.ok) {
       const data = await response.json();
       dispatch({ type: "setAllCamps", payload: data });
+      console.log(data);
+      
     } else {
       let errorMessage: string = "Getting all camps failed!";
       console.log(errorMessage);
     }
   };
 
-  const allCampsData = () => {
+  const allCampsData = () => {    
     if (Object.keys(allData).length) {
       return Object.keys(allData).map((item, index) => {        
         return <CampCard key={index} item={allData[item]} dataKey={item} />;

@@ -7,6 +7,7 @@ const initialState: State = {
   showSignup: false,
   loginFormData: { email: "", password: "" },
   idToken: localStorage.getItem("token"),
+  userId: localStorage.getItem("userId"),
   isLoggedin: !!localStorage.getItem("token"),
   logginFromCamps: false,
   allCamps: {},
@@ -29,7 +30,7 @@ const reducerFunc = (state = initialState, action: Action) => {
       return {
         ...state,
         isLoggedin: false,
-        loginFormData: { email: "", password: "" },
+        loginFormData: null,
       };
     case "logginFromCampsBtn":
       return { ...state, logginFromCamps: true };

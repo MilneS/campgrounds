@@ -51,6 +51,7 @@ const LoginComp = () => {
       dispatch({ type: "loggedin" });
       dispatch({ type: "idToken", payload: data.idToken });
       localStorage.setItem("token", data.idToken);
+      localStorage.setItem("userEmail", data.email);
       if (logginFromCampsBtn) {
         history.replace("/campgrounds/newcamp");
       } else {

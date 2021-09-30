@@ -13,7 +13,8 @@ import { useHistory } from "react-router-dom";
 
 const Details = () => {
   const history = useHistory();
-  const authorData = useSelector((state: State) => state.loginFormData);
+  const authorEmail:any=localStorage.getItem("userEmail");
+
   const params: any = useParams();
   const allData = useSelector((state: State) => state.allCamps);
 
@@ -26,7 +27,7 @@ const Details = () => {
     storageRef = app.storage().ref();
     fileRef = storageRef.child(`images/${params.camp}`);
     fileRef.getDownloadURL().then(function (url: any) {
-      setItemImage(url);
+      setItemImage(url);      
     });
   };
 
@@ -42,7 +43,7 @@ const Details = () => {
       .child(`images/${params.camp}`)
       .delete()
       .then(() => {
-        history.push("/campgrounds/camps");
+        history.replace("/campgrounds/camps");
       })
       .catch((error: any) => {
         console.log(error);
@@ -56,9 +57,10 @@ const Details = () => {
       return Object.keys(allData).map((item, index) => {
         if (item === params.camp) {
           const data = allData[item];
+          console.log(data.author);          
           return (
             <div key={index}>
-              {authorData.email === data.author && (
+              {authorEmail === data.author && (
                 <div className={classes.cardButtons}>
                   <Button
                     variant="primary"

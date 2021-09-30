@@ -7,4 +7,5 @@ export interface State {
   allCamps:any;
   allImages:any;
   idToken:any;
+  userId:any;
 }

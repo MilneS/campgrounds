@@ -12,6 +12,9 @@ const NavbarComp = (props: any) => {
   const isLoggedin = useSelector((state: State) => state.isLoggedin);
   const logoutHandler = () => {
     dispatch({ type: "loggedout" });
+    dispatch({ type: "getToken", token: null });
+    localStorage.removeItem("token");
+    localStorage.removeItem("userEmail");
   };
   const loginHandler = () => {
     dispatch({ type: "loginComp" });
