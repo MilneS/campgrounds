@@ -4,14 +4,15 @@ import Button from "react-bootstrap/Button";
 import { useDispatch } from "react-redux";
 
 
-
-const Edit = () => {
+const Edit = (props:any) => {
   const dispatch = useDispatch();
+  const camp=props.camp
 
   const cancelHandler=(e: React.MouseEvent)=>{
     dispatch({ type: "detailsComp" });
   }
   const updateHandler=(e: React.MouseEvent)=>{}
+
 
     return (
       <div className={classes.container}>
@@ -19,14 +20,14 @@ const Edit = () => {
         <Form className={classes.form}>
           <Form.Group className="mb-3">
             <Form.Label htmlFor="title">Title</Form.Label>
-            <Form.Control type="text" id="title"  />
+            <Form.Control type="text" id="title"  value={camp.title}/>
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label htmlFor="location">Location</Form.Label>
             <Form.Control
               type="text"
               id="location"
-              
+              value={camp.location}
             />
           </Form.Group>
           <Form.Group className="mb-3">
@@ -34,6 +35,7 @@ const Edit = () => {
             <Form.Control
               type="number"
               id="price"
+              value={camp.price}
             />
           </Form.Group>
           <Form.Group className="mb-4">
@@ -42,6 +44,7 @@ const Edit = () => {
               as="textarea"
               rows={3}
               id="description"
+              value={camp.description}
             />
           </Form.Group>
           <Form.Group className="mb-4">
@@ -57,7 +60,7 @@ const Edit = () => {
               Update
             </Button>            
             <Button onClick={cancelHandler}
-              variant="danger"
+              variant="secondary"
               size="lg"
               type="button"
               className="mb-3"

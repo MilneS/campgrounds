@@ -1,5 +1,5 @@
 import classes from "./Details.module.css";
-import Edit from '../comps/Edit'
+import Edit from "../comps/Edit";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import ListGroupItem from "react-bootstrap/ListGroupItem";
@@ -21,6 +21,20 @@ const Details = () => {
   const allData = useSelector((state: State) => state.allCamps);
   const showEditComp = useSelector((state: State) => state.showEdit);
 
+  const [currentCamp, setCurrentCamp] = useState<any>();
+  useEffect(() => {
+    if (Object.keys(allData).length) {
+      const campId = Object.keys(allData).find((item) => item === params.camp);
+      if (campId ) {
+        setCurrentCamp(allData[campId]);
+      }
+    }
+  }, [allData]);
+
+  useEffect(() => {
+    getCampDetails();
+  }, []);
+
   const [itemImage, setItemImage] = useState();
   let storageRef: any;
   let fileRef: any;
@@ -33,10 +47,6 @@ const Details = () => {
       setItemImage(url);
     });
   };
-
-  useEffect(() => {
-    getCampDetails();
-  }, []);
 
   const deleteHandler = (e: React.MouseEvent) => {
     dbRef = app.database().ref();
@@ -56,14 +66,13 @@ const Details = () => {
     dispatch({ type: "editComp" });
   };
 
-  const allCampsData = () => {
-    if (Object.keys(allData).length) {
-      return Object.keys(allData).map((item, index) => {
-        if (item === params.camp) {
-          const data = allData[item];
-          return (
-            <div key={index}>
-              {authorEmail === data.author && (
+  return (
+    <>
+    <div>
+      {!showEditComp && currentCamp && (
+        <div className={classes.container}>
+          <div>
+              {authorEmail === currentCamp.author && (
                 <div className={classes.cardButtons}>
                   <Button
                     variant="primary"
@@ -83,43 +92,29 @@ const Details = () => {
                   </Button>
                 </div>
               )}
-
               <Card style={{ width: "40rem" }}>
                 <Card.Img variant="top" src={itemImage} />
                 <Card.Body>
                   <Card.Title className={classes.title}>
-                    {data.title}
+                    {currentCamp.title}
                   </Card.Title>
                   <Card.Text className={classes.DescrAuthPrice}>
-                    {data.description}
+                    {currentCamp.description}
                   </Card.Text>
                 </Card.Body>
                 <ListGroup className="list-group-flush">
                   <ListGroupItem className={classes.location}>
-                    {data.location}
+                    {currentCamp.location}
                   </ListGroupItem>
                   <ListGroupItem className={classes.DescrAuthPrice}>
-                    Submitted by {data.author}
+                    Submitted by {currentCamp.author}
                   </ListGroupItem>
                   <ListGroupItem className={classes.DescrAuthPrice}>
-                    Price/night: ${data.price}
+                    Price/night: ${currentCamp.price}
                   </ListGroupItem>
                 </ListGroup>
               </Card>
             </div>
-          );
-        } else {
-          return null;
-        }
-      });
-    }
-  };
-
-  return (
-    <>
-      {!showEditComp && (
-        <div className={classes.container}>
-          {allCampsData()}
           <div className={classes.reviewContainer}>
             <h1 className={classes.titleReview}>Leave a review</h1>
             <p className={classes.textareaTitle}>Review text</p>
@@ -148,7 +143,8 @@ const Details = () => {
           </div>
         </div>
       )}
-      {showEditComp && <Edit/>}
+      {showEditComp && <Edit camp={currentCamp}/>}
+       </div>
     </>
   );
 };
