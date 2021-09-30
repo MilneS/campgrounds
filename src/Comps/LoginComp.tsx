@@ -49,8 +49,10 @@ const LoginComp = () => {
     const data = await response.json();
     if (response.ok) {
       dispatch({ type: "loggedin" });
+      dispatch({ type: "idToken", payload: data.idToken });
+      localStorage.setItem("token", data.idToken);
       if (logginFromCampsBtn) {
-        history.push("/campgrounds/newcamp");
+        history.replace("/campgrounds/newcamp");
       } else {
         history.push("/campgrounds/camps");
         dispatch({ type: "logoutFromCampsBtn" });

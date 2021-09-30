@@ -49,6 +49,8 @@ const Details = () => {
       });
   };
 
+  const editHandler = (e: React.MouseEvent) => {};
+
   const allCampsData = () => {
     if (Object.keys(allData).length) {
       return Object.keys(allData).map((item, index) => {
@@ -58,7 +60,12 @@ const Details = () => {
             <div key={index}>
               {authorData.email === data.author && (
                 <div className={classes.cardButtons}>
-                  <Button variant="primary" type="button" className="mb-2">
+                  <Button
+                    variant="primary"
+                    type="button"
+                    className="mb-2"
+                    onClick={editHandler}
+                  >
                     Update
                   </Button>
                   <Button
@@ -96,8 +103,9 @@ const Details = () => {
               </Card>
             </div>
           );
+        } else {
+          return null;
         }
-        return;
       });
     }
   };

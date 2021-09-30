@@ -6,4 +6,5 @@ export interface State {
   logginFromCamps:boolean;
   allCamps:any;
   allImages:any;
+  idToken:any;
 }

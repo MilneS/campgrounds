@@ -46,6 +46,8 @@ const SignupComp = () => {
     const data = await response.json();
     if (response.ok) {
       dispatch({ type: "loggedin" });
+      dispatch({ type: "idToken", payload: data.idToken });
+      localStorage.setItem("token", data.idToken);
       history.push("/campgrounds/camps");
       // console.log(data);
       setShowErrMsg(false);

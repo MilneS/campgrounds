@@ -6,10 +6,11 @@ const initialState: State = {
   showLogin: true,
   showSignup: false,
   loginFormData: { email: "", password: "" },
-  isLoggedin: false,
+  idToken: localStorage.getItem("token"),
+  isLoggedin: !!localStorage.getItem("token"),
   logginFromCamps: false,
   allCamps: {},
-  allImages:{},
+  allImages: {},
 };
 
 const reducerFunc = (state = initialState, action: Action) => {
@@ -25,7 +26,11 @@ const reducerFunc = (state = initialState, action: Action) => {
     case "loggedin":
       return { ...state, isLoggedin: true };
     case "loggedout":
-      return { ...state, isLoggedin: false, loginFormData: { email: "", password: "" } };
+      return {
+        ...state,
+        isLoggedin: false,
+        loginFormData: { email: "", password: "" },
+      };
     case "logginFromCampsBtn":
       return { ...state, logginFromCamps: true };
     case "logoutFromCampsBtn":
@@ -34,6 +39,8 @@ const reducerFunc = (state = initialState, action: Action) => {
       return { ...state, allCamps: action.payload };
     case "setAllImages":
       return { ...state, allImages: action.payload };
+    case "getToken":
+      return { ...state, idToken: action.payload };
     default:
       return state;
   }
