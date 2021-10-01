@@ -1,0 +1,36 @@
+.navbar {
+  height: 70px;
+  font-size: 20px;
+}
+a,
+a:link,
+a:visited,
+a:active,
+a:hover {
+  text-decoration: none;
+  color: white;
+}
+.campgroundsLogo {
+  font-size: 30px;
+  font-weight: 600;
+}
+.campgroundsLogo:hover {
+    color: white;
+}
+.campgroundsLink {
+  width: 200px;
+  text-align: center;
+  margin-left: 60px;
+  font-weight: 500;
+}
+.loginLink {
+  margin-left: 900px;
+  width: 100px;
+  text-align: center;
+  font-weight: 500;
+}
+.loginLink:hover,
+.campgroundsLink:hover, .active{
+  color: white;
+  font-weight: 700;
+}
