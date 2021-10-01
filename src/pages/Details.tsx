@@ -22,11 +22,29 @@ const Details = () => {
   const showEditComp = useSelector((state: State) => state.showEdit);
 
   const [currentCamp, setCurrentCamp] = useState<any>();
+  const [currentCampId, setCurrentCampId] = useState<any>();
+
+  const getCamp = async () => {
+    const allCampsApi: any = process.env.REACT_APP_API_CAMPS;
+    const response = await fetch(allCampsApi, {
+      method: "GET",
+    });
+    if (response.ok) {
+      const data = await response.json();
+      dispatch({ type: "setAllCamps", payload: data });      
+    } else {
+      let errorMessage: string = "Getting all camps failed!";
+      console.log(errorMessage);
+    }
+  };
+
   useEffect(() => {
+    getCamp()
     if (Object.keys(allData).length) {
       const campId = Object.keys(allData).find((item) => item === params.camp);
       if (campId ) {
         setCurrentCamp(allData[campId]);
+        setCurrentCampId(campId);
       }
     }
   }, [allData]);
@@ -143,7 +161,7 @@ const Details = () => {
           </div>
         </div>
       )}
-      {showEditComp && <Edit camp={currentCamp}/>}
+      {showEditComp && <Edit campData={currentCamp} campId={currentCampId}/>}
        </div>
     </>
   );

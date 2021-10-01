@@ -58,6 +58,7 @@ const Details = () => {
     }
   };
 
+  const [validated, setValidated] = useState(false);
   const getFormDataHandler = (e: React.MouseEvent) => {
     e.preventDefault();
     newCampDataHandler().then((dataKey) => {
@@ -66,20 +67,28 @@ const Details = () => {
         imageAsFile.dataKey = dataKey;
         fileRef = storageRef.child(`images/${imageAsFile.dataKey}`);
         fileRef.put(imageAsFile).then(() => {
-          // console.log("Uploaded file");
           history.push("/campgrounds/camps");
         });
       }
     });
+
+    
+      const form = e.target as HTMLTextAreaElement;
+      if (form.checkValidity() === false) {
+        e.stopPropagation();
+      }
+
+      setValidated(true);
+
   };
 
   return (
     <div className={classes.container}>
       <h1 className={classes.h1}>New CampGround</h1>
-      <Form className={classes.form}>
+      <Form className={classes.form} noValidate validated={validated}>
         <Form.Group className="mb-3">
           <Form.Label htmlFor="title">Title</Form.Label>
-          <Form.Control type="text" id="title" onChange={getInputDataHandler} />
+          <Form.Control type="text" id="title" onChange={getInputDataHandler} required />
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label htmlFor="location">Location</Form.Label>
@@ -87,6 +96,7 @@ const Details = () => {
             type="text"
             id="location"
             onChange={getInputDataHandler}
+            required
           />
         </Form.Group>
         <Form.Group className="mb-3">
@@ -95,6 +105,7 @@ const Details = () => {
             type="number"
             id="price"
             onChange={getInputDataHandler}
+            required
           />
         </Form.Group>
         <Form.Group className="mb-4">
@@ -104,10 +115,11 @@ const Details = () => {
             rows={3}
             id="description"
             onChange={getInputDataHandler}
+            required
           />
         </Form.Group>
         <Form.Group className="mb-4">
-          <Form.Control type="file" id="image" onChange={getImageDataHandler} />
+          <Form.Control type="file" id="image" onChange={getImageDataHandler} required />
         </Form.Group>
         <div className={classes.button}>
           <Button

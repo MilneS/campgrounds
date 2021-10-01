@@ -2,75 +2,103 @@ import classes from "./Edit.module.css";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useDispatch } from "react-redux";
+import { useState } from "react";
+import { app } from "../firebase/firebase";
 
-
-const Edit = (props:any) => {
+const Edit = (props: any) => {
   const dispatch = useDispatch();
-  const camp=props.camp
+  const campData = props.campData;
+  const campId = props.campId;
 
-  const cancelHandler=(e: React.MouseEvent)=>{
+  const cancelHandler = (e: React.MouseEvent) => {
     dispatch({ type: "detailsComp" });
-  }
-  const updateHandler=(e: React.MouseEvent)=>{}
-
-
-    return (
-      <div className={classes.container}>
-        <h1 className={classes.h1}>Update CampGround</h1>
-        <Form className={classes.form}>
-          <Form.Group className="mb-3">
-            <Form.Label htmlFor="title">Title</Form.Label>
-            <Form.Control type="text" id="title"  value={camp.title}/>
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label htmlFor="location">Location</Form.Label>
-            <Form.Control
-              type="text"
-              id="location"
-              value={camp.location}
-            />
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label htmlFor="price">Campground price</Form.Label>
-            <Form.Control
-              type="number"
-              id="price"
-              value={camp.price}
-            />
-          </Form.Group>
-          <Form.Group className="mb-4">
-            <Form.Label htmlFor="description">Description</Form.Label>
-            <Form.Control
-              as="textarea"
-              rows={3}
-              id="description"
-              value={camp.description}
-            />
-          </Form.Group>
-          <Form.Group className="mb-4">
-            <Form.Control type="file" id="image" />
-          </Form.Group>
-          <div className={classes.button}>
-          <Button onClick={updateHandler}
-              variant="success"
-              size="lg"
-              type="button"
-              className="mb-3"
-            >
-              Update
-            </Button>            
-            <Button onClick={cancelHandler}
-              variant="secondary"
-              size="lg"
-              type="button"
-              className="mb-3"
-            >
-              Cancel
-            </Button>
-          </div>
-        </Form>
-      </div>
-    );
   };
 
-  export default Edit;
+  const defaultState = {
+    title: campData.title,
+    location: campData.location,
+    price: campData.price,
+    description: campData.description,
+  };
+  const [enterredData, setEnterredData] = useState(defaultState);
+  const enterredDataHandler=(e: React.ChangeEvent<HTMLInputElement>)=>{
+    setEnterredData({ ...enterredData, [e.target.id]: e.target.value })
+  }
+
+  let dbRef: any;
+  const sendUpdateHandler = (e: React.MouseEvent) => {
+    dbRef = app.database().ref();
+    dbRef.child(`campgrounds/${campId}`).update({title: enterredData.title,
+      location: enterredData.location,
+      price: enterredData.price,
+      description: enterredData.description})
+      .then(() => {
+        dispatch({ type: "detailsComp" });
+      })
+      .catch((error: any) => {
+        console.log(error);
+      });
+  };
+
+  return (
+    <div className={classes.container}>
+      <h1 className={classes.h1}>Update CampGround</h1>
+      <Form className={classes.form}>
+        <Form.Group className="mb-3">
+          <Form.Label htmlFor="title">Title</Form.Label>
+          <Form.Control type="text" id="title" defaultValue={campData.title} onChange={enterredDataHandler}/>
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label htmlFor="location">Location</Form.Label>
+          <Form.Control
+            type="text"
+            id="location"
+            defaultValue={campData.location}
+            onChange={enterredDataHandler}
+          />
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label htmlFor="price">Campground price</Form.Label>
+          <Form.Control
+            type="number"
+            id="price"
+            defaultValue={campData.price}
+            onChange={enterredDataHandler}
+          />
+        </Form.Group>
+        <Form.Group className="mb-4">
+          <Form.Label htmlFor="description">Description</Form.Label>
+          <Form.Control
+            as="textarea"
+            rows={3}
+            id="description"
+            defaultValue={campData.description}
+            onChange={enterredDataHandler}
+          />
+        </Form.Group>
+        <div className={classes.button}>
+          <Button
+            onClick={sendUpdateHandler}
+            variant="success"
+            size="lg"
+            type="button"
+            className="mb-3"
+          >
+            Update
+          </Button>
+          <Button
+            onClick={cancelHandler}
+            variant="secondary"
+            size="lg"
+            type="button"
+            className="mb-3"
+          >
+            Cancel
+          </Button>
+        </div>
+      </Form>
+    </div>
+  );
+};
+
+export default Edit;
