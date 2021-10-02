@@ -91,7 +91,28 @@ const Details = () => {
           <div className={classes.container}>
             <div>
               {authorEmail === currentCamp.author && (
-                <div className={classes.cardButtons}>
+                <div>
+                <div className={classes.cardButtonsBig}>
+                  <Button
+                    variant="primary"
+                    type="button"
+                    className="mb-2"
+                    size="lg"
+                    onClick={editHandler}
+                  >
+                    Update
+                  </Button>
+                  <Button
+                    variant="danger"
+                    type="button"
+                    className="mb-2"
+                    size="lg"
+                    onClick={deleteHandler}
+                  >
+                    Delete
+                  </Button>
+                </div>
+                <div className={classes.cardButtonsSmall}>
                   <Button
                     variant="primary"
                     type="button"
@@ -111,6 +132,8 @@ const Details = () => {
                     Delete
                   </Button>
                 </div>
+                </div>
+                
               )}
               <div className={classes.cardBig}>
               <Card style={{ width: "40rem" }}>

@@ -1,11 +1,15 @@
 .container {
   display: flex;
   justify-content: center;
-  margin: 50px 100px;
+  margin: 100px 100px;
   flex-direction: row;
 }
-.cardButtons > * {
+.cardButtonsBig > *,
+.cardButtonsSmall > * {
   margin-right: 10px;
+}
+.cardButtonsSmall {
+  display: none;
 }
 .img {
   height: 300px;
@@ -52,6 +56,12 @@
 
 /* ------------------------ */
 @media only screen and (max-width: 768px) {
+  .cardButtonsSmall {
+    display: block;
+  }
+  .cardButtonsBig {
+    display: none;
+  }
   .reviewContainer,
   .cardBig {
     display: none;
@@ -60,7 +70,7 @@
     display: none;
   }
   .container {
-    margin: 20px 100px;
+    margin: 100px 100px;
     margin-bottom: 0px;
   }
   .cardMid {
@@ -76,10 +86,6 @@
   .reviewContainer,
   .cardMid {
     display: none;
-  }
-  .container {
-    margin: 20px 100px;
-    margin-bottom: 0px;
   }
   .cardSmall {
     display: block;

@@ -26,7 +26,7 @@ const NavbarComp = (props: any) => {
 
   return (
     <>
-      <Navbar
+      <Navbar fixed="top"
         collapseOnSelect
         expand="lg"
         bg="dark"
@@ -56,7 +56,7 @@ const NavbarComp = (props: any) => {
                 </NavLink>
               </Nav.Link>
               {!isLoggedin && (
-                <Nav.Link href=""><NavLink
+                <Nav.Link><NavLink
                   to="/campgrounds/login"
                   id="login"
                   className={classes.loginLink}
@@ -67,7 +67,7 @@ const NavbarComp = (props: any) => {
                 </NavLink></Nav.Link>
               )}
               {isLoggedin && (
-                <NavLink
+                <Nav.Link><NavLink
                   to="/campgrounds/login"
                   id="login"
                   className={classes.loginLink}
@@ -75,7 +75,7 @@ const NavbarComp = (props: any) => {
                   onClick={logoutHandler}
                 >
                   Logout
-                </NavLink>
+                </NavLink></Nav.Link>
               )}
             </Nav>
           </Navbar.Collapse>
