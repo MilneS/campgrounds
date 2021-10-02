@@ -41,7 +41,8 @@ const Edit = (props: any) => {
   };
 
   return (
-    <div className={classes.container}>
+    <>
+    <div className={classes.containerBig}>
       <h1 className={classes.h1}>Update CampGround</h1>
       <Form className={classes.form}>
         <Form.Group className="mb-3">
@@ -98,6 +99,64 @@ const Edit = (props: any) => {
         </div>
       </Form>
     </div>
+    <div className={classes.containerSmall}>
+      <h2 className={classes.h2}>Update CampGround</h2>
+      <Form className={classes.form}>
+        <Form.Group className="mb-2">
+          <Form.Label htmlFor="title">Title</Form.Label>
+          <Form.Control type="text" id="title" defaultValue={campData.title} onChange={enterredDataHandler}/>
+        </Form.Group>
+        <Form.Group className="mb-2">
+          <Form.Label htmlFor="location">Location</Form.Label>
+          <Form.Control
+            type="text"
+            id="location"
+            defaultValue={campData.location}
+            onChange={enterredDataHandler}
+          />
+        </Form.Group>
+        <Form.Group className="mb-2">
+          <Form.Label htmlFor="price">Campground price</Form.Label>
+          <Form.Control
+            type="number"
+            id="price"
+            defaultValue={campData.price}
+            onChange={enterredDataHandler}
+          />
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label htmlFor="description">Description</Form.Label>
+          <Form.Control
+            as="textarea"
+            rows={3}
+            id="description"
+            defaultValue={campData.description}
+            onChange={enterredDataHandler}
+          />
+        </Form.Group>
+        <div className={classes.button}>
+          <Button
+            onClick={sendUpdateHandler}
+            variant="success"
+            size="sm"
+            type="button"
+            className="mb-3"
+          >
+            Update
+          </Button>
+          <Button
+            onClick={cancelHandler}
+            variant="secondary"
+            size="sm"
+            type="button"
+            className="mb-3"
+          >
+            Cancel
+          </Button>
+        </div>
+      </Form>
+    </div>
+    </>
   );
 };
 

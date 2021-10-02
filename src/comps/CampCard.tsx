@@ -36,6 +36,13 @@ const CampCard = (props: any) => {
             </Button>
           </NavLink>
         </div>
+        <div className={classes.buttonSmall}>
+          <NavLink to={`/campgrounds/details/${dataKey}`}>
+            <Button variant="primary" size="sm" type="button" className="mb-3">
+              View
+            </Button>
+          </NavLink>
+        </div>
       </div>
     </div>
   );

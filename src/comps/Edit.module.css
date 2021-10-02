@@ -1,4 +1,4 @@
-.container {
+.containerBig {
   margin: 50px auto;
   width: 700px;
 }
@@ -12,3 +12,43 @@
 .button > * {
   margin-right: 10px;
 }
+.containerSmall {
+  display: none;
+}
+
+/* ------------------------ */
+@media only screen and (max-width: 768px) {
+  .containerBig {
+    display: none;
+  }
+  .containerSmall {
+    display: block;
+    margin: 20px auto;
+    margin-bottom: 0px;
+    width: 400px;
+  }
+  .form, .form>*>* {
+    font-size: 14px !important;
+  }
+  .h2 {
+    margin-bottom: 20px;
+    margin-top: 25px;
+  }
+  .button {
+    margin-top: 0px;
+    font-size: 14px !important;
+  }
+}
+/* ------------------------ */
+@media only screen and (max-width: 425px) {
+  .containerSmall {
+    width: 300px;
+  }
+}
+/* ------------------------ */
+@media only screen and (max-width: 320px) {
+  .containerSmall {
+    width: 250px;
+  }
+}
+

@@ -44,6 +44,7 @@ const Camps = () => {
   return (
     <div className={classes.container}>
       <h1 className={classes.h1}>All CampGrounds</h1>
+      <h2 className={classes.h2}>All CampGrounds</h2>
       <div className={classes.button}>
         {isLoggedin && (
           <NavLink to="/campgrounds/newcamp">
@@ -57,6 +58,28 @@ const Camps = () => {
             <Button
               variant="success"
               size="lg"
+              type="button"
+              className="mb-3"
+              onClick={addHandler}
+            >
+              Add Campground
+            </Button>
+          </NavLink>
+        )}
+      </div>
+      <div className={classes.buttonSmall}>
+        {isLoggedin && (
+          <NavLink to="/campgrounds/newcamp">
+            <Button variant="success" size="sm" type="button" className="mb-3">
+              Add Campground
+            </Button>
+          </NavLink>
+        )}
+        {!isLoggedin && (
+          <NavLink to="/campgrounds/login">
+            <Button
+              variant="success"
+              size="sm"
               type="button"
               className="mb-3"
               onClick={addHandler}

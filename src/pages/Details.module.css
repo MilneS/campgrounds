@@ -4,7 +4,7 @@
   margin: 50px 100px;
   flex-direction: row;
 }
-.cardButtons>*{
+.cardButtons > * {
   margin-right: 10px;
 }
 .img {
@@ -42,4 +42,50 @@
 .reviewCard {
   padding: 15px;
   font-size: 18px;
+}
+.cardMid {
+  display: none;
+}
+.cardSmall {
+  display: none;
+}
+
+/* ------------------------ */
+@media only screen and (max-width: 768px) {
+  .reviewContainer,
+  .cardBig {
+    display: none;
+  }
+  .cardSmall {
+    display: none;
+  }
+  .container {
+    margin: 20px 100px;
+    margin-bottom: 0px;
+  }
+  .cardMid {
+    display: block;
+  }
+  .location,
+  .DescrAuthPrice {
+    font-size: 15px;
+  }
+}
+/* ------------------------ */
+@media only screen and (max-width: 425px) {
+  .reviewContainer,
+  .cardMid {
+    display: none;
+  }
+  .container {
+    margin: 20px 100px;
+    margin-bottom: 0px;
+  }
+  .cardSmall {
+    display: block;
+  }
+  .location,
+  .DescrAuthPrice {
+    font-size: 15px;
+  }
 }

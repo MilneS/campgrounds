@@ -11,6 +11,31 @@
   text-decoration: underline;
   cursor: pointer;
 }
-.errorMsg{
-  color:red
+.errorMsg {
+  color: red;
+}
+.smallCard {
+  display: none;
+}
+
+/* ------------------------ */
+@media only screen and (max-width: 768px) {
+  .bigCard {
+    display: none;
+  }
+  .smallCard {
+    display: block;
+  }
+  .signup {
+    font-size: 20px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+  .login {
+    font-size: 13px;
+    margin-bottom: 0px;
+  }
+  .errorMsg{
+    font-size: 13px;
+  }
 }

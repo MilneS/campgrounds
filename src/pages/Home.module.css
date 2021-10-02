@@ -25,7 +25,7 @@
   color: rgba(255, 255, 255, 0.5);
   margin-left: 1rem;
   border-bottom: 0.25rem solid transparent;
-  /* border: 1px solid green; */
+  border: 1px solid red;
   align-items: flex-start;
   display: flex;
   align-items: flex-end;
@@ -43,6 +43,7 @@ p {
 .ul {
   display: flex;
   flex-direction: row;
+  /* border: 1px solid green; */
 }
 
 .link,
@@ -97,7 +98,7 @@ p {
 .homeButton {
   padding: 15px 19px;
   color: #333;
-  background-color:  rgba(255, 255, 255, 0.883);
+  background-color: rgba(255, 255, 255, 0.883);
   font-weight: 700;
   border-color: #fff;
   border-radius: 5px;
@@ -117,4 +118,71 @@ p {
   color: rgba(255, 255, 255, 0.5) !important;
   font-size: 20.5px;
   letter-spacing: -0.5px;
+}
+
+/* -------------- */
+@media only screen and (max-width: 768px) {
+  .logolink {
+    margin-right: 220px;
+  }
+  .main {
+    margin: 0px;
+  }
+
+  .link,
+  .logolink {
+    font-size: 20px;
+  }
+  .logolink {
+    font-size: 30px;
+  }
+  .middleContainer {
+    margin-top: 80px;
+  }
+  .title {
+    font-size: 30px;
+  }
+  .message {
+    font-size: 18px;
+    letter-spacing: 0px;
+    margin-bottom: 20px;
+  }
+  .homeButton {
+    padding: 12px 17px;
+    font-size: 18px;
+    letter-spacing: 0px;
+  }
+  .homeFooter {
+    margin-top: 190px;
+    font-weight: 500;
+    justify-content: flex-end;
+    color: rgba(255, 255, 255, 0.5) !important;
+    font-size: 15px;
+    letter-spacing: -0.5px;
+  }
+}
+
+/* -------------- */
+@media only screen and (max-width: 768px) {
+  .nav {
+    display: none;
+  }
+  .middleContainer {
+    margin-top: 150px;
+  }
+  .title {
+    font-size: 25px;
+  }
+  .message {
+    font-size: 16px;
+    letter-spacing: 0px;
+    margin-bottom: 15px;
+  }
+  .homeButton {
+    padding: 10px 12px;
+    font-size: 15px;
+  }
+  .homeFooter {
+    font-size: 13px;
+  }
 }

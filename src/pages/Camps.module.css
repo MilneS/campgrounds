@@ -1,16 +1,51 @@
 .container {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
-  margin-bottom:20px;
+  margin: 20px 100px;
   flex-direction: column;
-  margin-left: 100px;
-  margin-right: 100px;
 }
 .h1 {
   margin-bottom: 50px;
   margin-top: 30px;
 }
+.h2 {
+  margin-bottom: 30px;
+  margin-top: 5px;
+  display: none;
+}
 .button {
-  margin-bottom: 20px
+  margin-bottom: 20px;
+}
+.buttonSmall {
+  margin-bottom: 15px;
+  display: none;
+}
+
+/* ------------------------ */
+@media only screen and (max-width: 768px) {
+  .h2 {
+    display: block;
+  }
+  .h1 {
+    display: none;
+  }
+  .button {
+    display: none;
+  }
+  .buttonSmall {
+    display: block;
+  }
+}
+/* ------------------------ */
+@media only screen and (max-width: 375px) {
+  .container {
+margin: 20px 70px;
+  }
+}
+
+/* ------------------------ */
+@media only screen and (max-width: 375px) {
+  .container {
+margin: 20px 40px;
+  }
 }

@@ -31,7 +31,7 @@ const Details = () => {
     });
     if (response.ok) {
       const data = await response.json();
-      dispatch({ type: "setAllCamps", payload: data });      
+      dispatch({ type: "setAllCamps", payload: data });
     } else {
       let errorMessage: string = "Getting all camps failed!";
       console.log(errorMessage);
@@ -39,10 +39,10 @@ const Details = () => {
   };
 
   useEffect(() => {
-    getCamp()
+    getCamp();
     if (Object.keys(allData).length) {
       const campId = Object.keys(allData).find((item) => item === params.camp);
-      if (campId ) {
+      if (campId) {
         setCurrentCamp(allData[campId]);
         setCurrentCampId(campId);
       }
@@ -86,16 +86,17 @@ const Details = () => {
 
   return (
     <>
-    <div>
-      {!showEditComp && currentCamp && (
-        <div className={classes.container}>
-          <div>
+      <div>
+        {!showEditComp && currentCamp && (
+          <div className={classes.container}>
+            <div>
               {authorEmail === currentCamp.author && (
                 <div className={classes.cardButtons}>
                   <Button
                     variant="primary"
                     type="button"
                     className="mb-2"
+                    size="sm"
                     onClick={editHandler}
                   >
                     Update
@@ -104,12 +105,14 @@ const Details = () => {
                     variant="danger"
                     type="button"
                     className="mb-2"
+                    size="sm"
                     onClick={deleteHandler}
                   >
                     Delete
                   </Button>
                 </div>
               )}
+              <div className={classes.cardBig}>
               <Card style={{ width: "40rem" }}>
                 <Card.Img variant="top" src={itemImage} />
                 <Card.Body>
@@ -133,36 +136,85 @@ const Details = () => {
                 </ListGroup>
               </Card>
             </div>
-          <div className={classes.reviewContainer}>
-            <h1 className={classes.titleReview}>Leave a review</h1>
-            <p className={classes.textareaTitle}>Review text</p>
-            <Form>
-              <Form.Group className="mb-3">
-                <Form.Control as="textarea" rows={3} />
-              </Form.Group>
-              <Button
-                variant="success"
-                size="lg"
-                type="button"
-                className="mb-5"
-              >
-                Submit
-              </Button>
-            </Form>
-            <Card className={classes.reviewCard}>
-              <Card.Title>Author</Card.Title>
-              <Card.Text>Review: Text</Card.Text>
-              <div className={classes.reviewButton}>
-                <Button variant="danger" type="button" className="mb-1">
-                  Delete
+              <div className={classes.cardMid}>
+              <Card style={{ width: "30rem" }}>
+                <Card.Img variant="top" src={itemImage} />
+                <Card.Body>
+                  <Card.Title className={classes.title}>
+                    {currentCamp.title}
+                  </Card.Title>
+                  <Card.Text className={classes.DescrAuthPrice}>
+                    {currentCamp.description}
+                  </Card.Text>
+                </Card.Body>
+                <ListGroup className="list-group-flush">
+                  <ListGroupItem className={classes.location}>
+                    {currentCamp.location}
+                  </ListGroupItem>
+                  <ListGroupItem className={classes.DescrAuthPrice}>
+                    Submitted by {currentCamp.author}
+                  </ListGroupItem>
+                  <ListGroupItem className={classes.DescrAuthPrice}>
+                    Price/night: ${currentCamp.price}
+                  </ListGroupItem>
+                </ListGroup>
+              </Card>
+            </div>
+              <div className={classes.cardSmall}>
+              <Card style={{ width: "18rem" }}>
+                <Card.Img variant="top" src={itemImage} />
+                <Card.Body>
+                  <Card.Title className={classes.title}>
+                    {currentCamp.title}
+                  </Card.Title>
+                  <Card.Text className={classes.DescrAuthPrice}>
+                    {currentCamp.description}
+                  </Card.Text>
+                </Card.Body>
+                <ListGroup className="list-group-flush">
+                  <ListGroupItem className={classes.location}>
+                    {currentCamp.location}
+                  </ListGroupItem>
+                  <ListGroupItem className={classes.DescrAuthPrice}>
+                    Submitted by {currentCamp.author}
+                  </ListGroupItem>
+                  <ListGroupItem className={classes.DescrAuthPrice}>
+                    Price/night: ${currentCamp.price}
+                  </ListGroupItem>
+                </ListGroup>
+              </Card>
+            </div>
+            </div>
+            <div className={classes.reviewContainer}>
+              <h1 className={classes.titleReview}>Leave a review</h1>
+              <p className={classes.textareaTitle}>Review text</p>
+              <Form>
+                <Form.Group className="mb-3">
+                  <Form.Control as="textarea" rows={3} />
+                </Form.Group>
+                <Button
+                  variant="success"
+                  size="lg"
+                  type="button"
+                  className="mb-5"
+                >
+                  Submit
                 </Button>
-              </div>
-            </Card>
+              </Form>
+              <Card className={classes.reviewCard}>
+                <Card.Title>Author</Card.Title>
+                <Card.Text>Review: Text</Card.Text>
+                <div className={classes.reviewButton}>
+                  <Button variant="danger" type="button" className="mb-1">
+                    Delete
+                  </Button>
+                </div>
+              </Card>
+            </div>
           </div>
-        </div>
-      )}
-      {showEditComp && <Edit campData={currentCamp} campId={currentCampId}/>}
-       </div>
+        )}
+        {showEditComp && <Edit campData={currentCamp} campId={currentCampId} />}
+      </div>
     </>
   );
 };

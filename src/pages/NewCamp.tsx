@@ -83,7 +83,8 @@ const Details = () => {
   };
 
   return (
-    <div className={classes.container}>
+    <>
+    <div className={classes.containerBig}>
       <h1 className={classes.h1}>New CampGround</h1>
       <Form className={classes.form} noValidate validated={validated}>
         <Form.Group className="mb-3">
@@ -134,6 +135,58 @@ const Details = () => {
         </div>
       </Form>
     </div>
+    <div className={classes.containerSmall}>
+      <h2 className={classes.h2}>New CampGround</h2>
+      <Form className={classes.form} noValidate validated={validated}>
+        <Form.Group className="mb-2">
+          <Form.Label htmlFor="title">Title</Form.Label>
+          <Form.Control type="text" id="title" onChange={getInputDataHandler} required />
+        </Form.Group>
+        <Form.Group className="mb-2">
+          <Form.Label htmlFor="location">Location</Form.Label>
+          <Form.Control
+            type="text"
+            id="location"
+            onChange={getInputDataHandler}
+            required
+          />
+        </Form.Group>
+        <Form.Group className="mb-2">
+          <Form.Label htmlFor="price">Campground price</Form.Label>
+          <Form.Control
+            type="number"
+            id="price"
+            onChange={getInputDataHandler}
+            required
+          />
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label htmlFor="description">Description</Form.Label>
+          <Form.Control
+            as="textarea"
+            rows={3}
+            id="description"
+            onChange={getInputDataHandler}
+            required
+          />
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Control type="file" id="image" onChange={getImageDataHandler} required className={classes.file}/>
+        </Form.Group>
+        <div className={classes.button}>
+          <Button
+            variant="success"
+            size="sm"
+            type="button"
+            className="mb-3"
+            onClick={getFormDataHandler}
+          >
+            Add campground
+          </Button>
+        </div>
+      </Form>
+    </div>
+    </>
   );
 };
 

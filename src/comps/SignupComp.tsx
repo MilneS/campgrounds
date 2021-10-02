@@ -65,6 +65,7 @@ const SignupComp = () => {
 
   return (
     <>
+        <div className={classes.bigCard}>
       <Card style={{ width: "27rem" }}>
         <Card.Img variant="top" src={pic} />
         <Card.Body>
@@ -106,6 +107,51 @@ const SignupComp = () => {
           </p>
         </Card.Body>
       </Card>
+      </div>
+      <div className={classes.smallCard}>
+      <Card style={{ width: "18rem" }}>
+        <Card.Img variant="top" src={pic} />
+        <Card.Body>
+          <Card.Title className="mb-4">
+            <p className={classes.signup}>Sign up</p>
+          </Card.Title>
+          {showErrMsg && <p className={classes.errorMsg}>{errMsg}</p>}
+          <Form>
+            <Form.Group className="mb-3">
+              <Form.Control
+                type="email"
+                id="email"
+                placeholder="Email"
+                onChange={getInputDataHandler}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Control
+                type="password"
+                id="password"
+                placeholder="Password"
+                onChange={getInputDataHandler}
+              />
+            </Form.Group>
+            <div className="d-grid gap-2">
+              <Button
+                onClick={getFormDataHandler}
+                variant="success"
+                size="sm"
+                type="submit"
+                className="mb-3"
+              >
+                Sign up
+              </Button>
+            </div>
+          </Form>
+          <p className={classes.login} onClick={showLoginHandler}>
+            Or login.
+          </p>
+        </Card.Body>
+      </Card>
+      </div>
+
     </>
   );
 };
