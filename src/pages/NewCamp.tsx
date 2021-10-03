@@ -11,14 +11,14 @@ import File from "../utils/file";
 
 const NewCamp = () => {
   const history = useHistory();
-  const author = localStorage.getItem("userEmail")
+  const author = localStorage.getItem("userEmail");
   const authorData = useSelector((state: State) => state.loginFormData);
   const initialData = {
     title: "",
     location: "",
     price: "",
     description: "",
-    author: author ? author : authorData.email
+    author: author ? author : authorData.email,
   };
   const [inputData, setInputData] = useState(initialData);
   const [imageAsFile, setImageAsFile] = useState<File>();
@@ -61,133 +61,157 @@ const NewCamp = () => {
   };
 
   const [validated, setValidated] = useState(false);
+  const [buttonDisabled, setButtonDisabled] = useState(false);
   const getFormDataHandler = (e: React.MouseEvent) => {
-    e.preventDefault();
+    e.preventDefault();          
+    setButtonDisabled(true)
+
     newCampDataHandler().then((dataKey) => {
       if (imageAsFile && imageAsFile.name) {
         storageRef = app.storage().ref();
         imageAsFile.dataKey = dataKey;
         fileRef = storageRef.child(`images/${imageAsFile.dataKey}`);
-        fileRef.put(imageAsFile).then(() => {
+        fileRef.put(imageAsFile).then(() => {    
+
           history.push("/campgrounds/camps");
         });
       }
     });
 
-    
-      const form = e.target as HTMLTextAreaElement;
-      if (form.checkValidity() === false) {
-        e.stopPropagation();
-      }
-
-      setValidated(true);
-
+    const form = e.target as HTMLTextAreaElement;
+    if (form.checkValidity() === false) {
+      e.stopPropagation();
+    }
+    setValidated(true);
   };
 
   return (
     <>
-    <div className={classes.containerBig}>
-      <h1 className={classes.h1}>New CampGround</h1>
-      <Form className={classes.form} noValidate validated={validated}>
-        <Form.Group className="mb-3">
-          <Form.Label htmlFor="title">Title</Form.Label>
-          <Form.Control type="text" id="title" onChange={getInputDataHandler} required />
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label htmlFor="location">Location</Form.Label>
-          <Form.Control
-            type="text"
-            id="location"
-            onChange={getInputDataHandler}
-            required
-          />
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label htmlFor="price">Campground price</Form.Label>
-          <Form.Control
-            type="number"
-            id="price"
-            onChange={getInputDataHandler}
-            required
-          />
-        </Form.Group>
-        <Form.Group className="mb-4">
-          <Form.Label htmlFor="description">Description</Form.Label>
-          <Form.Control
-            as="textarea"
-            rows={3}
-            id="description"
-            onChange={getInputDataHandler}
-            required
-          />
-        </Form.Group>
-        <Form.Group className="mb-4">
-          <Form.Control type="file" id="image" onChange={getImageDataHandler} required />
-        </Form.Group>
-        <div className={classes.button}>
-          <Button
-            variant="success"
-            size="lg"
-            type="button"
-            className="mb-3"
-            onClick={getFormDataHandler}
-          >
-            Add campground
-          </Button>
-        </div>
-      </Form>
-    </div>
-    <div className={classes.containerSmall}>
-      <h2 className={classes.h2}>New CampGround</h2>
-      <Form className={classes.form} noValidate validated={validated}>
-        <Form.Group className="mb-2">
-          <Form.Label htmlFor="title">Title</Form.Label>
-          <Form.Control type="text" id="title" onChange={getInputDataHandler} required />
-        </Form.Group>
-        <Form.Group className="mb-2">
-          <Form.Label htmlFor="location">Location</Form.Label>
-          <Form.Control
-            type="text"
-            id="location"
-            onChange={getInputDataHandler}
-            required
-          />
-        </Form.Group>
-        <Form.Group className="mb-2">
-          <Form.Label htmlFor="price">Campground price</Form.Label>
-          <Form.Control
-            type="number"
-            id="price"
-            onChange={getInputDataHandler}
-            required
-          />
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label htmlFor="description">Description</Form.Label>
-          <Form.Control
-            as="textarea"
-            rows={3}
-            id="description"
-            onChange={getInputDataHandler}
-            required
-          />
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Control type="file" id="image" onChange={getImageDataHandler} required className={classes.file}/>
-        </Form.Group>
-        <div className={classes.button}>
-          <Button
-            variant="success"
-            size="sm"
-            type="button"
-            className="mb-3"
-            onClick={getFormDataHandler}
-          >
-            Add campground
-          </Button>
-        </div>
-      </Form>
-    </div>
+      <div className={classes.containerBig}>
+        <h1 className={classes.h1}>New CampGround</h1>
+        <Form className={classes.form} noValidate validated={validated}>
+          <Form.Group className="mb-3">
+            <Form.Label htmlFor="title">Title</Form.Label>
+            <Form.Control
+              type="text"
+              id="title"
+              onChange={getInputDataHandler}
+              required
+            />
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label htmlFor="location">Location</Form.Label>
+            <Form.Control
+              type="text"
+              id="location"
+              onChange={getInputDataHandler}
+              required
+            />
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label htmlFor="price">Campground price</Form.Label>
+            <Form.Control
+              type="number"
+              id="price"
+              onChange={getInputDataHandler}
+              required
+            />
+          </Form.Group>
+          <Form.Group className="mb-4">
+            <Form.Label htmlFor="description">Description</Form.Label>
+            <Form.Control
+              as="textarea"
+              rows={3}
+              id="description"
+              onChange={getInputDataHandler}
+              required
+            />
+          </Form.Group>
+          <Form.Group className="mb-4">
+            <Form.Control
+              type="file"
+              id="image"
+              onChange={getImageDataHandler}
+              required
+            />
+          </Form.Group>
+          <div className={classes.button}>
+            <Button
+              variant="success"
+              size="lg"
+              type="button"
+              className="mb-3"
+              onClick={getFormDataHandler}
+              disabled={buttonDisabled}
+            >
+              Add campground
+            </Button>
+          </div>
+        </Form>
+      </div>
+      <div className={classes.containerSmall}>
+        <h2 className={classes.h2}>New CampGround</h2>
+        <Form className={classes.form} noValidate validated={validated}>
+          <Form.Group className="mb-2">
+            <Form.Label htmlFor="title">Title</Form.Label>
+            <Form.Control
+              type="text"
+              id="title"
+              onChange={getInputDataHandler}
+              required
+            />
+          </Form.Group>
+          <Form.Group className="mb-2">
+            <Form.Label htmlFor="location">Location</Form.Label>
+            <Form.Control
+              type="text"
+              id="location"
+              onChange={getInputDataHandler}
+              required
+            />
+          </Form.Group>
+          <Form.Group className="mb-2">
+            <Form.Label htmlFor="price">Campground price</Form.Label>
+            <Form.Control
+              type="number"
+              id="price"
+              onChange={getInputDataHandler}
+              required
+            />
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label htmlFor="description">Description</Form.Label>
+            <Form.Control
+              as="textarea"
+              rows={3}
+              id="description"
+              onChange={getInputDataHandler}
+              required
+            />
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Control
+              type="file"
+              id="image"
+              onChange={getImageDataHandler}
+              required
+              className={classes.file}
+            />
+          </Form.Group>
+          <div className={classes.button}>
+            <Button
+              variant="success"
+              size="sm"
+              type="button"
+              className="mb-3"
+              onClick={getFormDataHandler}
+              disabled={buttonDisabled}
+            >
+              Add campground
+            </Button>
+          </div>
+        </Form>
+      </div>
     </>
   );
 };
