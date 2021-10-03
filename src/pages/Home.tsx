@@ -13,7 +13,7 @@ const Home = () => {
             <NavLink to="/campgrounds/camps" className={classes.link}>
               All campgrounds
             </NavLink>
-            <NavLink to="/campgrounds/login" className={classes.link}>
+            <NavLink to="/campgrounds/login" className={classes.loginLink}>
               Login
             </NavLink>
           </ul>
