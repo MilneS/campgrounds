@@ -11,13 +11,14 @@ import File from "../utils/file";
 
 const NewCamp = () => {
   const history = useHistory();
-  const authorData = localStorage.getItem("userEmail")
+  const author = localStorage.getItem("userEmail")
+  const authorData = useSelector((state: State) => state.loginFormData);
   const initialData = {
     title: "",
     location: "",
     price: "",
     description: "",
-    author: authorData && authorData
+    author: author ? author : authorData.email
   };
   const [inputData, setInputData] = useState(initialData);
   const [imageAsFile, setImageAsFile] = useState<File>();
@@ -34,7 +35,7 @@ const NewCamp = () => {
         location: inputData.location,
         price: inputData.price,
         description: inputData.description,
-        author: authorData,
+        author: author ? author : authorData.email,
       }),
     });
     if (response.ok) {
