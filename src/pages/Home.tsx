@@ -28,10 +28,6 @@ const Home = () => {
           <NavLink to="/campgrounds/camps">
             <button className={classes.homeButton}>View Campgrounds</button>
           </NavLink>
-          <span className={classes.warning}>
-          <span className={classes.star}>*</span>⚠ Comments under construction ⚠
-          </span>
-
           <div className={classes.homeFooter}>© 2021</div>
         </div>
       </div>

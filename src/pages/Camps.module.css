@@ -5,7 +5,7 @@
   flex-direction: column;
 }
 .h1 {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   margin-top: 30px;
 }
 .h2 {
@@ -45,5 +45,15 @@
   .titleContainer {
     width: 100%;
     align-items: flex-start;
+  }
+}
+@media only screen and (max-width: 375px) {
+  .container {
+    margin: 95px 40px;
+  }
+}
+@media only screen and (max-width: 320px) {
+  .container {
+    margin: 95px 10px;
   }
 }
