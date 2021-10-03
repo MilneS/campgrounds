@@ -7,9 +7,7 @@ const Home = () => {
       <div className={classes.main}>
         <div className={classes.nav}>
           <ul className={classes.ul}>
-            <div className={classes.logolink}>
-              CampGrounds
-            </div>
+            <div className={classes.logolink}>CampGrounds</div>
             <NavLink to="/campgrounds/camps" className={classes.link}>
               All campgrounds
             </NavLink>
@@ -28,7 +26,11 @@ const Home = () => {
             </p>
           </div>
           <NavLink to="/campgrounds/camps">
-<button className={classes.homeButton}>View Campgrounds</button></NavLink>
+            <button className={classes.homeButton}>View Campgrounds</button>
+          </NavLink>
+          <span className={classes.warning}>
+            ⚠ Comments under construction ⚠
+          </span>
 
           <div className={classes.homeFooter}>© 2021</div>
         </div>

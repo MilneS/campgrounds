@@ -47,6 +47,12 @@
   padding: 15px;
   font-size: 18px;
 }
+.warning {
+  margin-top: 40px;
+  text-transform: uppercase;
+  color: red;
+  font-size: 25px;
+}
 .cardMid {
   display: none;
 }
@@ -55,6 +61,15 @@
 }
 
 /* ------------------------ */
+@media only screen and (max-width: 1024px) {
+
+  .warning {
+    margin-top: 40px;
+    font-size: 15px;
+    width: 300px;
+    font-style: italic;
+  }
+}
 @media only screen and (max-width: 768px) {
   .cardButtonsSmall {
     display: block;
@@ -75,6 +90,7 @@
   }
   .cardMid {
     display: block;
+    margin-bottom: 10px;
   }
   .location,
   .DescrAuthPrice {

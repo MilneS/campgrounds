@@ -211,7 +211,7 @@ const Details = () => {
             <div className={classes.reviewContainer}>
               <h1 className={classes.titleReview}>Leave a review</h1>
               <p className={classes.textareaTitle}>Review text</p>
-              <Form>
+              <Form className={classes.reviewForm}>
                 <Form.Group className="mb-3">
                   <Form.Control as="textarea" rows={3} />
                 </Form.Group>
@@ -233,6 +233,7 @@ const Details = () => {
                   </Button>
                 </div>
               </Card>
+              <div className={classes.warning}> ⚠ Comments under construction ⚠ </div>
             </div>
           </div>
         )}
