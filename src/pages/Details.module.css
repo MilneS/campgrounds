@@ -87,6 +87,9 @@
   .cardMid {
     display: none;
   }
+  .cardButtonsSmall {
+    display: block;
+  }
   .cardSmall {
     display: block;
   }

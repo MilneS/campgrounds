@@ -21,7 +21,6 @@
   display: none;
 }
 
-/* ------------------------ */
 @media only screen and (max-width: 768px) {
   .h2 {
     display: block;
@@ -36,16 +35,15 @@
     display: block;
   }
 }
-/* ------------------------ */
-@media only screen and (max-width: 375px) {
+@media only screen and (max-width: 425px) {
   .container {
-margin: 20px 70px;
+    display: flex;
+    align-items: center;
+    width: auto;
+    margin: 95px 60px;
   }
-}
-
-/* ------------------------ */
-@media only screen and (max-width: 375px) {
-  .container {
-margin: 20px 40px;
+  .titleContainer {
+    width: 100%;
+    align-items: flex-start;
   }
 }

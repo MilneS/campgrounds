@@ -43,6 +43,7 @@ const Camps = () => {
 
   return (
     <div className={classes.container}>
+    <div className={classes.titleContainer}>
       <h1 className={classes.h1}>All CampGrounds</h1>
       <h2 className={classes.h2}>All CampGrounds</h2>
       <div className={classes.button}>
@@ -87,7 +88,7 @@ const Camps = () => {
               Add Campground
             </Button>
           </NavLink>
-        )}
+        )}</div>
       </div>
       {allCampsData()}
     </div>
