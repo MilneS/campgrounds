@@ -38,8 +38,9 @@ const Details = () => {
     }
   };
 
+
   useEffect(() => {
-    getCamp();
+    // getCamp();
     if (Object.keys(allData).length) {
       const campId = Object.keys(allData).find((item) => item === params.camp);
       if (campId) {
@@ -50,7 +51,7 @@ const Details = () => {
   }, [allData]);
 
   useEffect(() => {
-    getCampDetails();
+    getCampImage();
   }, []);
 
   const [itemImage, setItemImage] = useState();
@@ -58,7 +59,7 @@ const Details = () => {
   let fileRef: any;
   let dbRef: any;
 
-  const getCampDetails = () => {
+  const getCampImage = () => {
     storageRef = app.storage().ref();
     fileRef = storageRef.child(`images/${params.camp}`);
     fileRef.getDownloadURL().then(function (url: any) {
@@ -237,7 +238,7 @@ const Details = () => {
             </div>
           </div>
         )}
-        {showEditComp && <Edit campData={currentCamp} campId={currentCampId} />}
+        {showEditComp && <Edit campData={currentCamp} campId={currentCampId} getCampFunc={getCamp}/>}
       </div>
     </>
   );

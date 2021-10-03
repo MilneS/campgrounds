@@ -9,6 +9,7 @@ const Edit = (props: any) => {
   const dispatch = useDispatch();
   const campData = props.campData;
   const campId = props.campId;
+  const campFunc = props.getCampFunc
 
   const cancelHandler = (e: React.MouseEvent) => {
     dispatch({ type: "detailsComp" });
@@ -34,6 +35,7 @@ const Edit = (props: any) => {
       description: enterredData.description})
       .then(() => {
         dispatch({ type: "detailsComp" });
+        campFunc()
       })
       .catch((error: any) => {
         console.log(error);
