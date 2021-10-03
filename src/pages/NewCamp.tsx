@@ -9,14 +9,15 @@ import { useHistory } from "react-router-dom";
 import { app } from "../firebase/firebase";
 import File from "../utils/file";
 
-const Details = () => {
+const NewCamp = () => {
   const history = useHistory();
-  const authorData = useSelector((state: State) => state.loginFormData);
+  const authorData = localStorage.getItem("userEmail")
   const initialData = {
     title: "",
     location: "",
     price: "",
     description: "",
+    author: authorData && authorData
   };
   const [inputData, setInputData] = useState(initialData);
   const [imageAsFile, setImageAsFile] = useState<File>();
@@ -33,7 +34,7 @@ const Details = () => {
         location: inputData.location,
         price: inputData.price,
         description: inputData.description,
-        author: authorData.email,
+        author: authorData,
       }),
     });
     if (response.ok) {
@@ -190,4 +191,4 @@ const Details = () => {
   );
 };
 
-export default Details;
+export default NewCamp;

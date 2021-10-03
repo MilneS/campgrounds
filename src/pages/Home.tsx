@@ -29,7 +29,7 @@ const Home = () => {
             <button className={classes.homeButton}>View Campgrounds</button>
           </NavLink>
           <span className={classes.warning}>
-            ⚠ Comments under construction ⚠
+          <span className={classes.star}>*</span>⚠ Comments under construction ⚠
           </span>
 
           <div className={classes.homeFooter}>© 2021</div>
