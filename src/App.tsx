@@ -14,14 +14,12 @@ function App() {
 
   return (
     <HashRouter basename='/'>
-    <div className="App">
+    <div className="App">        
+    <NavbarComp />
       <Switch>
         <Route path="/campgrounds" exact>
           <Home />
         </Route>
-        <NavbarComp />
-      </Switch>
-      <Switch>
         <Route path="/campgrounds/camps">
           <Camps />
         </Route>

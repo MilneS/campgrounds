@@ -10,82 +10,19 @@
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
-.main {
-  margin: 0px 360px;
-  height: 100%;
-  padding: 0px 16px;
-  display: flex;
-  justify-content: flex-start;
-  /* border: 1px solid red; */
-  flex-direction: column;
-}
-.nav {
-  margin: 16px;
-  font-weight: 700;
-  color: rgba(255, 255, 255, 0.5);
-  margin-left: 1rem;
-  border-bottom: 0.25rem solid transparent;
-  /* border: 1px solid red; */
-  align-items: flex-start;
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-start;
-  width: min-content;
-}
-ul,
-li,
-.ul,
-a,
+
 p {
   padding: 0px;
   margin: 0px;
-}
-
-.ul {
-  display: flex;
-  flex-direction: row;
-  /* border: 1px solid green; */
-}
-
-.link,
-.loginLink,
-.logolink {
-  font-weight: 700;
-  padding: 4px 0px;
-  color: rgba(255, 255, 255, 0.8);
-  margin-left: 1rem;
-  margin-right: 1rem;
-  border-bottom: 0.25rem solid transparent;
-  list-style-type: none;
-  text-decoration: none;
-  font-size: 21px;
-  display: flex;
-  align-items: flex-end;
-  width: 180px;
-}
-.loginLink {
-  width: 70px;
-}
-.logolink {
-  font-size: 33px;
-  color: white;
-  padding: 0px;
-  margin-left: 0px;
-  margin-right: 220px;
-  width: 230px;
-}
-
-.link:hover,
-.logolink:hover {
-  color: white;
-  border-bottom-color: white;
 }
 
 .middleContainer {
   display: flex;
   align-items: center;
   flex-direction: column;
-  margin-top: 230px;
+  margin: auto;
+  margin-top: 200px;
+  width: fit-content;
 }
 .title {
   margin: 0px;
@@ -120,7 +57,7 @@ p {
   cursor: pointer;
 }
 .homeFooter {
-  margin-top: 150px;
+  margin-top: 200px;
   font-weight: 500;
   justify-content: flex-end;
   color: rgba(255, 255, 255, 0.5) !important;
@@ -128,108 +65,39 @@ p {
   letter-spacing: -0.5px;
 }
 
-/* -------------- */
 @media only screen and (max-width: 1024px) {
-  .logolink {
-    margin-right: 50px;
-    margin-left: 0px;
-  }
-  .main {
-    margin-left: 200px;
-  }
-  .middleContainer {
-    margin-top: 80px;
-    margin-left: 50px;
-    width: 500px;
-  }
+.middleContainer {
+  margin-top: 150px;
+}
   .title {
-    font-size: 30px;
+    font-size: 40px;
   }
   .message {
     font-size: 18px;
+    margin-bottom: 30px;
   }
   .homeButton {
-    padding: 15px 19px;
-    color: #333;
-    background-color: rgba(255, 255, 255, 0.883);
-    font-weight: 700;
-    border-color: #fff;
-    border-radius: 5px;
-    border: none;
-    font-size: 15px;
-    letter-spacing: -0.5px;
-    width: unset;
+    font-size: 16px;
   }
   .homeFooter {
+    margin-top: 100px;
     font-size: 15px;
   }
 }
-
-/* -------------- */
-@media only screen and (max-width: 768px) {
-  .logolink {
-    margin-right: 120px;
-  }
-  .main {
-    margin-left: 70px;
-  }
-
-  .link,
-  .logolink {
-    font-size: 20px;
-  }
-  .logolink {
-    font-size: 30px;
-  }
-  .middleContainer {
-    margin-top: 80px;
-  }
-  .title {
-    font-size: 30px;
-  }
-  .message {
-    font-size: 18px;
-    letter-spacing: 0px;
-    margin-bottom: 20px;
-  }
-  .homeButton {
-    padding: 12px 17px;
-    font-size: 18px;
-    letter-spacing: 0px;
-  }
-  .homeFooter {
-    margin-top: 190px;
-    font-weight: 500;
-    justify-content: flex-end;
-    color: rgba(255, 255, 255, 0.5) !important;
-    font-size: 15px;
-    letter-spacing: -0.5px;
-  }
-}
-
-/* -------------- */
 @media only screen and (max-width: 425px) {
-  .nav {
-    display: none;
-  }
-  .main {
-    margin: 0px;
-    align-items: center;
-  }
-  .middleContainer {
-    margin: 0px;
-    margin-top: 180px;
-    width: 200px;
+  .title {
+    font-size: 30px;
   }
   .message {
-    font-size: 14px;
-    margin-bottom: 10px;
+    font-size: 18px;
+    padding: 20px;
   }
   .homeButton {
-    font-size: 13px;
+    padding: 10px 14px;
+    font-size: 16px;
   }
   .homeFooter {
-    margin-top: 150px;
-    font-size: 13px;
+    margin-top: 130px;
+    font-size: 15px;
   }
 }
