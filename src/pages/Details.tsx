@@ -38,9 +38,7 @@ const Details = () => {
     }
   };
 
-
   useEffect(() => {
-    // getCamp();
     if (Object.keys(allData).length) {
       const campId = Object.keys(allData).find((item) => item === params.camp);
       if (campId) {
@@ -51,6 +49,7 @@ const Details = () => {
   }, [allData]);
 
   useEffect(() => {
+    getCamp();
     getCampImage();
   }, []);
 
@@ -93,123 +92,127 @@ const Details = () => {
             <div>
               {authorEmail === currentCamp.author && (
                 <div>
-                <div className={classes.cardButtonsBig}>
-                  <Button
-                    variant="primary"
-                    type="button"
-                    className="mb-2"
-                    size="lg"
-                    onClick={editHandler}
-                  >
-                    Update
-                  </Button>
-                  <Button
-                    variant="danger"
-                    type="button"
-                    className="mb-2"
-                    size="lg"
-                    onClick={deleteHandler}
-                  >
-                    Delete
-                  </Button>
+                  <div className={classes.cardButtonsBig}>
+                    <Button
+                      variant="primary"
+                      type="button"
+                      className="mb-2"
+                      size="lg"
+                      onClick={editHandler}
+                    >
+                      Update
+                    </Button>
+                    <Button
+                      variant="danger"
+                      type="button"
+                      className="mb-2"
+                      size="lg"
+                      onClick={deleteHandler}
+                    >
+                      Delete
+                    </Button>
+                  </div>
+                  <div className={classes.cardButtonsSmall}>
+                    <Button
+                      variant="primary"
+                      type="button"
+                      className="mb-2"
+                      size="sm"
+                      onClick={editHandler}
+                    >
+                      Update
+                    </Button>
+                    <Button
+                      variant="danger"
+                      type="button"
+                      className="mb-2"
+                      size="sm"
+                      onClick={deleteHandler}
+                    >
+                      Delete
+                    </Button>
+                  </div>
                 </div>
-                <div className={classes.cardButtonsSmall}>
-                  <Button
-                    variant="primary"
-                    type="button"
-                    className="mb-2"
-                    size="sm"
-                    onClick={editHandler}
-                  >
-                    Update
-                  </Button>
-                  <Button
-                    variant="danger"
-                    type="button"
-                    className="mb-2"
-                    size="sm"
-                    onClick={deleteHandler}
-                  >
-                    Delete
-                  </Button>
-                </div>
-                </div>
-                
               )}
               <div className={classes.cardBig}>
-              <Card style={{ width: "40rem" }}>
-                <Card.Img variant="top" src={itemImage} />
-                <Card.Body>
-                  <Card.Title className={classes.title}>
-                    {currentCamp.title}
-                  </Card.Title>
-                  <Card.Text className={classes.DescrAuthPrice}>
-                    {currentCamp.description}
-                  </Card.Text>
-                </Card.Body>
-                <ListGroup className="list-group-flush">
-                  <ListGroupItem className={classes.location}>
-                    {currentCamp.location}
-                  </ListGroupItem>
-                  <ListGroupItem className={classes.DescrAuthPrice}>
-                    Submitted by {currentCamp.author}
-                  </ListGroupItem>
-                  <ListGroupItem className={classes.DescrAuthPrice}>
-                    Price/night: ${currentCamp.price}
-                  </ListGroupItem>
-                </ListGroup>
-              </Card>
-            </div>
+                <Card style={{ width: "40rem" }}>
+                  <Card.Img variant="top" src={itemImage} />
+                  <Card.Body>
+                    <Card.Title className={classes.title}>
+                      {currentCamp.title}
+                    </Card.Title>
+                    <Card.Text className={classes.DescrAuthPrice}>
+                      {currentCamp.description}
+                    </Card.Text>
+                  </Card.Body>
+                  <ListGroup className="list-group-flush">
+                    <ListGroupItem className={classes.location}>
+                      {currentCamp.location}
+                    </ListGroupItem>
+                    <ListGroupItem className={classes.DescrAuthPrice}>
+                      Submitted by {currentCamp.author}
+                    </ListGroupItem>
+                    <ListGroupItem className={classes.DescrAuthPrice}>
+                      Price/night: ${currentCamp.price}
+                    </ListGroupItem>
+                  </ListGroup>
+                </Card>
+              </div>
               <div className={classes.cardMid}>
-              <Card style={{ width: "30rem" }}>
-                <Card.Img variant="top" src={itemImage} />
-                <Card.Body>
-                  <Card.Title className={classes.title}>
-                    {currentCamp.title}
-                  </Card.Title>
-                  <Card.Text className={classes.DescrAuthPrice}>
-                    {currentCamp.description}
-                  </Card.Text>
-                </Card.Body>
-                <ListGroup className="list-group-flush">
-                  <ListGroupItem className={classes.location}>
-                    {currentCamp.location}
-                  </ListGroupItem>
-                  <ListGroupItem className={classes.DescrAuthPrice}>
-                    Submitted by {currentCamp.author}
-                  </ListGroupItem>
-                  <ListGroupItem className={classes.DescrAuthPrice}>
-                    Price/night: ${currentCamp.price}
-                  </ListGroupItem>
-                </ListGroup>
-              </Card>
-            </div>
+                <Card style={{ width: "30rem" }}>
+                  <Card.Img variant="top" src={itemImage} />
+                  <Card.Body>
+                    <Card.Title className={classes.title}>
+                      {currentCamp.title}
+                    </Card.Title>
+                    <Card.Text className={classes.DescrAuthPrice}>
+                      {currentCamp.description}
+                    </Card.Text>
+                  </Card.Body>
+                  <ListGroup className="list-group-flush">
+                    <ListGroupItem className={classes.location}>
+                      {currentCamp.location}
+                    </ListGroupItem>
+                    <ListGroupItem className={classes.DescrAuthPrice}>
+                      Submitted by {currentCamp.author}
+                    </ListGroupItem>
+                    <ListGroupItem className={classes.DescrAuthPrice}>
+                      Price/night: ${currentCamp.price}
+                    </ListGroupItem>
+                  </ListGroup>
+                </Card>
+              </div>
               <div className={classes.cardSmall}>
-              <Card style={{ width: "18rem" }}>
-                <Card.Img variant="top" src={itemImage} />
-                <Card.Body>
-                  <Card.Title className={classes.title}>
-                    {currentCamp.title}
-                  </Card.Title>
-                  <Card.Text className={classes.DescrAuthPrice}>
-                    {currentCamp.description}
-                  </Card.Text>
-                </Card.Body>
-                <ListGroup className="list-group-flush">
-                  <ListGroupItem className={classes.location}>
-                    {currentCamp.location}
-                  </ListGroupItem>
-                  <ListGroupItem className={classes.DescrAuthPrice}>
-                    Submitted by {currentCamp.author}
-                  </ListGroupItem>
-                  <ListGroupItem className={classes.DescrAuthPrice}>
-                    Price/night: ${currentCamp.price}
-                  </ListGroupItem>
-                </ListGroup>
-              </Card>
-            </div>
+                <Card style={{ width: "18rem" }}>
+                  <Card.Img variant="top" src={itemImage} />
+                  <Card.Body>
+                    <Card.Title className={classes.title}>
+                      {currentCamp.title}
+                    </Card.Title>
+                    <Card.Text className={classes.DescrAuthPrice}>
+                      {currentCamp.description}
+                    </Card.Text>
+                  </Card.Body>
+                  <ListGroup className="list-group-flush">
+                    <ListGroupItem className={classes.location}>
+                      {currentCamp.location}
+                    </ListGroupItem>
+                    <ListGroupItem className={classes.DescrAuthPrice}>
+                      Submitted by {currentCamp.author}
+                    </ListGroupItem>
+                    <ListGroupItem className={classes.DescrAuthPrice}>
+                      Price/night: ${currentCamp.price}
+                    </ListGroupItem>
+                  </ListGroup>
+                </Card>
+              </div>
             </div>
             <div className={classes.reviewContainer}>
+              <div className={classes.reviewOverlay}>
+                <div className={classes.warning}>
+                  ⚠ Comments under construction ⚠
+                </div>
+              </div>
               <h1 className={classes.titleReview}>Leave a review</h1>
               <p className={classes.textareaTitle}>Review text</p>
               <Form className={classes.reviewForm}>
@@ -234,11 +237,17 @@ const Details = () => {
                   </Button>
                 </div>
               </Card>
-              <div className={classes.warning}> ⚠ Comments under construction ⚠ </div>
+              {/* <div className={classes.warning}> ⚠ Comments under construction ⚠ </div> */}
             </div>
           </div>
         )}
-        {showEditComp && <Edit campData={currentCamp} campId={currentCampId} getCampFunc={getCamp}/>}
+        {showEditComp && (
+          <Edit
+            campData={currentCamp}
+            campId={currentCampId}
+            getCampFunc={getCamp}
+          />
+        )}
       </div>
     </>
   );
