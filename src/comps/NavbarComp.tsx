@@ -17,9 +17,13 @@ const NavbarComp = (props: any) => {
     dispatch({ type: "getToken", token: null });
     localStorage.removeItem("token");
     localStorage.removeItem("userEmail");
+    setExpanded(false);
+
   };
   const loginHandler = () => {
     dispatch({ type: "loginComp" });
+    setExpanded(false);
+
   };
   const btnHandler = () => {
     dispatch({ type: "logoutFromCampsBtn" });
