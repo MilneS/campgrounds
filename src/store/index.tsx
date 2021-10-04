@@ -25,7 +25,7 @@ const reducerFunc = (state = initialState, action: Action) => {
     case "detailsComp":
       return { ...state, showDetails: true, showEdit: false };
     case "editComp":
-      return { ...state,  showEdit: true, showDetails:false };
+      return { ...state, showEdit: true, showDetails: false };
     case "signupFormData":
       return { ...state, signUpFormData: action.payload };
     case "loginFormData":
@@ -47,10 +47,13 @@ const reducerFunc = (state = initialState, action: Action) => {
     case "setAllImages":
       return { ...state, allImages: action.payload };
     case "removeCamp":
-
-      const newCampsState =  state.allCamps
-      delete newCampsState[action.payload]
-      return { ...state, allCamps:  newCampsState};
+      const newCampsState = state.allCamps;
+      delete newCampsState[action.payload];
+      return { ...state, allCamps: newCampsState };
+    case "updateCamp":
+      const updatedCampsState = state.allCamps;
+      updatedCampsState[action.payload]=action.payloadData
+      return { ...state, allCamps: updatedCampsState };
     case "getToken":
       return { ...state, idToken: action.payload };
     default:
