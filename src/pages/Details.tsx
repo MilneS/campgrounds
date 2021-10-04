@@ -74,6 +74,9 @@ const Details = () => {
       .child(`images/${params.camp}`)
       .delete()
       .then(() => {
+        dispatch({ type: "removeCamp", payload: params.camp });
+
+        // dispatch remove here
         history.replace("/campgrounds/camps");
       })
       .catch((error: any) => {

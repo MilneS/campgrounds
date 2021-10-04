@@ -46,6 +46,11 @@ const reducerFunc = (state = initialState, action: Action) => {
       return { ...state, allCamps: action.payload };
     case "setAllImages":
       return { ...state, allImages: action.payload };
+    case "removeCamp":
+
+      const newCampsState =  state.allCamps
+      delete newCampsState[action.payload]
+      return { ...state, allCamps:  newCampsState};
     case "getToken":
       return { ...state, idToken: action.payload };
     default:

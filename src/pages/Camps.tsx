@@ -12,6 +12,8 @@ const Camps = () => {
   const allData = useSelector((state: State) => state.allCamps);
 
   useEffect(() => {
+    console.log('before get allcamps');
+    
     getAllCamps();
   }, []);
 

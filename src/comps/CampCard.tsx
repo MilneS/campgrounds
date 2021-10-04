@@ -1,7 +1,7 @@
 import classes from "./CampsCard.module.css";
 import Button from "react-bootstrap/Button";
 import { NavLink } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { app } from "../firebase/firebase";
 
 const CampCard = (props: any) => {
@@ -9,14 +9,22 @@ const CampCard = (props: any) => {
   const item = props.item;
   const dataKey = props.dataKey;
 
-  let storageRef: any;
+
+  useEffect(() => {
+let storageRef: any;
   let fileRef: any;
   storageRef = app.storage().ref();
   fileRef = storageRef.child(`images/${dataKey}`);
-  fileRef.getDownloadURL().then(function (url: any) {
-    setItemImage(url);
-  });
-
+  fileRef
+    .getDownloadURL()
+    .then(function (url: any) {
+      setItemImage(url);
+    })
+    .catch((error: object) =>
+      console.log('Getting image failed on campCard')
+    );
+  }, [props.item]);
+  
 
   return (
     <div className={classes.container}>
