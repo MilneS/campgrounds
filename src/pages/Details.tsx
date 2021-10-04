@@ -208,11 +208,6 @@ const Details = () => {
               </div>
             </div>
             <div className={classes.reviewContainer}>
-              <div className={classes.reviewOverlay}>
-                <div className={classes.warning}>
-                  ⚠ Comments under construction ⚠
-                </div>
-              </div>
               <h1 className={classes.titleReview}>Leave a review</h1>
               <p className={classes.textareaTitle}>Review text</p>
               <Form className={classes.reviewForm}>
@@ -237,6 +232,9 @@ const Details = () => {
                   </Button>
                 </div>
               </Card>
+              <div className={classes.warning}>
+                  ⚠ Comments under construction ⚠
+                </div>
             </div>
           </div>
         )}

@@ -54,14 +54,6 @@ p {
   background-color: white;
   cursor: pointer;
 }
-.homeFooter {
-  margin-top: 200px;
-  font-weight: 500;
-  justify-content: flex-end;
-  color: rgba(255, 255, 255, 0.5) !important;
-  font-size: 20.5px;
-  letter-spacing: -0.5px;
-}
 @media not all and (min-resolution:.001dpcm) { 
   @supports (-webkit-appearance: none) {
     .homeButton {
@@ -70,10 +62,6 @@ p {
     .message {
       font-size: 20px;
       margin-bottom: 20px;
-    }
-    .homeFooter {
-      margin-top: 150px;
-      font-size: 18px;
     }
   }
 }
@@ -95,10 +83,6 @@ p {
   .homeButton {
     font-size: 16px;
   }
-  .homeFooter {
-    margin-top: 100px;
-    font-size: 15px;
-  }
 }
 @media only screen and (max-width: 425px) {
   .title {
@@ -112,9 +96,5 @@ p {
   .homeButton {
     padding: 10px 14px;
     font-size: 16px;
-  }
-  .homeFooter {
-    margin-top: 130px;
-    font-size: 15px;
   }
 }
