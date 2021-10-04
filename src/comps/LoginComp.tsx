@@ -17,7 +17,7 @@ const LoginComp = () => {
   const dispatch = useDispatch();
   const [errMsg, setErrMsg] = useState();
   const [showErrMsg, setShowErrMsg] = useState(false);
-  const initialData = { email: "", password: "" };
+  const initialData = { emailBig: "",emailSmall: "", passwordBig: "",passwordSmall: "" };
   const [inputData, setInputData] = useState(initialData);
 
   const showSignupFunc = (e: React.MouseEvent) => {
@@ -40,8 +40,8 @@ const LoginComp = () => {
     const response = await fetch(url, {
       method: "POST",
       body: JSON.stringify({
-        email: inputData.email,
-        password: inputData.password,
+        email: inputData.emailBig || inputData.emailSmall,
+        password: inputData.passwordBig || inputData.passwordSmall,
         returnSecureToken: true,
       }),
       headers: { "Content-Type": "application/json" },
@@ -83,7 +83,7 @@ const LoginComp = () => {
           <Form>
             <Form.Group className="mb-3">
               <Form.Control
-                id="email"
+                id="emailBig"
                 type="email"
                 placeholder="Enter email"
                 onChange={getInputDataHandler}
@@ -91,7 +91,7 @@ const LoginComp = () => {
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Control
-                id="password"
+                id="passwordBig"
                 type="password"
                 placeholder="Password"
                 onChange={getInputDataHandler}
@@ -126,7 +126,7 @@ const LoginComp = () => {
           <Form>
             <Form.Group className="mb-3">
               <Form.Control
-                id="email"
+                id="emailSmall"
                 type="email"
                 placeholder="Enter email"
                 onChange={getInputDataHandler}
@@ -134,7 +134,7 @@ const LoginComp = () => {
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Control
-                id="password"
+                id="passwordSmall"
                 type="password"
                 placeholder="Password"
                 onChange={getInputDataHandler}
