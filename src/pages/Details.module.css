@@ -2,6 +2,7 @@
   display: flex;
   justify-content: center;
   margin: 100px 100px;
+  margin-bottom: 0px;
   flex-direction: row;
 }
 .cardButtonsBig > *,
@@ -24,7 +25,6 @@
 }
 .location {
   font-size: 20px;
-  color: grey;
 }
 .reviewContainer {
   margin-left: 50px;
@@ -72,6 +72,23 @@
 }
 .cardSmall {
   display: none;
+}
+@media not all and (min-resolution:.001dpcm) { 
+  @supports (-webkit-appearance: none) {
+    .cardBig>* {
+      width:500px !important
+    }
+    .title {
+      font-size: 20px !important;
+    }
+    .DescrAuthPrice,.location {
+      font-size: 18px;
+    }
+    .reviewContainer {
+      margin-left: 50px;
+      position: relative;
+    }
+  }
 }
 
 /* ------------------------ */

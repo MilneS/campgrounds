@@ -17,7 +17,19 @@
 .smallCard{
   display: none;
 }
-
+@media not all and (min-resolution:.001dpcm) { 
+  @supports (-webkit-appearance: none) {
+    .login {
+      font-size: 20px;
+      margin-top: 10px;
+      margin-bottom: 0px;
+    }
+    .signUp {
+      color: rgb(0, 60, 255);
+      font-size: 15px;
+    }
+  }
+}
 
 /* ------------------------ */
 @media only screen and (max-width: 768px) {

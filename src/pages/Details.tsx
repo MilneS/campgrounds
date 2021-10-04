@@ -237,7 +237,6 @@ const Details = () => {
                   </Button>
                 </div>
               </Card>
-              {/* <div className={classes.warning}> ⚠ Comments under construction ⚠ </div> */}
             </div>
           </div>
         )}

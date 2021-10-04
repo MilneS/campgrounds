@@ -12,6 +12,7 @@ a:active,
 a:hover {
   text-decoration: none;
   color: white;
+  outline: none
 }
 .campgroundsLogo {
   font-size: 30px;

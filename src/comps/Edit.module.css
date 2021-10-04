@@ -1,5 +1,6 @@
 .containerBig {
-  margin: 50px auto;
+  margin: 100px auto;
+  margin-bottom: 0px;
   width: 700px;
 }
 .form {
@@ -14,6 +15,16 @@
 }
 .containerSmall {
   display: none;
+}
+@media not all and (min-resolution:.001dpcm) { 
+  @supports (-webkit-appearance: none) {
+    .containerBig {
+      width: 500px;
+    }
+    .h1 {
+      margin-bottom: 40px;
+    }
+  }
 }
 
 /* ------------------------ */

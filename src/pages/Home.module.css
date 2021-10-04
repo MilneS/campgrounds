@@ -55,13 +55,30 @@ p {
   cursor: pointer;
 }
 .homeFooter {
-  margin-top: 250px;
+  margin-top: 200px;
   font-weight: 500;
   justify-content: flex-end;
   color: rgba(255, 255, 255, 0.5) !important;
   font-size: 20.5px;
   letter-spacing: -0.5px;
 }
+@media not all and (min-resolution:.001dpcm) { 
+  @supports (-webkit-appearance: none) {
+    .homeButton {
+      font-size: 18px;
+    }
+    .message {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+    .homeFooter {
+      margin-top: 150px;
+      font-size: 18px;
+    }
+  }
+}
+
+
 
 @media only screen and (max-width: 1024px) {
   .middleContainer {
