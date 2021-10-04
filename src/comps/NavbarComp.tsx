@@ -60,7 +60,7 @@ const NavbarComp = (props: any) => {
           />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link href="">
+              
                 <NavLink
                   onClick={btnHandler}
                   to="/campgrounds/camps"
@@ -70,9 +70,7 @@ const NavbarComp = (props: any) => {
                 >
                   All campgrounds
                 </NavLink>
-              </Nav.Link>
               {!isLoggedin && (
-                <Nav.Link>
                   <NavLink
                     to="/campgrounds/login"
                     id="login"
@@ -82,10 +80,8 @@ const NavbarComp = (props: any) => {
                   >
                     Login
                   </NavLink>
-                </Nav.Link>
               )}
               {isLoggedin && (
-                <Nav.Link>
                   <NavLink
                     to="/campgrounds/login"
                     id="login"
@@ -95,7 +91,6 @@ const NavbarComp = (props: any) => {
                   >
                     Logout
                   </NavLink>
-                </Nav.Link>
               )}
             </Nav>
           </Navbar.Collapse>
