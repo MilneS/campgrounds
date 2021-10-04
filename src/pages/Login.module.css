@@ -3,6 +3,7 @@
   }
   .card {
     margin: 100px auto;
+    margin-bottom: 0px;
   }
   @media not all and (min-resolution:.001dpcm) { 
     @supports (-webkit-appearance: none) {
