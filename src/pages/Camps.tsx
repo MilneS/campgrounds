@@ -12,8 +12,6 @@ const Camps = () => {
   const allData = useSelector((state: State) => state.allCamps);
 
   useEffect(() => {
-    console.log('before get allcamps');
-    
     getAllCamps();
   }, []);
 
@@ -28,16 +26,16 @@ const Camps = () => {
     });
     if (response.ok) {
       const data = await response.json();
-      dispatch({ type: "setAllCamps", payload: data });      
+      dispatch({ type: "setAllCamps", payload: data });
     } else {
       let errorMessage: string = "Getting all camps failed!";
       console.log(errorMessage);
     }
   };
 
-  const allCampsData = () => {    
+  const allCampsData = () => {
     if (Object.keys(allData).length) {
-      return Object.keys(allData).map((item, index) => {        
+      return Object.keys(allData).map((item, index) => {
         return <CampCard key={index} item={allData[item]} dataKey={item} />;
       });
     }
@@ -45,52 +43,63 @@ const Camps = () => {
 
   return (
     <div className={classes.container}>
-    <div className={classes.titleContainer}>
-      <h1 className={classes.h1}>All CampGrounds</h1>
-      <h2 className={classes.h2}>All CampGrounds</h2>
-      <div className={classes.button}>
-        {isLoggedin && (
-          <NavLink to="/campgrounds/newcamp">
-            <Button variant="success" size="lg" type="button" className="mb-3">
-              Add Campground
-            </Button>
-          </NavLink>
-        )}
-        {!isLoggedin && (
-          <NavLink to="/campgrounds/login">
-            <Button
-              variant="success"
-              size="lg"
-              type="button"
-              className="mb-3"
-              onClick={addHandler}
-            >
-              Add Campground
-            </Button>
-          </NavLink>
-        )}
-      </div>
-      <div className={classes.buttonSmall}>
-        {isLoggedin && (
-          <NavLink to="/campgrounds/newcamp">
-            <Button variant="success" size="sm" type="button" className="mb-3">
-              Add Campground
-            </Button>
-          </NavLink>
-        )}
-        {!isLoggedin && (
-          <NavLink to="/campgrounds/login">
-            <Button
-              variant="success"
-              size="sm"
-              type="button"
-              className="mb-3"
-              onClick={addHandler}
-            >
-              Add Campground
-            </Button>
-          </NavLink>
-        )}</div>
+      <div className={classes.titleContainer}>
+        <h1 className={classes.h1}>All CampGrounds</h1>
+        <h2 className={classes.h2}>All CampGrounds</h2>
+        <div className={classes.button}>
+          {isLoggedin && (
+            <NavLink to="/campgrounds/newcamp">
+              <Button
+                variant="success"
+                size="lg"
+                type="button"
+                className="mb-3"
+              >
+                Add Campground
+              </Button>
+            </NavLink>
+          )}
+          {!isLoggedin && (
+            <NavLink to="/campgrounds/login">
+              <Button
+                variant="success"
+                size="lg"
+                type="button"
+                className="mb-3"
+                onClick={addHandler}
+              >
+                Add Campground
+              </Button>
+            </NavLink>
+          )}
+        </div>
+        <div className={classes.buttonSmall}>
+          {isLoggedin && (
+            <NavLink to="/campgrounds/newcamp">
+              <Button
+                variant="success"
+                size="sm"
+                type="button"
+                className="mb-3"
+              >
+                Add Campground
+              </Button>
+            </NavLink>
+          )}
+          {!isLoggedin && (
+            <NavLink to="/campgrounds/login">
+              <Button
+                variant="success"
+                size="sm"
+                type="button"
+                className="mb-3"
+                onClick={addHandler}
+              >
+                Add Campground
+              </Button>
+            </NavLink>
+          )}
+        </div>
       </div>
       {allCampsData()}
     </div>
