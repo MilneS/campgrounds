@@ -8,12 +8,11 @@ const initialState: State = {
   showEdit: false,
   showDetails: true,
   loginFormData: { email: "", password: "" },
-  idToken: localStorage.getItem("token"),
-  userId: localStorage.getItem("userId"),
+  idToken: localStorage.getItem("token") || '',
+  userId: localStorage.getItem("userId")|| '',
   isLoggedin: !!localStorage.getItem("token"),
   logginFromCamps: false,
   allCamps: {},
-  allImages: {},
 };
 
 const reducerFunc = (state = initialState, action: Action) => {
@@ -44,8 +43,6 @@ const reducerFunc = (state = initialState, action: Action) => {
       return { ...state, logginFromCamps: false };
     case "setAllCamps":
       return { ...state, allCamps: action.payload };
-    case "setAllImages":
-      return { ...state, allImages: action.payload };
     case "removeCamp":
       const newCampsState = state.allCamps;
       delete newCampsState[action.payload];

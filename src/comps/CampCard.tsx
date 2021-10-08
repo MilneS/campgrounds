@@ -4,27 +4,36 @@ import { NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { app } from "../firebase/firebase";
 
-const CampCard = (props: any) => {
-  const [itemImage, setItemImage] = useState();
+
+
+interface propsTypes {
+  dataKey: string,
+  item: {
+    author: string,
+    description: string,
+    location: string,
+    price: string,
+    title: string,
+  };
+}
+
+const CampCard = (props: propsTypes) => {
+  const [itemImage, setItemImage] = useState<string>();
   const item = props.item;
   const dataKey = props.dataKey;
 
-
   useEffect(() => {
-let storageRef: any;
-  let fileRef: any;
-  storageRef = app.storage().ref();
-  fileRef = storageRef.child(`images/${dataKey}`);
-  fileRef
-    .getDownloadURL()
-    .then(function (url: any) {
-      setItemImage(url);
-    })
-    .catch((error: object) =>
-      console.log('Getting image failed on campCard')
-    );
+    let storageRef:firebase.storage.Reference = app.storage().ref();
+    let fileRef: firebase.storage.Reference= storageRef.child(`images/${dataKey}`);
+    fileRef
+      .getDownloadURL()
+      .then(function (url:string) {
+        setItemImage(url);
+      })
+      .catch((error:Error) =>
+        console.log(`Getting image failed on campCard ${JSON.stringify(error.message)}`)
+      );
   }, [props.item]);
-  
 
   return (
     <div className={classes.container}>

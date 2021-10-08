@@ -9,15 +9,20 @@ import { useHistory } from "react-router-dom";
 import { State } from "../store/state.model";
 
 const LoginComp = () => {
-  const logginFromCampsBtn = useSelector(
+  const logginFromCampsBtn:boolean = useSelector(
     (state: State) => state.logginFromCamps
   );
 
   const history = useHistory();
   const dispatch = useDispatch();
-  const [errMsg, setErrMsg] = useState();
-  const [showErrMsg, setShowErrMsg] = useState(false);
-  const initialData = { emailBig: "",emailSmall: "", passwordBig: "",passwordSmall: "" };
+  const [errMsg, setErrMsg] = useState<string>();
+  const [showErrMsg, setShowErrMsg] = useState<boolean>(false);
+  const initialData = {
+    emailBig: "",
+    emailSmall: "",
+    passwordBig: "",
+    passwordSmall: "",
+  };
   const [inputData, setInputData] = useState(initialData);
 
   const showSignupFunc = (e: React.MouseEvent) => {
@@ -36,8 +41,9 @@ const LoginComp = () => {
   };
 
   const sendDataHandler = async () => {
-    const url: any = process.env.REACT_APP_API_LOGIN_KEY;
-    const response = await fetch(url, {
+    // fix type
+    const url: string = process.env.REACT_APP_API_LOGIN_KEY || "";
+    let response: Response = await fetch(url, {
       method: "POST",
       body: JSON.stringify({
         email: inputData.emailBig || inputData.emailSmall,
@@ -61,9 +67,8 @@ const LoginComp = () => {
       setShowErrMsg(false);
       return data;
     } else {
-      let errorMessage: any = "Authentication failed!";
       if (data && data.error && data.error.message) {
-        errorMessage = data.error.message;
+        const errorMessage: string = data.error.message;
         setErrMsg(errorMessage);
         setShowErrMsg(true);
       }
@@ -72,92 +77,92 @@ const LoginComp = () => {
 
   return (
     <>
-    <div className={classes.bigCard}>
-      <Card style={{ width: "27rem" }}>
-        <Card.Img variant="top" src={pic} />
-        <Card.Body>
-          <Card.Title className="mb-4">
-            <p className={classes.login}>Login</p>
-          </Card.Title>
-          {showErrMsg && <p className={classes.errorMsg}>{errMsg}</p>}
-          <Form>
-            <Form.Group className="mb-3">
-              <Form.Control
-                id="emailBig"
-                type="email"
-                placeholder="Enter email"
-                onChange={getInputDataHandler}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Control
-                id="passwordBig"
-                type="password"
-                placeholder="Password"
-                onChange={getInputDataHandler}
-              />
-            </Form.Group>
-            <div className="d-grid gap-2">
-              <Button
-                onClick={getFormDataHandler}
-                variant="success"
-                size="lg"
-                type="submit"
-                className="mb-3"
-              >
-                Login
-              </Button>
-            </div>
-          </Form>
-          <p className={classes.signUp} onClick={showSignupFunc}>
-            Or sign up.
-          </p>
-        </Card.Body>
-      </Card>
-    </div>
-    <div className={classes.smallCard}>
-      <Card style={{ width: "18rem" }}>
-        <Card.Img variant="top" src={pic} />
-        <Card.Body>
-          <Card.Title className="mb-4">
-            <p className={classes.login}>Login</p>
-          </Card.Title>
-          {showErrMsg && <p className={classes.errorMsg}>{errMsg}</p>}
-          <Form>
-            <Form.Group className="mb-3">
-              <Form.Control
-                id="emailSmall"
-                type="email"
-                placeholder="Enter email"
-                onChange={getInputDataHandler}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Control
-                id="passwordSmall"
-                type="password"
-                placeholder="Password"
-                onChange={getInputDataHandler}
-              />
-            </Form.Group>
-            <div className="d-grid gap-2">
-              <Button
-                onClick={getFormDataHandler}
-                variant="success"
-                size="sm"
-                type="submit"
-                className="mb-3"
-              >
-                Login
-              </Button>
-            </div>
-          </Form>
-          <p className={classes.signUp} onClick={showSignupFunc}>
-            Or sign up.
-          </p>
-        </Card.Body>
-      </Card>
-    </div>
+      <div className={classes.bigCard}>
+        <Card style={{ width: "27rem" }}>
+          <Card.Img variant="top" src={pic} />
+          <Card.Body>
+            <Card.Title className="mb-4">
+              <p className={classes.login}>Login</p>
+            </Card.Title>
+            {showErrMsg && <p className={classes.errorMsg}>{errMsg}</p>}
+            <Form>
+              <Form.Group className="mb-3">
+                <Form.Control
+                  id="emailBig"
+                  type="email"
+                  placeholder="Enter email"
+                  onChange={getInputDataHandler}
+                />
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Control
+                  id="passwordBig"
+                  type="password"
+                  placeholder="Password"
+                  onChange={getInputDataHandler}
+                />
+              </Form.Group>
+              <div className="d-grid gap-2">
+                <Button
+                  onClick={getFormDataHandler}
+                  variant="success"
+                  size="lg"
+                  type="submit"
+                  className="mb-3"
+                >
+                  Login
+                </Button>
+              </div>
+            </Form>
+            <p className={classes.signUp} onClick={showSignupFunc}>
+              Or sign up.
+            </p>
+          </Card.Body>
+        </Card>
+      </div>
+      <div className={classes.smallCard}>
+        <Card style={{ width: "18rem" }}>
+          <Card.Img variant="top" src={pic} />
+          <Card.Body>
+            <Card.Title className="mb-4">
+              <p className={classes.login}>Login</p>
+            </Card.Title>
+            {showErrMsg && <p className={classes.errorMsg}>{errMsg}</p>}
+            <Form>
+              <Form.Group className="mb-3">
+                <Form.Control
+                  id="emailSmall"
+                  type="email"
+                  placeholder="Enter email"
+                  onChange={getInputDataHandler}
+                />
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Control
+                  id="passwordSmall"
+                  type="password"
+                  placeholder="Password"
+                  onChange={getInputDataHandler}
+                />
+              </Form.Group>
+              <div className="d-grid gap-2">
+                <Button
+                  onClick={getFormDataHandler}
+                  variant="success"
+                  size="sm"
+                  type="submit"
+                  className="mb-3"
+                >
+                  Login
+                </Button>
+              </div>
+            </Form>
+            <p className={classes.signUp} onClick={showSignupFunc}>
+              Or sign up.
+            </p>
+          </Card.Body>
+        </Card>
+      </div>
     </>
   );
 };

@@ -6,8 +6,17 @@ export interface State {
   loginFormData: {email:string, password: string};
   isLoggedin: boolean;
   logginFromCamps:boolean;
-  allCamps:any;
-  allImages:any;
-  idToken:any;
-  userId:any;
+  allCamps:CampCollection;
+  idToken:string;
+  userId:string;
+}
+export interface Camp {
+  author: string;
+  description: string;
+  location: string;
+  price: string;
+  title: string;
+}
+export interface CampCollection {
+  [key:string]:Camp
 }

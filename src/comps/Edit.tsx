@@ -5,7 +5,19 @@ import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { app } from "../firebase/firebase";
 
-const Edit = (props: any) => {
+
+interface propsTypes {
+  campId: string;
+  campData: {
+    author: string;
+    description: string;
+    location: string;
+    price: string;
+    title: string;
+  };
+  getCampFunc: () => Promise<void>;
+}
+const Edit = (props: propsTypes) => {
   const dispatch = useDispatch();
   const campData = props.campData;
   const campId = props.campId;
@@ -26,9 +38,8 @@ const Edit = (props: any) => {
     setEnterredData({ ...enterredData, [e.target.id]: e.target.value });
   };
 
-  let dbRef: any;
   const sendUpdateHandler = (e: React.MouseEvent) => {
-    dbRef = app.database().ref();
+    let dbRef: firebase.database.Reference = app.database().ref();
     dbRef
       .child(`campgrounds/${campId}`)
       .update({
@@ -52,7 +63,7 @@ const Edit = (props: any) => {
         dispatch({ type: "detailsComp" });
         campFunc();
       })
-      .catch((error: any) => {
+      .catch((error: Error) => {
         console.log(error);
       });
   };

@@ -8,18 +8,18 @@ import { State } from "../store/state.model";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 
-const NavbarComp = (props: any) => {
+const NavbarComp = () => {
   const dispatch = useDispatch();
+  const isLoggedin:boolean = useSelector((state: State) => state.isLoggedin);
 
-  const isLoggedin = useSelector((state: State) => state.isLoggedin);
   const logoutHandler = () => {
     dispatch({ type: "loggedout" });
     dispatch({ type: "getToken", token: null });
     localStorage.removeItem("token");
     localStorage.removeItem("userEmail");
     setExpanded(false);
-
   };
+  
   const loginHandler = () => {
     dispatch({ type: "loginComp" });
     setExpanded(false);
@@ -30,10 +30,10 @@ const NavbarComp = (props: any) => {
     setExpanded(false);
   };
   const toggleHandler = () => {
-    setExpanded(expanded ? false : "expanded");
+    setExpanded(!expanded);
   };
 
-  const [expanded, setExpanded] = useState<boolean | any>(false);
+  const [expanded, setExpanded] = useState<boolean>(false);
 
   return (
     <>

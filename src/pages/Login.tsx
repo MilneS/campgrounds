@@ -5,8 +5,8 @@ import { useSelector} from "react-redux";
 import { State } from "../store/state.model";
 
 const Login = () => {
-  const showLogin = useSelector((state:State) => state.showLogin);
-  const showSignup = useSelector((state:State) => state.showSignup);
+  const showLogin:boolean = useSelector((state:State) => state.showLogin);
+  const showSignup:boolean = useSelector((state:State) => state.showSignup);
   return (
     <div className={classes.cardContainer}>
       <div className={classes.card}>

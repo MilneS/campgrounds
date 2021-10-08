@@ -4,19 +4,16 @@ import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useDispatch } from "react-redux";
-// import { useSelector } from "react-redux";
 import { useState } from "react";
-// import { State } from "../store/state.model";
 import { useHistory } from "react-router-dom";
 
 const SignupComp = () => {
   const history = useHistory();
   const initialData = { emailBig: "",emailSmall: "", passwordBig: "",passwordSmall: "" };
   const [inputData, setInputData] = useState(initialData);
-  const [errMsg, setErrMsg] = useState();
-  const [showErrMsg, setShowErrMsg] = useState(false);
+  const [errMsg, setErrMsg] = useState<string>();
+  const [showErrMsg, setShowErrMsg] = useState<boolean>(false);
   const dispatch = useDispatch();
-  // const signupFormdata = useSelector((state: State) => state.signUpFormData);
 
   const showLoginHandler = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -33,8 +30,8 @@ const SignupComp = () => {
   };
 
   const sendDataHandler = async () => {
-    const url: any = process.env.REACT_APP_API_SIGNUP_KEY;
-    const response = await fetch(url, {
+    const url: string = process.env.REACT_APP_API_SIGNUP_KEY || '';
+    const response: Response  = await fetch(url, {
       method: "POST",
       body: JSON.stringify({
         email: inputData.emailBig || inputData.emailSmall,
@@ -49,14 +46,11 @@ const SignupComp = () => {
       dispatch({ type: "idToken", payload: data.idToken });
       localStorage.setItem("token", data.idToken);
       history.push("/campgrounds/camps");
-      // console.log(data);
       setShowErrMsg(false);
-
       return data;
     } else {
-      let errorMessage: any = "Authentication failed!";
       if (data && data.error && data.error.message) {
-        errorMessage = data.error.message;
+        const errorMessage: string = data.error.message;
         setErrMsg(errorMessage);
         setShowErrMsg(true);
       }

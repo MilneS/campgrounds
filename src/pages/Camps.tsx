@@ -3,13 +3,13 @@ import CampCard from "../comps/CampCard";
 import Button from "react-bootstrap/Button";
 import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { State } from "../store/state.model";
+import { CampCollection, State } from "../store/state.model";
 import { useEffect } from "react";
 
 const Camps = () => {
   const dispatch = useDispatch();
-  const isLoggedin = useSelector((state: State) => state.isLoggedin);
-  const allData = useSelector((state: State) => state.allCamps);
+  const isLoggedin: boolean = useSelector((state: State) => state.isLoggedin);
+  const allData:CampCollection = useSelector((state: State) => state.allCamps);
 
   useEffect(() => {
     getAllCamps();
@@ -20,8 +20,8 @@ const Camps = () => {
   };
 
   const getAllCamps = async () => {
-    const allCampsApi: any = process.env.REACT_APP_API_CAMPS;
-    const response = await fetch(allCampsApi, {
+    const allCampsApi: string = process.env.REACT_APP_API_CAMPS || '';
+    const response: Response = await fetch(allCampsApi, {
       method: "GET",
     });
     if (response.ok) {

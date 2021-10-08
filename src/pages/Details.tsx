@@ -7,7 +7,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useParams } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
-import { State } from "../store/state.model";
+import { Camp, CampCollection, State } from "../store/state.model";
 import { app } from "../firebase/firebase";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
@@ -15,18 +15,28 @@ import { useHistory } from "react-router-dom";
 const Details = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const authorEmail: any = localStorage.getItem("userEmail");
+  const authorEmail: string | null = localStorage.getItem("userEmail");
 
-  const params: any = useParams();
-  const allData = useSelector((state: State) => state.allCamps);
-  const showEditComp = useSelector((state: State) => state.showEdit);
+  interface paramsType {
+    camp: string;
+  }
+  const params: paramsType = useParams();
 
-  const [currentCamp, setCurrentCamp] = useState<any>();
-  const [currentCampId, setCurrentCampId] = useState<any>();
+  const allData: CampCollection = useSelector((state: State) => state.allCamps);
+  const showEditComp: boolean = useSelector((state: State) => state.showEdit);
+
+  const defaultData={  author: '',
+  description:'',
+  location: '',
+  price: '',
+  title: '',
+}
+  const [currentCamp, setCurrentCamp] = useState<Camp>(defaultData);
+  const [currentCampId, setCurrentCampId] = useState<string>('');
 
   const getCamp = async () => {
-    const allCampsApi: any = process.env.REACT_APP_API_CAMPS;
-    const response = await fetch(allCampsApi, {
+    const allCampsApi: string = process.env.REACT_APP_API_CAMPS || "";
+    const response: Response = await fetch(allCampsApi, {
       method: "GET",
     });
     if (response.ok) {
@@ -53,21 +63,20 @@ const Details = () => {
     getCampImage();
   }, []);
 
-  const [itemImage, setItemImage] = useState();
-  let storageRef: any;
-  let fileRef: any;
-  let dbRef: any;
+  const [itemImage, setItemImage] = useState<string>();
+  let storageRef: firebase.storage.Reference;
+  let fileRef: firebase.storage.Reference;
 
   const getCampImage = () => {
     storageRef = app.storage().ref();
     fileRef = storageRef.child(`images/${params.camp}`);
-    fileRef.getDownloadURL().then(function (url: any) {
+    fileRef.getDownloadURL().then(function (url: string) {
       setItemImage(url);
     });
   };
 
   const deleteHandler = (e: React.MouseEvent) => {
-    dbRef = app.database().ref();
+    let dbRef: firebase.database.Reference = app.database().ref();
     storageRef = app.storage().ref();
     dbRef.child(`campgrounds/${params.camp}`).remove();
     storageRef
@@ -75,11 +84,9 @@ const Details = () => {
       .delete()
       .then(() => {
         dispatch({ type: "removeCamp", payload: params.camp });
-
-        // dispatch remove here
         history.replace("/campgrounds/camps");
       })
-      .catch((error: any) => {
+      .catch((error: Error) => {
         console.log(error);
       });
   };
@@ -236,8 +243,8 @@ const Details = () => {
                 </div>
               </Card>
               <div className={classes.warning}>
-                  ⚠ Comments under construction ⚠
-                </div>
+                ⚠ Comments under construction ⚠
+              </div>
             </div>
           </div>
         )}

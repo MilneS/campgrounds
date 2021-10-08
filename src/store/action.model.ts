@@ -3,4 +3,3 @@ export interface Action{
     payload?:any,
     payloadData?: any,
 }
-

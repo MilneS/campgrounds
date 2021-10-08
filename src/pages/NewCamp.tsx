@@ -11,7 +11,7 @@ import File from "../utils/file";
 
 const NewCamp = () => {
   const history = useHistory();
-  const author = localStorage.getItem("userEmail");
+  const author: string | null = localStorage.getItem("userEmail");
   const authorData = useSelector((state: State) => state.loginFormData);
   const initialData = {
     title: "",
@@ -20,15 +20,19 @@ const NewCamp = () => {
     description: "",
     author: author ? author : authorData.email,
   };
-  const [inputData, setInputData] = useState(initialData);
+  interface initialDataType {
+    title: string;
+    location: string;
+    price: string;
+    description: string;
+    author: string;
+  }
+  const [inputData, setInputData] = useState<initialDataType>(initialData);
   const [imageAsFile, setImageAsFile] = useState<File>();
 
-  let storageRef: any;
-  let fileRef: any;
-
   const newCampDataHandler = async () => {
-    const newCampApi: any = process.env.REACT_APP_API_CAMPS;
-    const response = await fetch(newCampApi, {
+    const newCampApi: string = process.env.REACT_APP_API_CAMPS || "";
+    const response: Response = await fetch(newCampApi, {
       method: "POST",
       body: JSON.stringify({
         title: inputData.title,
@@ -40,7 +44,9 @@ const NewCamp = () => {
     });
     if (response.ok) {
       const data = await response.json();
-      return data.name;
+      const dataName: string = data.name;
+
+      return dataName;
     } else {
       let errorMessage: string = "Adding new camp failed!";
       console.log(errorMessage);
@@ -60,19 +66,20 @@ const NewCamp = () => {
     }
   };
 
-  const [validated, setValidated] = useState(false);
-  const [buttonDisabled, setButtonDisabled] = useState(false);
+  const [validated, setValidated] = useState<boolean>(false);
+  const [buttonDisabled, setButtonDisabled] = useState<boolean>(false);
   const getFormDataHandler = (e: React.MouseEvent) => {
-    e.preventDefault();          
-    setButtonDisabled(true)
+    e.preventDefault();
+    setButtonDisabled(true);
 
-    newCampDataHandler().then((dataKey) => {
+    newCampDataHandler().then((dataKey: string | undefined) => {
       if (imageAsFile && imageAsFile.name) {
-        storageRef = app.storage().ref();
+        let storageRef: firebase.storage.Reference = app.storage().ref();
         imageAsFile.dataKey = dataKey;
-        fileRef = storageRef.child(`images/${imageAsFile.dataKey}`);
-        fileRef.put(imageAsFile).then(() => {    
-
+        let fileRef: firebase.storage.Reference = storageRef.child(
+          `images/${imageAsFile.dataKey}`
+        );
+        fileRef.put(imageAsFile).then(() => {
           history.push("/campgrounds/camps");
         });
       }
