@@ -94,6 +94,50 @@ const Details = () => {
     dispatch({ type: "editComp" });
   };
 
+  // -----------------------------
+  const author: string | null = localStorage.getItem("userEmail");
+  const authorData = useSelector((state: State) => state.loginFormData);
+
+  const initialData = {
+    campId: "",
+    comment: "",
+    author: author ? author : authorData.email,
+  };
+  interface initialDataType {
+    campId:string;
+    comment: string;
+    author: string;
+  }
+  const [inputData, setInputData] = useState<initialDataType>(initialData);
+  const newCommentHandler = async () => {
+    const newCommentApi: string = process.env.REACT_APP_API_COMMENTS || "";
+    const response: Response = await fetch(newCommentApi, {
+      method: "POST",
+      body: JSON.stringify({
+        campId: currentCampId,
+        author: author ? author : authorData.email,
+        comment:inputData.comment,
+      }),
+    });
+    if (response.ok) {
+      const data = await response.json();
+      const dataName: string = data.name;
+
+      return dataName;
+    } else {
+      let errorMessage: string = "Adding new camp failed!";
+      console.log(errorMessage);
+    }
+  };
+  const getInputDataHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputData({ ...inputData, [e.target.id]: e.target.value });
+  };
+  const getFormDataHandler = (e: React.MouseEvent) => {
+    e.preventDefault()
+    newCommentHandler()
+  }
+
+  // --------------------------
   return (
     <>
       <div>
@@ -222,15 +266,16 @@ const Details = () => {
               <p className={classes.textareaTitle}>Review text</p>
               <Form className={classes.reviewForm}>
                 <Form.Group className="mb-3">
-                  <Form.Control as="textarea" rows={3} />
+                  <Form.Control as="textarea" rows={3} id='comment' onChange={getInputDataHandler}/>
                 </Form.Group>
                 <Button
                   variant="success"
                   size="lg"
                   type="button"
                   className="mb-5"
+                  onClick={getFormDataHandler}
                 >
-                  Submit
+                  Submit 
                 </Button>
               </Form>
               <Card className={classes.reviewCard}>
