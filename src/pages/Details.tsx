@@ -144,42 +144,19 @@ const Details = () => {
 
   const getFormDataHandler = async (e: React.MouseEvent) => {
     e.preventDefault();
-    // setButtonDisabled(true);
-    await newCommentHandler();
-
+    setButtonDisabled(true);
+    await newCommentHandler();      
+    setCommentSubmitted(true)
     const form = e.target as HTMLTextAreaElement;
     if (form.checkValidity() === false) {
       e.stopPropagation();
     }
     setValidated(true);
   };
-    useEffect(() => {
-      
-  }, []);
-  // -------------GET COMMENTS FROM FIREBASE----------------
-  // const [allComm, setAllComm] = useState<any>();
-  // const getComments = async () => {
-  //   const allCommentsApi: string = process.env.REACT_APP_API_COMMENTS || "";
-  //   const response: Response = await fetch(allCommentsApi, {
-  //     method: "GET",
-  //   });
-  //   if (response.ok) {
-  //     const data = await response.json();
-  //     console.log(data);
-  //     setAllComm(data);
-  //     return data;
-  //   } else {
-  //     let errorMessage: string = "Getting all comments failed!";
-  //     console.log(errorMessage);
-  //   }
-  // };
-  // useEffect(() => {
-  //   getComments();
+
+  //   useEffect(() => {
   // }, []);
 
-  // useEffect(() => {
-  //   console.log(allComm);
-  // }, [allComments]);
 
   // -------------FILTER COMMENTS----------------
 
