@@ -21,6 +21,7 @@ const Details = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const authorEmail: string | null = localStorage.getItem("userEmail");
+  const isLoggedin = useSelector((state: State) => state.isLoggedin);
 
   interface paramsType {
     camp: string;
@@ -158,7 +159,7 @@ const Details = () => {
     setValidated(true);
   };
   // -------------GET COMMENTS FROM FIREBASE----------------
-  const [allComm, setAllComm] = useState();
+  const [allComm, setAllComm] = useState<any>();
   const getComments = async () => {
     const allCommentsApi: string = process.env.REACT_APP_API_COMMENTS || "";
     const response: Response = await fetch(allCommentsApi, {
@@ -181,6 +182,10 @@ const Details = () => {
   useEffect(() => {
     console.log(allComm);
   }, [allComments]);
+
+  // -------------FILTER COMMENTS----------------
+
+  
 
   // --------------------------
   return (
@@ -308,8 +313,14 @@ const Details = () => {
             </div>
             <div className={classes.reviewContainer}>
               <h1 className={classes.titleReview}>Leave a review</h1>
-              {commentSubmitted && <div className={classes.commentMsg}>Your comment has been submitted.</div>}
-              {!commentSubmitted && (
+
+              {commentSubmitted && isLoggedin && (
+                <div className={classes.commentMsg}>
+                  Your comment has been submitted.
+                </div>
+              )}
+
+              {!commentSubmitted && isLoggedin && (
                 <div>
                   <p className={classes.textareaTitle}>Review text</p>
 
@@ -324,6 +335,7 @@ const Details = () => {
                         rows={3}
                         id="comment"
                         onChange={getInputDataHandler}
+                        required
                       />
                     </Form.Group>
                     <Button
@@ -342,11 +354,13 @@ const Details = () => {
               <Card className={classes.reviewCard}>
                 <Card.Title>Author</Card.Title>
                 <Card.Text>Review: Text</Card.Text>
-                <div className={classes.reviewButton}>
-                  <Button variant="danger" type="button" className="mb-1">
-                    Delete
-                  </Button>
-                </div>
+                {authorEmail === currentCamp.author && (
+                  <div className={classes.reviewButton}>
+                    <Button variant="danger" type="button" className="mb-1">
+                      Delete
+                    </Button>
+                  </div>
+                )}
               </Card>
               <div className={classes.warning}>
                 ⚠ Comments under construction ⚠
