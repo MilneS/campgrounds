@@ -67,6 +67,7 @@ const Details = () => {
     getCampImage();
   }, []);
 
+
   const [allComments, setAllComments] = useState<any>([]);
   useEffect(() => {
     let allComm: any = [];
@@ -78,9 +79,6 @@ const Details = () => {
     }
   }, [currentCamp.comments]);
 
-  useEffect(() => {
-    console.log(allComments);
-  }, [allComments]);
 
   const [itemImage, setItemImage] = useState<string>();
   let storageRef: firebase.storage.Reference;
@@ -176,6 +174,10 @@ dbRef.child(`campgrounds/${params.camp}/comments/${commentId}`).remove()
   useEffect(() => {
     console.log();
   }, []);
+
+  useEffect(() => {
+    getCamp();
+  }, [allComments]);
   // --------------------------
   return (
     <>
