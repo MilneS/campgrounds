@@ -53,6 +53,7 @@
 .reviewCard {
   padding: 15px;
   font-size: 18px;
+  margin-bottom: 10px;
 }
 .cardMid {
   display: none;
@@ -65,7 +66,11 @@
 }
 .commentMsg{
   color:green;
+  font-size: 20px;
   margin-bottom: 30px
+}
+.NoCommentsMsg{color:gray;
+  font-size: 20px;
 }
 
 @media not all and (min-resolution: 0.001dpcm) {

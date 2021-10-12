@@ -13,7 +13,6 @@ const initialState: State = {
   isLoggedin: !!localStorage.getItem("token"),
   logginFromCamps: false,
   allCamps: {},
-  allComments: {},
 };
 
 const reducerFunc = (state = initialState, action: Action) => {
@@ -44,8 +43,6 @@ const reducerFunc = (state = initialState, action: Action) => {
       return { ...state, logginFromCamps: false };
     case "setAllCamps":
       return { ...state, allCamps: action.payload };
-    case "setAllComments":      
-      return { ...state, allComments: action.payload };
     case "removeCamp":
       const newCampsState = state.allCamps;
       delete newCampsState[action.payload];

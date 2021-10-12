@@ -7,9 +7,11 @@ export interface State {
   isLoggedin: boolean;
   logginFromCamps:boolean;
   allCamps:CampCollection;
-  allComments: CommentCollection;
   idToken:string;
   userId:string;
+}
+export interface CampCollection {
+  [key:string]:Camp
 }
 export interface Camp {
   author: string;
@@ -17,15 +19,13 @@ export interface Camp {
   location: string;
   price: string;
   title: string;
+  comments: CommentCollection;
 }
-export interface CampCollection {
-  [key:string]:Camp
+export interface CommentCollection {
+  [key:string]:Comment
 }
 export interface Comment{
   author: string;
   comment: string;
   campId: string;
-}
-export interface CommentCollection {
-  [key:string]:Comment
 }

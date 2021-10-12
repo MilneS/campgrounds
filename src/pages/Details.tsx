@@ -7,12 +7,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useParams } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  Camp,
-  CampCollection,
-  CommentCollection,
-  State,
-} from "../store/state.model";
+import { Camp, CampCollection, State } from "../store/state.model";
 import { app } from "../firebase/firebase";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
@@ -29,9 +24,7 @@ const Details = () => {
   const params: paramsType = useParams();
 
   const allData: CampCollection = useSelector((state: State) => state.allCamps);
-  const allComments: CommentCollection = useSelector(
-    (state: State) => state.allComments
-  );
+
   const showEditComp: boolean = useSelector((state: State) => state.showEdit);
 
   const defaultData = {
@@ -40,6 +33,7 @@ const Details = () => {
     location: "",
     price: "",
     title: "",
+    comments: {},
   };
   const [currentCamp, setCurrentCamp] = useState<Camp>(defaultData);
   const [currentCampId, setCurrentCampId] = useState<string>("");
@@ -72,6 +66,20 @@ const Details = () => {
     getCamp();
     getCampImage();
   }, []);
+
+  const [allComments, setAllComments] = useState<any>([]);
+  useEffect(() => {
+    let allComm: any = [];
+    const comm: any = currentCamp.comments;
+    for (const key in comm) {
+      allComm.push(comm[key]);
+      setAllComments(allComm);
+      // console.log(comm[key]);
+    }
+  }, [currentCamp.comments]);
+  useEffect(() => {
+    console.log(allComments);
+  }, [allComments]);
 
   const [itemImage, setItemImage] = useState<string>();
   let storageRef: firebase.storage.Reference;
@@ -121,7 +129,9 @@ const Details = () => {
   const [inputData, setInputData] = useState<initialDataType>(initialData);
 
   const newCommentHandler = async () => {
-    const newCommentApi: string = `${process.env.REACT_APP_API_COMMENTS}${currentCampId}/comments.json` || "";
+    const newCommentApi: string =
+      `${process.env.REACT_APP_API_COMMENTS}${currentCampId}/comments.json` ||
+      "";
     const response: Response = await fetch(newCommentApi, {
       method: "POST",
       body: JSON.stringify({
@@ -145,8 +155,8 @@ const Details = () => {
   const getFormDataHandler = async (e: React.MouseEvent) => {
     e.preventDefault();
     setButtonDisabled(true);
-    await newCommentHandler();      
-    setCommentSubmitted(true)
+    await newCommentHandler();
+    setCommentSubmitted(true);
     const form = e.target as HTMLTextAreaElement;
     if (form.checkValidity() === false) {
       e.stopPropagation();
@@ -156,7 +166,6 @@ const Details = () => {
 
   //   useEffect(() => {
   // }, []);
-
 
   // -------------FILTER COMMENTS----------------
 
@@ -324,17 +333,23 @@ const Details = () => {
                   </Form>
                 </div>
               )}
-              <Card className={classes.reviewCard}>
-                <Card.Title>Author</Card.Title>
-                <Card.Text>Review: Text</Card.Text>
-                {authorEmail === currentCamp.author && (
-                  <div className={classes.reviewButton}>
-                    <Button variant="danger" type="button" className="mb-1">
-                      Delete
-                    </Button>
-                  </div>
-                )}
-              </Card>
+              {allComments.length<=0 && <div className={classes.NoCommentsMsg}>No comments available.</div>}
+              {allComments.length>0 && (
+                allComments.map((item:any, index:any)=>{
+                  return(
+                <Card key={index} className={classes.reviewCard}>
+                  <Card.Title>{item.author}</Card.Title>
+                  <Card.Text>Review: {item.comment}</Card.Text>
+                  {authorEmail === item.author && (
+                    <div className={classes.reviewButton}>
+                      <Button variant="danger" type="button" className="mb-1">
+                        Delete
+                      </Button>
+                    </div>
+                  )}
+                </Card>)})
+              )}
+
               <div className={classes.warning}>
                 ⚠ Comments under construction ⚠
               </div>
