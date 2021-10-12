@@ -107,24 +107,24 @@ const Details = () => {
   // -------------POST COMMENT TO FIREBASE----------------
   const author: string | null = localStorage.getItem("userEmail");
   const authorData = useSelector((state: State) => state.loginFormData);
-
+  const getInputDataHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputData({ ...inputData, [e.target.id]: e.target.value });
+  };
   const initialData = {
-    campId: "",
     comment: "",
     author: author ? author : authorData.email,
   };
   interface initialDataType {
-    campId: string;
     comment: string;
     author: string;
   }
   const [inputData, setInputData] = useState<initialDataType>(initialData);
+
   const newCommentHandler = async () => {
-    const newCommentApi: string = process.env.REACT_APP_API_COMMENTS || "";
+    const newCommentApi: string = `${process.env.REACT_APP_API_COMMENTS}${currentCampId}/comments.json` || "";
     const response: Response = await fetch(newCommentApi, {
       method: "POST",
       body: JSON.stringify({
-        campId: currentCampId,
         author: author ? author : authorData.email,
         comment: inputData.comment,
       }),
@@ -137,9 +137,6 @@ const Details = () => {
       console.log(errorMessage);
     }
   };
-  const getInputDataHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputData({ ...inputData, [e.target.id]: e.target.value });
-  };
 
   const [validated, setValidated] = useState<boolean>(false);
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(false);
@@ -147,45 +144,44 @@ const Details = () => {
 
   const getFormDataHandler = async (e: React.MouseEvent) => {
     e.preventDefault();
-    setButtonDisabled(true);
+    // setButtonDisabled(true);
     await newCommentHandler();
-    setCommentSubmitted(true);
-    await getComments();
-    setButtonDisabled(false);
+
     const form = e.target as HTMLTextAreaElement;
     if (form.checkValidity() === false) {
       e.stopPropagation();
     }
     setValidated(true);
   };
-  // -------------GET COMMENTS FROM FIREBASE----------------
-  const [allComm, setAllComm] = useState<any>();
-  const getComments = async () => {
-    const allCommentsApi: string = process.env.REACT_APP_API_COMMENTS || "";
-    const response: Response = await fetch(allCommentsApi, {
-      method: "GET",
-    });
-    if (response.ok) {
-      const data = await response.json();
-      console.log(data);
-      setAllComm(data);
-      return data;
-    } else {
-      let errorMessage: string = "Getting all comments failed!";
-      console.log(errorMessage);
-    }
-  };
-  useEffect(() => {
-    getComments();
+    useEffect(() => {
+      
   }, []);
+  // -------------GET COMMENTS FROM FIREBASE----------------
+  // const [allComm, setAllComm] = useState<any>();
+  // const getComments = async () => {
+  //   const allCommentsApi: string = process.env.REACT_APP_API_COMMENTS || "";
+  //   const response: Response = await fetch(allCommentsApi, {
+  //     method: "GET",
+  //   });
+  //   if (response.ok) {
+  //     const data = await response.json();
+  //     console.log(data);
+  //     setAllComm(data);
+  //     return data;
+  //   } else {
+  //     let errorMessage: string = "Getting all comments failed!";
+  //     console.log(errorMessage);
+  //   }
+  // };
+  // useEffect(() => {
+  //   getComments();
+  // }, []);
 
-  useEffect(() => {
-    console.log(allComm);
-  }, [allComments]);
+  // useEffect(() => {
+  //   console.log(allComm);
+  // }, [allComments]);
 
   // -------------FILTER COMMENTS----------------
-
-  
 
   // --------------------------
   return (
