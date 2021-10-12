@@ -72,11 +72,12 @@ const Details = () => {
     let allComm: any = [];
     const comm: any = currentCamp.comments;
     for (const key in comm) {
-      allComm.push(comm[key]);
+      const newComm = { ...comm[key], id: key };
+      allComm.push(newComm);
       setAllComments(allComm);
-      // console.log(comm[key]);
     }
   }, [currentCamp.comments]);
+
   useEffect(() => {
     console.log(allComments);
   }, [allComments]);
@@ -164,11 +165,17 @@ const Details = () => {
     setValidated(true);
   };
 
-  //   useEffect(() => {
-  // }, []);
+  // -------------DELETE COMMENTS----------------
+  // const [commentId, setCommentId] = useState<any>();
 
-  // -------------FILTER COMMENTS----------------
-
+  const deleteCommentHandler = (e: React.MouseEvent) => {
+    let dbRef: firebase.database.Reference = app.database().ref();
+        const commentId:any=e.currentTarget.id;
+dbRef.child(`campgrounds/${params.camp}/comments/${commentId}`).remove()
+  };
+  useEffect(() => {
+    console.log();
+  }, []);
   // --------------------------
   return (
     <>
@@ -333,22 +340,37 @@ const Details = () => {
                   </Form>
                 </div>
               )}
-              {allComments.length<=0 && <div className={classes.NoCommentsMsg}>No comments available.</div>}
-              {allComments.length>0 && (
-                allComments.map((item:any, index:any)=>{
-                  return(
-                <Card key={index} className={classes.reviewCard}>
-                  <Card.Title>{item.author}</Card.Title>
-                  <Card.Text>Review: {item.comment}</Card.Text>
-                  {authorEmail === item.author && (
-                    <div className={classes.reviewButton}>
-                      <Button variant="danger" type="button" className="mb-1">
-                        Delete
-                      </Button>
-                    </div>
-                  )}
-                </Card>)})
+              {allComments.length <= 0 && (
+                <div className={classes.NoCommentsMsg}>
+                  No comments available.
+                </div>
               )}
+              {allComments.length > 0 &&
+                allComments.map((item: any, index: any) => {
+                  return (
+                    <Card
+                      key={index}
+                      className={classes.reviewCard}
+                      
+                    >
+                      <Card.Title>{item.author}</Card.Title>
+                      <Card.Text>Review: {item.comment}</Card.Text>
+                      {authorEmail === item.author && (
+                        <div className={classes.reviewButton}>
+                          <Button
+                            variant="danger"
+                            type="button"
+                            className="mb-1"
+                            onClick={deleteCommentHandler}
+                            id={item.id}
+                          >
+                            Delete
+                          </Button>
+                        </div>
+                      )}
+                    </Card>
+                  );
+                })}
 
               <div className={classes.warning}>
                 ⚠ Comments under construction ⚠
