@@ -7,7 +7,12 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useParams } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
-import { Camp, CampCollection, State } from "../store/state.model";
+import {
+  Camp,
+  CampCollection,
+  CommentCollection,
+  State,
+} from "../store/state.model";
 import { app } from "../firebase/firebase";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
@@ -23,16 +28,20 @@ const Details = () => {
   const params: paramsType = useParams();
 
   const allData: CampCollection = useSelector((state: State) => state.allCamps);
+  const allComments: CommentCollection = useSelector(
+    (state: State) => state.allComments
+  );
   const showEditComp: boolean = useSelector((state: State) => state.showEdit);
 
-  const defaultData={  author: '',
-  description:'',
-  location: '',
-  price: '',
-  title: '',
-}
+  const defaultData = {
+    author: "",
+    description: "",
+    location: "",
+    price: "",
+    title: "",
+  };
   const [currentCamp, setCurrentCamp] = useState<Camp>(defaultData);
-  const [currentCampId, setCurrentCampId] = useState<string>('');
+  const [currentCampId, setCurrentCampId] = useState<string>("");
 
   const getCamp = async () => {
     const allCampsApi: string = process.env.REACT_APP_API_CAMPS || "";
@@ -94,7 +103,7 @@ const Details = () => {
     dispatch({ type: "editComp" });
   };
 
-  // -----------------------------
+  // -------------POST COMMENT TO FIREBASE----------------
   const author: string | null = localStorage.getItem("userEmail");
   const authorData = useSelector((state: State) => state.loginFormData);
 
@@ -104,7 +113,7 @@ const Details = () => {
     author: author ? author : authorData.email,
   };
   interface initialDataType {
-    campId:string;
+    campId: string;
     comment: string;
     author: string;
   }
@@ -116,14 +125,12 @@ const Details = () => {
       body: JSON.stringify({
         campId: currentCampId,
         author: author ? author : authorData.email,
-        comment:inputData.comment,
+        comment: inputData.comment,
       }),
     });
     if (response.ok) {
       const data = await response.json();
-      const dataName: string = data.name;
-
-      return dataName;
+      return data;
     } else {
       let errorMessage: string = "Adding new camp failed!";
       console.log(errorMessage);
@@ -132,10 +139,48 @@ const Details = () => {
   const getInputDataHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputData({ ...inputData, [e.target.id]: e.target.value });
   };
-  const getFormDataHandler = (e: React.MouseEvent) => {
-    e.preventDefault()
-    newCommentHandler()
-  }
+
+  const [validated, setValidated] = useState<boolean>(false);
+  const [buttonDisabled, setButtonDisabled] = useState<boolean>(false);
+  const [commentSubmitted, setCommentSubmitted] = useState<boolean>(false);
+
+  const getFormDataHandler = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    setButtonDisabled(true);
+    await newCommentHandler();
+    setCommentSubmitted(true);
+    await getComments();
+    setButtonDisabled(false);
+    const form = e.target as HTMLTextAreaElement;
+    if (form.checkValidity() === false) {
+      e.stopPropagation();
+    }
+    setValidated(true);
+  };
+  // -------------GET COMMENTS FROM FIREBASE----------------
+  const [allComm, setAllComm] = useState();
+  const getComments = async () => {
+    const allCommentsApi: string = process.env.REACT_APP_API_COMMENTS || "";
+    const response: Response = await fetch(allCommentsApi, {
+      method: "GET",
+    });
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data);
+      setAllComm(data);
+      return data;
+    } else {
+      let errorMessage: string = "Getting all comments failed!";
+      console.log(errorMessage);
+    }
+  };
+  useEffect(() => {
+    getComments();
+  }, []);
+
+  useEffect(() => {
+    console.log(allComm);
+  }, [allComments]);
 
   // --------------------------
   return (
@@ -263,21 +308,37 @@ const Details = () => {
             </div>
             <div className={classes.reviewContainer}>
               <h1 className={classes.titleReview}>Leave a review</h1>
-              <p className={classes.textareaTitle}>Review text</p>
-              <Form className={classes.reviewForm}>
-                <Form.Group className="mb-3">
-                  <Form.Control as="textarea" rows={3} id='comment' onChange={getInputDataHandler}/>
-                </Form.Group>
-                <Button
-                  variant="success"
-                  size="lg"
-                  type="button"
-                  className="mb-5"
-                  onClick={getFormDataHandler}
-                >
-                  Submit 
-                </Button>
-              </Form>
+              {commentSubmitted && <div className={classes.commentMsg}>Your comment has been submitted.</div>}
+              {!commentSubmitted && (
+                <div>
+                  <p className={classes.textareaTitle}>Review text</p>
+
+                  <Form
+                    className={classes.reviewForm}
+                    noValidate
+                    validated={validated}
+                  >
+                    <Form.Group className="mb-3">
+                      <Form.Control
+                        as="textarea"
+                        rows={3}
+                        id="comment"
+                        onChange={getInputDataHandler}
+                      />
+                    </Form.Group>
+                    <Button
+                      variant="success"
+                      size="lg"
+                      type="button"
+                      className="mb-5"
+                      onClick={getFormDataHandler}
+                      disabled={buttonDisabled}
+                    >
+                      Submit
+                    </Button>
+                  </Form>
+                </div>
+              )}
               <Card className={classes.reviewCard}>
                 <Card.Title>Author</Card.Title>
                 <Card.Text>Review: Text</Card.Text>
