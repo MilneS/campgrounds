@@ -6,27 +6,37 @@ import ListGroupItem from "react-bootstrap/ListGroupItem";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useParams } from "react-router";
+import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
 import { Camp, CampCollection, State } from "../store/state.model";
 import { app } from "../firebase/firebase";
-import { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
 
 const Details = () => {
+  // -------------------------------------------------------------------- LOCAL STORAGE
+  const author: string | null = localStorage.getItem("userEmail");
+  const authorEmail: string | null = localStorage.getItem("userEmail");
+  // -------------------------------------------------------------------- ROUTER
   const history = useHistory();
   const dispatch = useDispatch();
-  const authorEmail: string | null = localStorage.getItem("userEmail");
-  const isLoggedin = useSelector((state: State) => state.isLoggedin);
-
   interface paramsType {
     camp: string;
   }
   const params: paramsType = useParams();
-
+  // -------------------------------------------------------------------- REDUX
+  const authorData = useSelector((state: State) => state.loginFormData);
   const allData: CampCollection = useSelector((state: State) => state.allCamps);
-
   const showEditComp: boolean = useSelector((state: State) => state.showEdit);
-
+  const isLoggedin = useSelector((state: State) => state.isLoggedin);
+  // -------------------------------------------------------------------- STATE
+  interface initialDataType {
+    comment: string;
+    author: string;
+  }
+  const initialData = {
+    comment: "",
+    author: author ? author : authorData.email,
+  };
   const defaultData = {
     author: "",
     description: "",
@@ -35,9 +45,18 @@ const Details = () => {
     title: "",
     comments: {},
   };
-  const [currentCamp, setCurrentCamp] = useState<Camp>(defaultData);
+  const [validated, setValidated] = useState<boolean>(false);
+  const [inputValue, setInputValue] = useState<string>("");
+  const [commButtonDisabled, setCommButtonDisabled] = useState<boolean>(false);
   const [currentCampId, setCurrentCampId] = useState<string>("");
+  const [allComments, setAllComments] = useState<any>([]);
+  const [itemImage, setItemImage] = useState<string>();
+  const [inputData, setInputData] = useState<initialDataType>(initialData);
+  const [currentCamp, setCurrentCamp] = useState<Camp>(defaultData);
 
+  // ------------------------------------------------------------------------------------------ FUNCS -----------------------------------------
+
+  // ----------------- FETCH: GET CAMP -----------------
   const getCamp = async () => {
     const allCampsApi: string = process.env.REACT_APP_API_CAMPS || "";
     const response: Response = await fetch(allCampsApi, {
@@ -52,6 +71,7 @@ const Details = () => {
     }
   };
 
+  // ----------------- CURR CAMP DATA + ID -----------------
   useEffect(() => {
     if (Object.keys(allData).length) {
       const campId = Object.keys(allData).find((item) => item === params.camp);
@@ -62,29 +82,10 @@ const Details = () => {
     }
   }, [allData]);
 
-  useEffect(() => {
-    getCamp();
-    getCampImage();
-  }, []);
-
-
-  const [allComments, setAllComments] = useState<any>([]);
-  useEffect(() => {
-    let allComm: any = [];
-    const comm: any = currentCamp.comments;
-    for (const key in comm) {
-      const newComm = { ...comm[key], id: key };
-      allComm.push(newComm);
-      setAllComments(allComm);
-    }
-  }, [currentCamp.comments]);
-
-
-  const [itemImage, setItemImage] = useState<string>();
-  let storageRef: firebase.storage.Reference;
-  let fileRef: firebase.storage.Reference;
-
+  // ----------------- FETCH: GET IMAGE -----------------
   const getCampImage = () => {
+    let storageRef: firebase.storage.Reference;
+    let fileRef: firebase.storage.Reference;
     storageRef = app.storage().ref();
     fileRef = storageRef.child(`images/${params.camp}`);
     fileRef.getDownloadURL().then(function (url: string) {
@@ -92,8 +93,16 @@ const Details = () => {
     });
   };
 
+  // ----------------- FIRE FETCH: GET CAMP + IMAGE -----------------
+  useEffect(() => {
+    getCamp();
+    getCampImage();
+  }, []);
+
+  // ----------------- FETCH: DELETE CAMP + IMAGE -----------------
   const deleteHandler = (e: React.MouseEvent) => {
     let dbRef: firebase.database.Reference = app.database().ref();
+    let storageRef: firebase.storage.Reference;
     storageRef = app.storage().ref();
     dbRef.child(`campgrounds/${params.camp}`).remove();
     storageRef
@@ -104,58 +113,68 @@ const Details = () => {
         history.replace("/campgrounds/camps");
       })
       .catch((error: Error) => {
-        console.log(error);
+        console.log("error");
       });
   };
+
+  // ----------------- SHOW EDIT COMP -----------------
   const editHandler = (e: React.MouseEvent) => {
     dispatch({ type: "editComp" });
   };
 
-  // -------------POST COMMENT TO FIREBASE----------------
-  const author: string | null = localStorage.getItem("userEmail");
-  const authorData = useSelector((state: State) => state.loginFormData);
+  // ---------------------------------------------------------------------------------- COMMENTS -----------------
+
+  // ------------- ON CHANGE: GET INPUT VALUE ----------------
   const getInputDataHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputData({ ...inputData, [e.target.id]: e.target.value });
+    setInputValue(e.target.value);
   };
-  const initialData = {
-    comment: "",
-    author: author ? author : authorData.email,
-  };
-  interface initialDataType {
-    comment: string;
-    author: string;
-  }
-  const [inputData, setInputData] = useState<initialDataType>(initialData);
 
+  // ----------------- PUSH COMMENTS TO ARRAY -----------------
+  useEffect(() => {
+    let allComm: any = [];
+    const comm: any = currentCamp.comments;
+    for (const key in comm) {
+      const newComm = { ...comm[key], id: key };
+      allComm.push(newComm);
+    }
+    setAllComments(allComm);
+  }, [currentCamp]);
+
+  // ----------------- FETCH: POST COMMENT -----------------
   const newCommentHandler = async () => {
     const newCommentApi: string =
       `${process.env.REACT_APP_API_COMMENTS}${currentCampId}/comments.json` ||
       "";
-    const response: Response = await fetch(newCommentApi, {
-      method: "POST",
-      body: JSON.stringify({
-        author: author ? author : authorData.email,
-        comment: inputData.comment,
-      }),
-    });
-    if (response.ok) {
-      const data = await response.json();
-      return data;
-    } else {
-      let errorMessage: string = "Adding new camp failed!";
-      console.log(errorMessage);
+
+    if (inputData.comment.trim().length) {
+      const response: Response = await fetch(newCommentApi, {
+        method: "POST",
+        body: JSON.stringify({
+          author: author ? author : authorData.email,
+          comment: inputData.comment,
+        }),
+      });
+      if (response.ok) {
+        const data = await response.json();
+        getCamp();
+        return data;
+      } else {
+        let errorMessage: string = "Adding new camp failed!";
+        console.log(errorMessage);
+      }
     }
   };
 
-  const [validated, setValidated] = useState<boolean>(false);
-  const [buttonDisabled, setButtonDisabled] = useState<boolean>(false);
-  const [commentSubmitted, setCommentSubmitted] = useState<boolean>(false);
-
-  const getFormDataHandler = async (e: React.MouseEvent) => {
+  // ----------------- ON SUBMIT: FIRE POST COMMENT + CLEAR INPUT -----------------
+  const sendFormDataHandler = async (e: React.MouseEvent) => {
     e.preventDefault();
-    setButtonDisabled(true);
+    setCommButtonDisabled(true);
+    setInputValue("");
+
     await newCommentHandler();
-    setCommentSubmitted(true);
+    setInputData(initialData);
+    setCommButtonDisabled(false);
     const form = e.target as HTMLTextAreaElement;
     if (form.checkValidity() === false) {
       e.stopPropagation();
@@ -163,22 +182,17 @@ const Details = () => {
     setValidated(true);
   };
 
-  // -------------DELETE COMMENTS----------------
-  // const [commentId, setCommentId] = useState<any>();
-
-  const deleteCommentHandler = (e: React.MouseEvent) => {
+  // ----------------- ON CLICK: DELETE COMMENT -----------------
+  const deleteCommentHandler = async (e: React.MouseEvent) => {
     let dbRef: firebase.database.Reference = app.database().ref();
-        const commentId:any=e.currentTarget.id;
-dbRef.child(`campgrounds/${params.camp}/comments/${commentId}`).remove()
-  };
-  useEffect(() => {
-    console.log();
-  }, []);
-
-  useEffect(() => {
+    const commentId: any = e.currentTarget.id;
+    await dbRef
+      .child(`campgrounds/${params.camp}/comments/${commentId}`)
+      .remove();
     getCamp();
-  }, [allComments]);
-  // --------------------------
+  };
+
+  // ------------------------------------------------------------- JSX -------------------------------------------------------------
   return (
     <>
       <div>
@@ -229,6 +243,7 @@ dbRef.child(`campgrounds/${params.camp}/comments/${commentId}`).remove()
                   </div>
                 </div>
               )}
+              {/* ----------------------------------------------------------LG CARD */}
               <div className={classes.cardBig}>
                 <Card style={{ width: "40rem" }}>
                   <Card.Img variant="top" src={itemImage} />
@@ -253,6 +268,8 @@ dbRef.child(`campgrounds/${params.camp}/comments/${commentId}`).remove()
                   </ListGroup>
                 </Card>
               </div>
+              {/* ----------------------------------------------------------MID CARD */}
+
               <div className={classes.cardMid}>
                 <Card style={{ width: "30rem" }}>
                   <Card.Img variant="top" src={itemImage} />
@@ -277,6 +294,8 @@ dbRef.child(`campgrounds/${params.camp}/comments/${commentId}`).remove()
                   </ListGroup>
                 </Card>
               </div>
+              {/* ----------------------------------------------------------SM CARD */}
+
               <div className={classes.cardSmall}>
                 <Card style={{ width: "18rem" }}>
                   <Card.Img variant="top" src={itemImage} />
@@ -302,16 +321,12 @@ dbRef.child(`campgrounds/${params.camp}/comments/${commentId}`).remove()
                 </Card>
               </div>
             </div>
+            {/* -------------------------------------------------------------------------REVIEW */}
+
             <div className={classes.reviewContainer}>
               <h1 className={classes.titleReview}>Leave a review</h1>
 
-              {commentSubmitted && isLoggedin && (
-                <div className={classes.commentMsg}>
-                  Your comment has been submitted.
-                </div>
-              )}
-
-              {!commentSubmitted && isLoggedin && (
+              {isLoggedin && (
                 <div>
                   <p className={classes.textareaTitle}>Review text</p>
 
@@ -326,6 +341,7 @@ dbRef.child(`campgrounds/${params.camp}/comments/${commentId}`).remove()
                         rows={3}
                         id="comment"
                         onChange={getInputDataHandler}
+                        value={inputValue}
                         required
                       />
                     </Form.Group>
@@ -334,8 +350,8 @@ dbRef.child(`campgrounds/${params.camp}/comments/${commentId}`).remove()
                       size="lg"
                       type="button"
                       className="mb-5"
-                      onClick={getFormDataHandler}
-                      disabled={buttonDisabled}
+                      onClick={sendFormDataHandler}
+                      disabled={commButtonDisabled}
                     >
                       Submit
                     </Button>
@@ -350,11 +366,7 @@ dbRef.child(`campgrounds/${params.camp}/comments/${commentId}`).remove()
               {allComments.length > 0 &&
                 allComments.map((item: any, index: any) => {
                   return (
-                    <Card
-                      key={index}
-                      className={classes.reviewCard}
-                      
-                    >
+                    <Card key={index} className={classes.reviewCard}>
                       <Card.Title>{item.author}</Card.Title>
                       <Card.Text>Review: {item.comment}</Card.Text>
                       {authorEmail === item.author && (
@@ -373,10 +385,9 @@ dbRef.child(`campgrounds/${params.camp}/comments/${commentId}`).remove()
                     </Card>
                   );
                 })}
-
-              <div className={classes.warning}>
-                ⚠ Comments under construction ⚠
-              </div>
+            </div>
+            <div className={classes.warning}>
+              ⚠ Comments under construction ⚠
             </div>
           </div>
         )}

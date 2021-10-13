@@ -71,7 +71,6 @@ const NewCamp = () => {
   const getFormDataHandler = (e: React.MouseEvent) => {
     e.preventDefault();
     setButtonDisabled(true);
-
     newCampDataHandler().then((dataKey: string | undefined) => {
       if (imageAsFile && imageAsFile.name) {
         let storageRef: firebase.storage.Reference = app.storage().ref();

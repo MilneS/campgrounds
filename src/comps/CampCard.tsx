@@ -5,7 +5,6 @@ import { useState, useEffect } from "react";
 import { app } from "../firebase/firebase";
 
 
-
 interface propsTypes {
   dataKey: string,
   item: {
@@ -16,7 +15,6 @@ interface propsTypes {
     title: string,
   };
 }
-
 const CampCard = (props: propsTypes) => {
   const [itemImage, setItemImage] = useState<string>();
   const item = props.item;

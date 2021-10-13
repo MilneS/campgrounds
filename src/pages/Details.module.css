@@ -31,12 +31,7 @@
   width: 500px;
   position: relative;
 }
-.warning {
-  margin-top: 40px;
-  font-size: 25px;
-  width: 100%;
-  color: rgba(255, 0, 0, 0.795);
-}
+
 .titleReview {
   font-size: 40px;
   margin-bottom: 50px;
@@ -64,13 +59,17 @@
 .cardBig > * {
   width: 550px !important;
 }
-.commentMsg{
-  color:green;
+.commentMsg {
+  color: green;
   font-size: 20px;
-  margin-bottom: 30px
+  margin-bottom: 30px;
 }
-.NoCommentsMsg{color:gray;
+.NoCommentsMsg {
+  color: gray;
   font-size: 20px;
+}
+.warning {
+  display: none;
 }
 
 @media not all and (min-resolution: 0.001dpcm) {
@@ -97,8 +96,18 @@
 
 /* ------------------------ */
 @media only screen and (max-width: 1024px) {
-  .reviewContainer {
-    display: none;
+  .titleReview {
+    font-size: 30px;
+    margin-bottom: 30px;
+  }
+  .textareaTitle {
+    font-size: 18px;
+    font-weight: 500;
+  }
+  .reviewCard {
+    padding: 15px;
+    font-size: 15px;
+    margin-bottom: 10px;
   }
 }
 @media only screen and (max-width: 768px) {
@@ -118,6 +127,7 @@
   .container {
     margin: 100px 100px;
     margin-bottom: 0px;
+    flex-direction: column;
   }
   .cardMid {
     display: block;
