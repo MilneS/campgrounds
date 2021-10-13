@@ -209,11 +209,11 @@ const Details = () => {
             <div>
               {authorEmail === currentCamp.author && (
                 <div>
-                  <div className={classes.cardButtonsBig}>
+                  <div className={classes.cardButtons}>
                     <Button
                       variant="primary"
                       type="button"
-                      className="mb-2"
+                      className={classes.reviewBtn}
                       size="lg"
                       onClick={editHandler}
                     >
@@ -222,28 +222,8 @@ const Details = () => {
                     <Button
                       variant="danger"
                       type="button"
-                      className="mb-2"
+                      className={classes.reviewBtn}
                       size="lg"
-                      onClick={deleteHandler}
-                    >
-                      Delete
-                    </Button>
-                  </div>
-                  <div className={classes.cardButtonsSmall}>
-                    <Button
-                      variant="primary"
-                      type="button"
-                      className="mb-2"
-                      size="sm"
-                      onClick={editHandler}
-                    >
-                      Update
-                    </Button>
-                    <Button
-                      variant="danger"
-                      type="button"
-                      className="mb-2"
-                      size="sm"
                       onClick={deleteHandler}
                     >
                       Delete
@@ -251,61 +231,9 @@ const Details = () => {
                   </div>
                 </div>
               )}
-              {/* ----------------------------------------------------------LG CARD */}
-              <div className={classes.cardBig}>
+              {/* ---------------------------------------------------------- CARD */}
+              <div className={classes.card}>
                 <Card style={{ width: "40rem" }}>
-                  <Card.Img variant="top" src={itemImage} />
-                  <Card.Body>
-                    <Card.Title className={classes.title}>
-                      {currentCamp.title}
-                    </Card.Title>
-                    <Card.Text className={classes.DescrAuthPrice}>
-                      {currentCamp.description}
-                    </Card.Text>
-                  </Card.Body>
-                  <ListGroup className="list-group-flush">
-                    <ListGroupItem className={classes.location}>
-                      {currentCamp.location}
-                    </ListGroupItem>
-                    <ListGroupItem className={classes.DescrAuthPrice}>
-                      Submitted by {currentCamp.author}
-                    </ListGroupItem>
-                    <ListGroupItem className={classes.DescrAuthPrice}>
-                      Price/night: ${currentCamp.price}
-                    </ListGroupItem>
-                  </ListGroup>
-                </Card>
-              </div>
-              {/* ----------------------------------------------------------MID CARD */}
-
-              <div className={classes.cardMid}>
-                <Card style={{ width: "30rem" }}>
-                  <Card.Img variant="top" src={itemImage} />
-                  <Card.Body>
-                    <Card.Title className={classes.title}>
-                      {currentCamp.title}
-                    </Card.Title>
-                    <Card.Text className={classes.DescrAuthPrice}>
-                      {currentCamp.description}
-                    </Card.Text>
-                  </Card.Body>
-                  <ListGroup className="list-group-flush">
-                    <ListGroupItem className={classes.location}>
-                      {currentCamp.location}
-                    </ListGroupItem>
-                    <ListGroupItem className={classes.DescrAuthPrice}>
-                      Submitted by {currentCamp.author}
-                    </ListGroupItem>
-                    <ListGroupItem className={classes.DescrAuthPrice}>
-                      Price/night: ${currentCamp.price}
-                    </ListGroupItem>
-                  </ListGroup>
-                </Card>
-              </div>
-              {/* ----------------------------------------------------------SM CARD */}
-
-              <div className={classes.cardSmall}>
-                <Card style={{ width: "18rem" }}>
                   <Card.Img variant="top" src={itemImage} />
                   <Card.Body>
                     <Card.Title className={classes.title}>
@@ -337,7 +265,6 @@ const Details = () => {
               {isLoggedin && (
                 <div>
                   <p className={classes.textareaTitle}>Review text</p>
-
                   <Form
                     className={classes.reviewForm}
                     noValidate
@@ -357,7 +284,7 @@ const Details = () => {
                       variant="success"
                       size="lg"
                       type="button"
-                      className="mb-5"
+                      className={classes.submitReviewBtn}
                       onClick={sendFormDataHandler}
                       disabled={commButtonDisabled}
                     >
@@ -371,31 +298,30 @@ const Details = () => {
                   No comments available.
                 </div>
               )}
-              {allComments.length > 0 &&
-                allComments.map((item: initialDataType, index: number) => {
-                  return (
-                    <Card key={index} className={classes.reviewCard}>
-                      <Card.Title>{item.author}</Card.Title>
-                      <Card.Text>Review: {item.comment}</Card.Text>
-                      {authorEmail === item.author && (
-                        <div className={classes.reviewButton}>
-                          <Button
-                            variant="danger"
-                            type="button"
-                            className="mb-1"
-                            onClick={deleteCommentHandler}
-                            id={item.id}
-                          >
-                            Delete
-                          </Button>
-                        </div>
-                      )}
-                    </Card>
-                  );
-                })}
-            </div>
-            <div className={classes.warning}>
-              ⚠ Comments under construction ⚠
+              <div className={classes.commCont}>
+                {allComments.length > 0 &&
+                  allComments.map((item: initialDataType, index: number) => {
+                    return (
+                      <Card key={index} className={classes.reviewCard}>
+                        <Card.Title className={classes.authorReview}>{item.author}</Card.Title>
+                        <Card.Text>{item.comment}</Card.Text>
+                        {authorEmail === item.author && (
+                          <div>
+                            <Button
+                              variant="danger"
+                              type="button"
+                              className={classes.deleteReviewButton}
+                              onClick={deleteCommentHandler}
+                              id={item.id}
+                            >
+                              Delete
+                            </Button>
+                          </div>
+                        )}
+                      </Card>
+                    );
+                  })}
+              </div>
             </div>
           </div>
         )}

@@ -5,13 +5,10 @@
   margin-bottom: 0px;
   flex-direction: row;
 }
-.cardButtonsBig > *,
-.cardButtonsSmall > * {
+.cardButtons > * {
   margin-right: 10px;
 }
-.cardButtonsSmall {
-  display: none;
-}
+
 .img {
   height: 300px;
   width: 350px;
@@ -31,7 +28,6 @@
   width: 500px;
   position: relative;
 }
-
 .titleReview {
   font-size: 40px;
   margin-bottom: 50px;
@@ -50,19 +46,11 @@
   font-size: 18px;
   margin-bottom: 10px;
 }
-.cardMid {
-  display: none;
-}
 .cardSmall {
   display: none;
 }
-.cardBig > * {
+.card > * {
   width: 550px !important;
-}
-.commentMsg {
-  color: green;
-  font-size: 20px;
-  margin-bottom: 30px;
 }
 .NoCommentsMsg {
   color: gray;
@@ -71,10 +59,21 @@
 .warning {
   display: none;
 }
+.reviewBtn {
+  margin-bottom: 5px;
+  font-size: 18px;
+}
+.submitReviewBtn {
+  margin-bottom: 50px;
+  font-size: 18px;
+}
+.deleteReviewButton {
+  font-size: 18px;
+}
 
 @media not all and (min-resolution: 0.001dpcm) {
   @supports (-webkit-appearance: none) {
-    .cardBig > * {
+    .card > * {
       width: 500px !important;
     }
     .warning {
@@ -105,53 +104,100 @@
     font-weight: 500;
   }
   .reviewCard {
-    padding: 15px;
     font-size: 15px;
-    margin-bottom: 10px;
+  }
+  .card > * {
+    width: 400px !important;
   }
 }
+.reviewContainer {
+  width: 320px;
+  position: relative;
+  /* border: 1px solid red; */
+}
 @media only screen and (max-width: 768px) {
-  .cardButtonsSmall {
-    display: block;
-  }
-  .cardButtonsBig {
-    display: none;
-  }
-  .reviewContainer,
-  .cardBig {
-    display: none;
-  }
-  .cardSmall {
-    display: none;
-  }
   .container {
-    margin: 100px 100px;
+    margin: 100px 50px;
     margin-bottom: 0px;
-    flex-direction: column;
   }
-  .cardMid {
-    display: block;
-    margin-bottom: 10px;
+  .card > * {
+    width: 350px !important;
   }
   .location,
   .DescrAuthPrice {
     font-size: 15px;
+  }
+  .reviewContainer {
+    margin-left: 30px;
+    width: 350px;
+    position: relative;
+    /* border: 1px solid red; */
+  }
+  .titleReview {
+    font-size: 25px;
+    margin-bottom: 30px;
+  }
+  .textareaTitle {
+    font-size: 18px;
+    font-weight: 500;
+  }
+  .reviewCard {
+    padding: 10px;
+    font-size: 14px;
+    max-width: 290px;
+  }
+  .reviewCard > * {
+    margin-bottom: 8px;
+  }
+
+  .reviewBtn,
+  .submitReviewBtn,
+  .deleteReviewButton {
+    font-size: 13px !important;
+    padding: 5px 7px !important;
+  }
+  .submitReviewBtn {
+    margin-bottom: 30px;
+  }
+  .authorReview {
+    font-size: 16px !important;
+    margin-bottom: 0px !important;
   }
 }
 /* ------------------------ */
 @media only screen and (max-width: 425px) {
-  .reviewContainer,
-  .cardMid {
-    display: none;
-  }
-  .cardButtonsSmall {
-    display: block;
-  }
-  .cardSmall {
-    display: block;
-  }
   .location,
   .DescrAuthPrice {
     font-size: 15px;
   }
+  .container {
+    margin: 100px auto;
+    margin-bottom: 0px;
+    flex-direction: column;
+  }
+  .card > * {
+    margin: auto;
+    width: 300px !important;
+  }
+  .cardButtons {
+    margin: auto;
+    width: 300px;
+  }
+  .submitReviewBtn {
+    margin-bottom: 20px;
+  }
+  .reviewContainer {
+    width: 300px;
+    margin:auto;
+    margin-top: 25px;
+  }
+  .titleReview {
+    font-size: 22px;
+    margin-bottom: 10px;
+  }
+  .textareaTitle {
+    font-size: 13px;
+    margin-bottom: 5px;
+  }
+
 }
