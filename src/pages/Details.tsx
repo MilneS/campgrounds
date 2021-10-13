@@ -9,7 +9,12 @@ import { useParams } from "react-router";
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { Camp, CampCollection, State } from "../store/state.model";
+import {
+  Camp,
+  CampCollection,
+  State,
+  CommentCollection,
+} from "../store/state.model";
 import { app } from "../firebase/firebase";
 
 const Details = () => {
@@ -32,10 +37,12 @@ const Details = () => {
   interface initialDataType {
     comment: string;
     author: string;
+    id: string;
   }
   const initialData = {
     comment: "",
     author: author ? author : authorData.email,
+    id: "",
   };
   const defaultData = {
     author: "",
@@ -49,7 +56,7 @@ const Details = () => {
   const [inputValue, setInputValue] = useState<string>("");
   const [commButtonDisabled, setCommButtonDisabled] = useState<boolean>(false);
   const [currentCampId, setCurrentCampId] = useState<string>("");
-  const [allComments, setAllComments] = useState<any>([]);
+  const [allComments, setAllComments] = useState<initialDataType[]>([]);
   const [itemImage, setItemImage] = useState<string>();
   const [inputData, setInputData] = useState<initialDataType>(initialData);
   const [currentCamp, setCurrentCamp] = useState<Camp>(defaultData);
@@ -132,8 +139,8 @@ const Details = () => {
 
   // ----------------- PUSH COMMENTS TO ARRAY -----------------
   useEffect(() => {
-    let allComm: any = [];
-    const comm: any = currentCamp.comments;
+    let allComm: initialDataType[] = [];
+    const comm: CommentCollection = currentCamp.comments;
     for (const key in comm) {
       const newComm = { ...comm[key], id: key };
       allComm.push(newComm);
@@ -185,7 +192,8 @@ const Details = () => {
   // ----------------- ON CLICK: DELETE COMMENT -----------------
   const deleteCommentHandler = async (e: React.MouseEvent) => {
     let dbRef: firebase.database.Reference = app.database().ref();
-    const commentId: any = e.currentTarget.id;
+    const commentId: string = e.currentTarget.id;
+
     await dbRef
       .child(`campgrounds/${params.camp}/comments/${commentId}`)
       .remove();
@@ -364,7 +372,7 @@ const Details = () => {
                 </div>
               )}
               {allComments.length > 0 &&
-                allComments.map((item: any, index: any) => {
+                allComments.map((item: initialDataType, index: number) => {
                   return (
                     <Card key={index} className={classes.reviewCard}>
                       <Card.Title>{item.author}</Card.Title>
