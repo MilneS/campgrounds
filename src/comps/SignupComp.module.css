@@ -14,17 +14,20 @@
 .errorMsg {
   color: red;
 }
-.smallCard {
-  display: none;
+.signupBtn {
+  font-size: 15px;
+  margin-bottom: 16px;
+  margin-top: 10px;
 }
-@media not all and (min-resolution:.001dpcm) { 
+
+@media not all and (min-resolution: 0.001dpcm) {
   @supports (-webkit-appearance: none) {
-    .signup{
+    .signup {
       font-size: 20px;
       margin-top: 10px;
       margin-bottom: 0px;
     }
-    .login  {
+    .login {
       color: rgb(0, 60, 255);
       font-size: 15px;
     }
@@ -32,11 +35,8 @@
 }
 /* ------------------------ */
 @media only screen and (max-width: 768px) {
-  .bigCard {
-    display: none;
-  }
-  .smallCard {
-    display: block;
+  .card {
+    width: 288px !important;
   }
   .signup {
     font-size: 20px;
@@ -47,7 +47,12 @@
     font-size: 13px;
     margin-bottom: 0px;
   }
-  .errorMsg{
+  .errorMsg {
     font-size: 13px;
+  }
+  .signupBtn {
+    font-size: 14px !important;
+    padding: 6px !important;
+    margin-top: 0px;
   }
 }

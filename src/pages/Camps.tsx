@@ -1,26 +1,22 @@
 import classes from "./Camps.module.css";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
 import CampCard from "../comps/CampCard";
 import Button from "react-bootstrap/Button";
-import { NavLink } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { CampCollection, State } from "../store/state.model";
-import { useEffect } from "react";
+import { CampCollection, State } from "../store/interface.model";
 
 const Camps = () => {
+  const [path, setPath] = useState<string>("/campgrounds/login");
   const dispatch = useDispatch();
   const isLoggedin: boolean = useSelector((state: State) => state.isLoggedin);
-  const allData:CampCollection = useSelector((state: State) => state.allCamps);
+  const allData: CampCollection = useSelector((state: State) => state.allCamps);
 
-  useEffect(() => {
-    getAllCamps();
-  }, []);
+  // --------------------------------------------------------------------------- FUNCS -------------------
 
-  const addHandler = () => {
-    dispatch({ type: "logginFromCampsBtn" });
-  };
-
+  // ----------------- FETCH CAMPS FROM DB -----------------
   const getAllCamps = async () => {
-    const allCampsApi: string = process.env.REACT_APP_API_CAMPS || '';
+    const allCampsApi: string = process.env.REACT_APP_API_CAMPS || "";
     const response: Response = await fetch(allCampsApi, {
       method: "GET",
     });
@@ -32,7 +28,12 @@ const Camps = () => {
       console.log(errorMessage);
     }
   };
+  // ----------------- FIRE GETALLCAMP() -----------------
+  useEffect(() => {
+    getAllCamps();
+  }, []);
 
+  // ----------------- ISOLATE CAMP KEY / DATA -----------------
   const allCampsData = () => {
     if (Object.keys(allData).length) {
       return Object.keys(allData).map((item, index) => {
@@ -41,64 +42,29 @@ const Camps = () => {
     }
   };
 
+  // ----------------- NAVLINK PATH -----------------
+  useEffect(() => {
+    isLoggedin
+      ? setPath("/campgrounds/newcamp")
+      : setPath("/campgrounds/login");
+  }, []);
+
+  // ------------------------------------------------------------- JSX -------------------------------------------------------------
   return (
     <div className={classes.container}>
       <div className={classes.titleContainer}>
         <h1 className={classes.h1}>All CampGrounds</h1>
-        <h2 className={classes.h2}>All CampGrounds</h2>
-        <div className={classes.button}>
-          {isLoggedin && (
-            <NavLink to="/campgrounds/newcamp">
-              <Button
-                variant="success"
-                size="lg"
-                type="button"
-                className="mb-3"
-              >
-                Add Campground
-              </Button>
-            </NavLink>
-          )}
-          {!isLoggedin && (
-            <NavLink to="/campgrounds/login">
-              <Button
-                variant="success"
-                size="lg"
-                type="button"
-                className="mb-3"
-                onClick={addHandler}
-              >
-                Add Campground
-              </Button>
-            </NavLink>
-          )}
-        </div>
-        <div className={classes.buttonSmall}>
-          {isLoggedin && (
-            <NavLink to="/campgrounds/newcamp">
-              <Button
-                variant="success"
-                size="sm"
-                type="button"
-                className="mb-3"
-              >
-                Add Campground
-              </Button>
-            </NavLink>
-          )}
-          {!isLoggedin && (
-            <NavLink to="/campgrounds/login">
-              <Button
-                variant="success"
-                size="sm"
-                type="button"
-                className="mb-3"
-                onClick={addHandler}
-              >
-                Add Campground
-              </Button>
-            </NavLink>
-          )}
+        <div>
+          <NavLink to={path}>
+            <Button
+              variant="success"
+              size="lg"
+              type="button"
+              className={classes.button}
+            >
+              Add Campground
+            </Button>
+          </NavLink>
         </div>
       </div>
       {allCampsData()}

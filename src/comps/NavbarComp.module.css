@@ -1,7 +1,7 @@
 .navbar {
   font-size: 20px;
 }
-.navbar>* {
+.navbar > * {
   margin-top: 0px;
   margin-bottom: 3px;
 }
@@ -12,14 +12,14 @@ a:active,
 a:hover {
   text-decoration: none;
   color: white;
-  outline: none
+  outline: none;
 }
 .campgroundsLogo {
   font-size: 30px;
   font-weight: 600;
 }
 .campgroundsLogo:hover {
-    color: white;
+  color: white;
 }
 .campgroundsLink {
   width: 200px;
@@ -34,20 +34,22 @@ a:hover {
   margin-left: 700px;
 }
 .loginLink:hover,
-.campgroundsLink:hover, .active{
+.campgroundsLink:hover,
+.active {
   color: white;
   font-weight: 700;
 }
 
 /* ------------------------ */
-@media only screen and (max-width: 1024px) {  
+@media only screen and (max-width: 1024px) {
   .loginLink {
     margin-left: 400px;
   }
 }
 /* ------------------------ */
-@media only screen and (max-width: 768px) {  
-  .loginLink, .campgroundsLink {
+@media only screen and (max-width: 768px) {
+  .loginLink,
+  .campgroundsLink {
     text-align: left;
     margin-left: 50px;
     font-size: 15px;
@@ -55,12 +57,13 @@ a:hover {
   }
 }
 /* ------------------------ */
-@media only screen and (max-width: 425px) {  
+@media only screen and (max-width: 425px) {
   .campgroundsLogo {
     font-size: 20px;
     font-weight: 600;
   }
-  .loginLink, .campgroundsLink {
+  .loginLink,
+  .campgroundsLink {
     margin-left: 30px;
   }
 }

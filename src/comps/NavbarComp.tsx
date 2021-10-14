@@ -4,14 +4,17 @@ import Nav from "react-bootstrap/Nav";
 import Container from "react-bootstrap/Container";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { State } from "../store/state.model";
+import { State } from "../store/interface.model";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 
 const NavbarComp = () => {
+  const [expanded, setExpanded] = useState<boolean>(false);
   const dispatch = useDispatch();
-  const isLoggedin:boolean = useSelector((state: State) => state.isLoggedin);
+  const isLoggedin: boolean = useSelector((state: State) => state.isLoggedin);
 
+  // --------------------------------------------------------------------------- FUNCS -----------------------------------------
+  // ----------------- LOGOUT -----------------
   const logoutHandler = () => {
     dispatch({ type: "loggedout" });
     dispatch({ type: "getToken", token: null });
@@ -19,21 +22,23 @@ const NavbarComp = () => {
     localStorage.removeItem("userEmail");
     setExpanded(false);
   };
-  
+
+  // ----------------- SHOW LOGIN COMP -----------------
   const loginHandler = () => {
     dispatch({ type: "loginComp" });
     setExpanded(false);
-
   };
+
+  // ----------------- BTN -----------------
   const btnHandler = () => {
     dispatch({ type: "logoutFromCampsBtn" });
     setExpanded(false);
   };
+
+  // ----------------- BURGER MENU -----------------
   const toggleHandler = () => {
     setExpanded(!expanded);
   };
-
-  const [expanded, setExpanded] = useState<boolean>(false);
 
   return (
     <>
@@ -60,37 +65,36 @@ const NavbarComp = () => {
           />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              
-                <NavLink
-                  onClick={btnHandler}
-                  to="/campgrounds/camps"
-                  id="all"
-                  className={classes.campgroundsLink}
-                  activeClassName={classes.active}
-                >
-                  All campgrounds
-                </NavLink>
+              <NavLink
+                onClick={btnHandler}
+                to="/campgrounds/camps"
+                id="all"
+                className={classes.campgroundsLink}
+                activeClassName={classes.active}
+              >
+                All campgrounds
+              </NavLink>
               {!isLoggedin && (
-                  <NavLink
-                    to="/campgrounds/login"
-                    id="login"
-                    className={classes.loginLink}
-                    activeClassName={classes.active}
-                    onClick={loginHandler}
-                  >
-                    Login
-                  </NavLink>
+                <NavLink
+                  to="/campgrounds/login"
+                  id="login"
+                  className={classes.loginLink}
+                  activeClassName={classes.active}
+                  onClick={loginHandler}
+                >
+                  Login
+                </NavLink>
               )}
               {isLoggedin && (
-                  <NavLink
-                    to="/campgrounds/login"
-                    id="login"
-                    className={classes.loginLink}
-                    activeClassName={classes.active}
-                    onClick={logoutHandler}
-                  >
-                    Logout
-                  </NavLink>
+                <NavLink
+                  to="/campgrounds/login"
+                  id="login"
+                  className={classes.loginLink}
+                  activeClassName={classes.active}
+                  onClick={logoutHandler}
+                >
+                  Logout
+                </NavLink>
               )}
             </Nav>
           </Navbar.Collapse>

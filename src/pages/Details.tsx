@@ -14,7 +14,9 @@ import {
   CampCollection,
   State,
   CommentCollection,
-} from "../store/state.model";
+  paramsType,
+  initialDataType,
+} from "../store/interface.model";
 import { app } from "../firebase/firebase";
 
 const Details = () => {
@@ -24,9 +26,6 @@ const Details = () => {
   // -------------------------------------------------------------------- ROUTER
   const history = useHistory();
   const dispatch = useDispatch();
-  interface paramsType {
-    camp: string;
-  }
   const params: paramsType = useParams();
   // -------------------------------------------------------------------- REDUX
   const authorData = useSelector((state: State) => state.loginFormData);
@@ -34,11 +33,6 @@ const Details = () => {
   const showEditComp: boolean = useSelector((state: State) => state.showEdit);
   const isLoggedin = useSelector((state: State) => state.isLoggedin);
   // -------------------------------------------------------------------- STATE
-  interface initialDataType {
-    comment: string;
-    author: string;
-    id: string;
-  }
   const initialData = {
     comment: "",
     author: author ? author : authorData.email,
@@ -209,6 +203,8 @@ const Details = () => {
             <div>
               {authorEmail === currentCamp.author && (
                 <div>
+                  {/* ---------------------------------------------------------- TOP BTN */}
+
                   <div className={classes.cardButtons}>
                     <Button
                       variant="primary"
@@ -303,7 +299,9 @@ const Details = () => {
                   allComments.map((item: initialDataType, index: number) => {
                     return (
                       <Card key={index} className={classes.reviewCard}>
-                        <Card.Title className={classes.authorReview}>{item.author}</Card.Title>
+                        <Card.Title className={classes.authorReview}>
+                          {item.author}
+                        </Card.Title>
                         <Card.Text>{item.comment}</Card.Text>
                         {authorEmail === item.author && (
                           <div>

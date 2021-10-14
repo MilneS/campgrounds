@@ -4,29 +4,13 @@ import Button from "react-bootstrap/Button";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { app } from "../firebase/firebase";
+import { propsEdit } from "../store/interface.model";
 
 
-interface propsTypes {
-  campId: string;
-  campData: {
-    author: string;
-    description: string;
-    location: string;
-    price: string;
-    title: string;
-  };
-  getCampFunc: () => Promise<void>;
-}
-const Edit = (props: propsTypes) => {
-  const dispatch = useDispatch();
-  const campData = props.campData;
+const Edit = (props: propsEdit) => {
   const campId = props.campId;
   const campFunc = props.getCampFunc;
-
-  const cancelHandler = (e: React.MouseEvent) => {
-    dispatch({ type: "detailsComp" });
-  };
-
+  const campData = props.campData;
   const defaultState = {
     title: campData.title,
     location: campData.location,
@@ -34,6 +18,14 @@ const Edit = (props: propsTypes) => {
     description: campData.description,
   };
   const [enterredData, setEnterredData] = useState(defaultState);
+  const dispatch = useDispatch();
+
+  // ------------------------------------------------------- CANCEL: REDIRECT -----------------------
+  const cancelHandler = (e: React.MouseEvent) => {
+    dispatch({ type: "detailsComp" });
+  };
+
+  // ------------------------------------------------------- GET ENTERRED DATA -----------------------
   const enterredDataHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEnterredData({ ...enterredData, [e.target.id]: e.target.value });
   };
@@ -70,7 +62,7 @@ const Edit = (props: propsTypes) => {
 
   return (
     <>
-      <div className={classes.containerBig}>
+      <div className={classes.container}>
         <h1 className={classes.h1}>Update CampGround</h1>
         <Form className={classes.form}>
           <Form.Group className="mb-3">
@@ -124,68 +116,6 @@ const Edit = (props: propsTypes) => {
               onClick={cancelHandler}
               variant="secondary"
               size="lg"
-              type="button"
-              className="mb-3"
-            >
-              Cancel
-            </Button>
-          </div>
-        </Form>
-      </div>
-      <div className={classes.containerSmall}>
-        <h2 className={classes.h2}>Update CampGround</h2>
-        <Form className={classes.form}>
-          <Form.Group className="mb-2">
-            <Form.Label htmlFor="title">Title</Form.Label>
-            <Form.Control
-              type="text"
-              id="title"
-              defaultValue={campData.title}
-              onChange={enterredDataHandler}
-            />
-          </Form.Group>
-          <Form.Group className="mb-2">
-            <Form.Label htmlFor="location">Location</Form.Label>
-            <Form.Control
-              type="text"
-              id="location"
-              defaultValue={campData.location}
-              onChange={enterredDataHandler}
-            />
-          </Form.Group>
-          <Form.Group className="mb-2">
-            <Form.Label htmlFor="price">Campground price</Form.Label>
-            <Form.Control
-              type="number"
-              id="price"
-              defaultValue={campData.price}
-              onChange={enterredDataHandler}
-            />
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label htmlFor="description">Description</Form.Label>
-            <Form.Control
-              as="textarea"
-              rows={3}
-              id="description"
-              defaultValue={campData.description}
-              onChange={enterredDataHandler}
-            />
-          </Form.Group>
-          <div className={classes.button}>
-            <Button
-              onClick={sendUpdateHandler}
-              variant="success"
-              size="sm"
-              type="button"
-              className="mb-3"
-            >
-              Update
-            </Button>
-            <Button
-              onClick={cancelHandler}
-              variant="secondary"
-              size="sm"
               type="button"
               className="mb-3"
             >

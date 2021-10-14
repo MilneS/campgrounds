@@ -1,6 +1,5 @@
 import { createStore } from "redux";
-import { Action } from "./action.model";
-import { State } from "./state.model";
+import { State, Action } from "./interface.model";
 
 const initialState: State = {
   showLogin: true,
@@ -8,8 +7,8 @@ const initialState: State = {
   showEdit: false,
   showDetails: true,
   loginFormData: { email: "", password: "" },
-  idToken: localStorage.getItem("token") || '',
-  userId: localStorage.getItem("userId")|| '',
+  idToken: localStorage.getItem("token") || "",
+  userId: localStorage.getItem("userId") || "",
   isLoggedin: !!localStorage.getItem("token"),
   logginFromCamps: false,
   allCamps: {},
@@ -49,7 +48,7 @@ const reducerFunc = (state = initialState, action: Action) => {
       return { ...state, allCamps: newCampsState };
     case "updateCamp":
       const updatedCampsState = state.allCamps;
-      updatedCampsState[action.payload]=action.payloadData
+      updatedCampsState[action.payload] = action.payloadData;
       return { ...state, allCamps: updatedCampsState };
     case "getToken":
       return { ...state, idToken: action.payload };

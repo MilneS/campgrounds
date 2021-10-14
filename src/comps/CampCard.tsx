@@ -3,36 +3,35 @@ import Button from "react-bootstrap/Button";
 import { NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { app } from "../firebase/firebase";
+import { propsCampCard } from "../store/interface.model";
 
 
-interface propsTypes {
-  dataKey: string,
-  item: {
-    author: string,
-    description: string,
-    location: string,
-    price: string,
-    title: string,
-  };
-}
-const CampCard = (props: propsTypes) => {
+const CampCard = (props: propsCampCard) => {
   const [itemImage, setItemImage] = useState<string>();
+
+  // ----------------------------------- ITEM DATA -------------------
   const item = props.item;
   const dataKey = props.dataKey;
 
+  // ----------------------------------- GET IMAGE URL -------------------
   useEffect(() => {
-    let storageRef:firebase.storage.Reference = app.storage().ref();
-    let fileRef: firebase.storage.Reference= storageRef.child(`images/${dataKey}`);
+    let storageRef: firebase.storage.Reference = app.storage().ref();
+    let fileRef: firebase.storage.Reference = storageRef.child(
+      `images/${dataKey}`
+    );
     fileRef
       .getDownloadURL()
-      .then(function (url:string) {
+      .then(function (url: string) {
         setItemImage(url);
       })
-      .catch((error:Error) =>
-        console.log(`Getting image failed on campCard ${JSON.stringify(error.message)}`)
+      .catch((error: Error) =>
+        console.log(
+          `Getting image failed on campCard ${JSON.stringify(error.message)}`
+        )
       );
   }, [props.item]);
 
+  // ------------------------------------------------------------- JSX -------------------------------------------------------------
   return (
     <div className={classes.container}>
       <div className={classes.containerImg}>
@@ -44,16 +43,9 @@ const CampCard = (props: propsTypes) => {
           <div className={classes.description}>{item.description}</div>
           <div className={classes.location}>{item.location}</div>
         </div>
-        <div className={classes.button}>
+        <div >
           <NavLink to={`/campgrounds/details/${dataKey}`}>
-            <Button variant="primary" size="lg" type="button" className="mb-3">
-              View
-            </Button>
-          </NavLink>
-        </div>
-        <div className={classes.buttonSmall}>
-          <NavLink to={`/campgrounds/details/${dataKey}`}>
-            <Button variant="primary" size="sm" type="button" className="mb-3">
+            <Button variant="primary" size="lg" type="button" className={classes.button}>
               View
             </Button>
           </NavLink>

@@ -21,8 +21,8 @@ const Home = () => {
           <div className={classes.message}>
             <p>
               Welcome to CampGrounds! <br />
-              Jump right in and explore our many campgrounds. <br /> Login or sign up
-              to share some of your own and comment on others!
+              Jump right in and explore our many campgrounds. <br /> Login or
+              sign up to share some of your own and comment on others!
             </p>
           </div>
           <NavLink to="/campgrounds/camps">

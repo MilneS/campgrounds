@@ -46,9 +46,6 @@
   font-size: 18px;
   margin-bottom: 10px;
 }
-.cardSmall {
-  display: none;
-}
 .card > * {
   width: 550px !important;
 }
@@ -113,7 +110,6 @@
 .reviewContainer {
   width: 320px;
   position: relative;
-  /* border: 1px solid red; */
 }
 @media only screen and (max-width: 768px) {
   .container {
@@ -131,7 +127,6 @@
     margin-left: 30px;
     width: 350px;
     position: relative;
-    /* border: 1px solid red; */
   }
   .titleReview {
     font-size: 25px;
@@ -149,7 +144,6 @@
   .reviewCard > * {
     margin-bottom: 8px;
   }
-
   .reviewBtn,
   .submitReviewBtn,
   .deleteReviewButton {
@@ -162,6 +156,9 @@
   .authorReview {
     font-size: 16px !important;
     margin-bottom: 0px !important;
+  }
+  .NoCommentsMsg {
+    font-size: 15px;
   }
 }
 /* ------------------------ */

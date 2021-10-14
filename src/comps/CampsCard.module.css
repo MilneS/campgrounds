@@ -32,11 +32,7 @@
   margin-top: 20px;
   display: block;
 }
-.buttonSmall {
-  margin-top: 20px;
-  display: none;
-}
-@media not all and (min-resolution:.001dpcm) { 
+@media not all and (min-resolution: 0.001dpcm) {
   @supports (-webkit-appearance: none) {
     .img {
       height: 250px;
@@ -77,10 +73,7 @@
     color: rgb(95, 94, 94);
   }
   .button {
-    display: none;
-  }
-  .buttonSmall {
-    display: block;
+    font-size: 15px !important;
   }
 }
 
@@ -90,17 +83,15 @@
     flex-direction: column;
     width: min-content;
     width: 300px;
-
   }
   .img {
     height: 210px;
     width: 260px;
-    margin:20px 20px;
-    
+    margin: 20px 20px;
   }
   .containerInfo {
     padding: 0px 20px;
-    padding-bottom:10px;
+    padding-bottom: 10px;
   }
   .title {
     font-size: 18px;
@@ -112,11 +103,5 @@
   }
   .location {
     font-size: 14px;
-  }
-  .button {
-    display: none;
-  }
-  .buttonSmall {
-    display: block;
   }
 }

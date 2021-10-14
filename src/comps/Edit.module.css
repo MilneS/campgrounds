@@ -1,4 +1,4 @@
-.containerBig {
+.container {
   margin: 100px auto;
   margin-bottom: 0px;
   width: 700px;
@@ -13,12 +13,10 @@
 .button > * {
   margin-right: 10px;
 }
-.containerSmall {
-  display: none;
-}
+
 @media not all and (min-resolution:.001dpcm) { 
   @supports (-webkit-appearance: none) {
-    .containerBig {
+    .container {
       width: 500px;
     }
     .h1 {
@@ -29,20 +27,15 @@
 
 /* ------------------------ */
 @media only screen and (max-width: 768px) {
-  .containerBig {
-    display: none;
-  }
-  .containerSmall {
-    display: block;
-    margin: 100px auto;
-    margin-bottom: 0px;
+
+  .container {
     width: 400px;
   }
   .form, .form>*>* {
     font-size: 14px !important;
   }
-  .h2 {
-    margin-bottom: 20px;
+  .h1 {
+    margin-bottom: 30px;
     margin-top: 25px;
   }
   .button {
@@ -52,13 +45,13 @@
 }
 /* ------------------------ */
 @media only screen and (max-width: 425px) {
-  .containerSmall {
+  .container {
     width: 300px;
   }
 }
 /* ------------------------ */
 @media only screen and (max-width: 320px) {
-  .containerSmall {
+  .container {
     width: 250px;
   }
 }

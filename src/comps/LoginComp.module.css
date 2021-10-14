@@ -14,9 +14,12 @@
 .errorMsg{
   color:red
 }
-.smallCard{
-  display: none;
+.loginBtn{
+  font-size: 15px;
+  margin-top: 10px;
+  margin-bottom: 16px;
 }
+
 @media not all and (min-resolution:.001dpcm) { 
   @supports (-webkit-appearance: none) {
     .login {
@@ -33,12 +36,9 @@
 
 /* ------------------------ */
 @media only screen and (max-width: 768px) {
-   .bigCard{
-    display: none;
-  } 
-  .smallCard{
-    display: block;
-  }
+ .card{
+   width:288px !important;
+}
   .login {
     font-size: 20px;
     margin-top: 5px;
@@ -50,5 +50,11 @@
   }
   .errorMsg{
     font-size: 13px;
+  }
+  .loginBtn{
+    font-size: 14px !important;
+    padding: 6px !important;
+    margin-top: 0px;
+
   }
 }

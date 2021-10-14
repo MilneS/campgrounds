@@ -8,32 +8,20 @@
   margin-bottom: 20px;
   margin-top: 30px;
 }
-.h2 {
-  margin-bottom: 30px;
-  margin-top: 5px;
-  display: none;
-}
 .button {
   margin-bottom: 20px;
 }
-.buttonSmall {
-  margin-bottom: 15px;
-  display: none;
-}
+
 
 
 @media only screen and (max-width: 768px) {
-  .h2 {
-    display: block;
-  }
   .h1 {
-    display: none;
+    font-size: 25px;
+    margin-bottom: 20px;
+    margin-top: 5px;
   }
   .button {
-    display: none;
-  }
-  .buttonSmall {
-    display: block;
+    font-size: 15px !important;
   }
 }
 @media only screen and (max-width: 425px) {

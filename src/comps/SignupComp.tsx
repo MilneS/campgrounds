@@ -1,41 +1,38 @@
 import classes from "./SignupComp.module.css";
+import { useDispatch } from "react-redux";
+import { useState } from "react";
+import { useHistory } from "react-router-dom";
 import pic from "../utils/LoginPic.jpeg";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { useDispatch } from "react-redux";
-import { useState } from "react";
-import { useHistory } from "react-router-dom";
 
 const SignupComp = () => {
-  const history = useHistory();
-  const initialData = { emailBig: "",emailSmall: "", passwordBig: "",passwordSmall: "" };
+  const initialData = {
+    email: "",
+    password: "",
+  };
   const [inputData, setInputData] = useState(initialData);
   const [errMsg, setErrMsg] = useState<string>();
   const [showErrMsg, setShowErrMsg] = useState<boolean>(false);
   const dispatch = useDispatch();
+  const history = useHistory();
 
-  const showLoginHandler = (e: React.MouseEvent) => {
-    e.preventDefault();
-    dispatch({ type: "loginComp" });
-  };
+  // ------------------------------------------------------------------------------ FUNCS -----------------------------------------
+
+  // --------------------------------------------------- GET ENTERRED DATA --------------
   const getInputDataHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputData({ ...inputData, [e.target.id]: e.currentTarget.value });
   };
 
-  const getFormDataHandler = (e: React.MouseEvent) => {
-    e.preventDefault();
-    dispatch({ type: "loginFormData", payload: inputData });
-    sendDataHandler();
-  };
-
+  // --------------------------------------------------- FETCH: POST DAATA --------------
   const sendDataHandler = async () => {
-    const url: string = process.env.REACT_APP_API_SIGNUP_KEY || '';
-    const response: Response  = await fetch(url, {
+    const url: string = process.env.REACT_APP_API_SIGNUP_KEY || "";
+    const response: Response = await fetch(url, {
       method: "POST",
       body: JSON.stringify({
-        email: inputData.emailBig || inputData.emailSmall,
-        password: inputData.passwordBig || inputData.passwordSmall,
+        email: inputData.email,
+        password: inputData.password,
         returnSecureToken: true,
       }),
       headers: { "Content-Type": "application/json" },
@@ -57,10 +54,22 @@ const SignupComp = () => {
     }
   };
 
+  // --------------------------------------------------- FIRE - FETCH: POST DAATA --------------
+  const getFormDataHandler = (e: React.MouseEvent) => {
+    e.preventDefault();
+    dispatch({ type: "loginFormData", payload: inputData });
+    sendDataHandler();
+  };
+
+  // --------------------------------------------------- SWITCH TO LOGIN COM --------------
+  const showLoginHandler = (e: React.MouseEvent) => {
+    e.preventDefault();
+    dispatch({ type: "loginComp" });
+  };
+
   return (
     <>
-        <div className={classes.bigCard}>
-      <Card style={{ width: "27rem" }}>
+      <Card style={{ width: "27rem" }} className={classes.card}>
         <Card.Img variant="top" src={pic} />
         <Card.Body>
           <Card.Title className="mb-4">
@@ -71,7 +80,7 @@ const SignupComp = () => {
             <Form.Group className="mb-3">
               <Form.Control
                 type="email"
-                id="emailBig"
+                id="email"
                 placeholder="Email"
                 onChange={getInputDataHandler}
               />
@@ -79,7 +88,7 @@ const SignupComp = () => {
             <Form.Group className="mb-3">
               <Form.Control
                 type="password"
-                id="passwordBig"
+                id="password"
                 placeholder="Password"
                 onChange={getInputDataHandler}
               />
@@ -90,7 +99,7 @@ const SignupComp = () => {
                 variant="success"
                 size="lg"
                 type="submit"
-                className="mb-3"
+                className={classes.signupBtn}
               >
                 Sign up
               </Button>
@@ -101,51 +110,6 @@ const SignupComp = () => {
           </p>
         </Card.Body>
       </Card>
-      </div>
-      <div className={classes.smallCard}>
-      <Card style={{ width: "18rem" }}>
-        <Card.Img variant="top" src={pic} />
-        <Card.Body>
-          <Card.Title className="mb-4">
-            <p className={classes.signup}>Sign up</p>
-          </Card.Title>
-          {showErrMsg && <p className={classes.errorMsg}>{errMsg}</p>}
-          <Form>
-            <Form.Group className="mb-3">
-              <Form.Control
-                type="email"
-                id="emailSmall"
-                placeholder="Email"
-                onChange={getInputDataHandler}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Control
-                type="password"
-                id="passwordSmall"
-                placeholder="Password"
-                onChange={getInputDataHandler}
-              />
-            </Form.Group>
-            <div className="d-grid gap-2">
-              <Button
-                onClick={getFormDataHandler}
-                variant="success"
-                size="sm"
-                type="submit"
-                className="mb-3"
-              >
-                Sign up
-              </Button>
-            </div>
-          </Form>
-          <p className={classes.login} onClick={showLoginHandler}>
-            Or login.
-          </p>
-        </Card.Body>
-      </Card>
-      </div>
-
     </>
   );
 };
