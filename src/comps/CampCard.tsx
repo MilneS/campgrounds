@@ -5,7 +5,6 @@ import { useState, useEffect } from "react";
 import { app } from "../firebase/firebase";
 import { propsCampCard } from "../store/interface.model";
 
-
 const CampCard = (props: propsCampCard) => {
   const [itemImage, setItemImage] = useState<string>();
 
@@ -39,13 +38,22 @@ const CampCard = (props: propsCampCard) => {
       </div>
       <div className={classes.containerInfo}>
         <div>
-          <div className={classes.title}>{item.title}</div>
-          <div className={classes.description}>{item.description}</div>
-          <div className={classes.location}>{item.location}</div>
+          {item && (
+            <div>
+              <div className={classes.title}>{item.title}</div>
+              <div className={classes.description}>{item.description}</div>
+              <div className={classes.location}>{item.location}</div>
+            </div>
+          )}
         </div>
-        <div >
+        <div>
           <NavLink to={`/campgrounds/details/${dataKey}`}>
-            <Button variant="primary" size="lg" type="button" className={classes.button}>
+            <Button
+              variant="primary"
+              size="lg"
+              type="button"
+              className={classes.button}
+            >
               View
             </Button>
           </NavLink>
