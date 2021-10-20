@@ -31,7 +31,6 @@ const LoginComp = () => {
 
   // --------------------------------------------------- FETCH: POST DAATA --------------
   const sendDataHandler = async () => {
-    // fix type
     const url: string = process.env.REACT_APP_API_LOGIN_KEY || "";
     let response: Response = await fetch(url, {
       method: "POST",

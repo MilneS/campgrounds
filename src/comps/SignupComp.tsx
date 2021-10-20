@@ -1,7 +1,8 @@
 import classes from "./SignupComp.module.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { State } from "../store/interface.model";
 import pic from "../utils/LoginPic.jpeg";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
@@ -15,6 +16,9 @@ const SignupComp = () => {
   const [inputData, setInputData] = useState(initialData);
   const [errMsg, setErrMsg] = useState<string>();
   const [showErrMsg, setShowErrMsg] = useState<boolean>(false);
+  const logginFromCampsBtn: boolean = useSelector(
+    (state: State) => state.logginFromCamps
+  );
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -42,7 +46,13 @@ const SignupComp = () => {
       dispatch({ type: "loggedin" });
       dispatch({ type: "idToken", payload: data.idToken });
       localStorage.setItem("token", data.idToken);
-      history.push("/campgrounds/camps");
+      localStorage.setItem("userEmail", data.email);
+      if (logginFromCampsBtn) {
+        history.replace("/campgrounds/newcamp");
+      } else {
+        history.push("/campgrounds/camps");
+        dispatch({ type: "logoutFromCampsBtn" });
+      }
       setShowErrMsg(false);
       return data;
     } else {
