@@ -48,7 +48,7 @@ const SignupComp = () => {
       localStorage.setItem("token", data.idToken);
       localStorage.setItem("userEmail", data.email);
       if (logginFromCampsBtn) {
-        history.replace("/campgrounds/newcamp");
+        history.replace("/campgrounds/newcamp")
       } else {
         history.push("/campgrounds/camps");
         dispatch({ type: "logoutFromCampsBtn" });

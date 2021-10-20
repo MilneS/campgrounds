@@ -256,7 +256,10 @@ const Details = () => {
             {/* -------------------------------------------------------------------------REVIEW */}
 
             <div className={classes.reviewContainer}>
-              <h1 className={classes.titleReview}>Leave a review</h1>
+              {isLoggedin && (
+                <h1 className={classes.titleReview}>Leave a review</h1>
+              )}
+              {!isLoggedin && <h1 className={classes.titleReview}>Reviews</h1>}
 
               {isLoggedin && (
                 <div>
@@ -291,7 +294,7 @@ const Details = () => {
               )}
               {allComments.length <= 0 && (
                 <div className={classes.NoCommentsMsg}>
-                  No comments available.
+                  No reviews available.
                 </div>
               )}
               <div className={classes.commCont}>

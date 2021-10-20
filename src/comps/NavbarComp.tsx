@@ -18,6 +18,7 @@ const NavbarComp = () => {
   const logoutHandler = () => {
     dispatch({ type: "loggedout" });
     dispatch({ type: "getToken", token: null });
+    dispatch({ type: "loginComp" });
     localStorage.removeItem("token");
     localStorage.removeItem("userEmail");
     setExpanded(false);
