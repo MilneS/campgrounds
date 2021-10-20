@@ -38,13 +38,9 @@ const CampCard = (props: propsCampCard) => {
       </div>
       <div className={classes.containerInfo}>
         <div>
-          {item && (
-            <div>
-              <div className={classes.title}>{item.title}</div>
-              <div className={classes.description}>{item.description}</div>
-              <div className={classes.location}>{item.location}</div>
-            </div>
-          )}
+          <div className={classes.title}>{item.title}</div>
+          <div className={classes.description}>{item.description}</div>
+          <div className={classes.location}>{item.location}</div>
         </div>
         <div>
           <NavLink to={`/campgrounds/details/${dataKey}`}>

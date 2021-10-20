@@ -26,7 +26,8 @@ function App() {
             <Details />
           </Route>
           <Route path="/campgrounds/newcamp">
-             <NewCamp />
+            {isLoggedin && <NewCamp />}
+            {!isLoggedin && <Redirect to="/campgrounds/login" />}
           </Route>
           <Route path="/campgrounds/login">
             <Login />
