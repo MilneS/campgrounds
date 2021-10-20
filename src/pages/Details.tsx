@@ -54,6 +54,7 @@ const Details = () => {
   const [itemImage, setItemImage] = useState<string>();
   const [inputData, setInputData] = useState<initialDataType>(initialData);
   const [currentCamp, setCurrentCamp] = useState<Camp>(defaultData);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   // ------------------------------------------------------------------------------------------ FUNCS -----------------------------------------
 
@@ -72,6 +73,19 @@ const Details = () => {
     }
   };
 
+  // ----------------- FETCH: GET IMAGE -----------------
+  const getCampImage = () => {
+    let storageRef: firebase.storage.Reference;
+    let fileRef: firebase.storage.Reference;
+    storageRef = app.storage().ref();
+    fileRef = storageRef.child(`images/${params.camp}`);
+    setIsLoading(true);
+    fileRef.getDownloadURL().then(function (url: string) {
+      setItemImage(url);
+      setIsLoading(false);
+    });
+  };
+
   // ----------------- CURR CAMP DATA + ID -----------------
   useEffect(() => {
     if (Object.keys(allData).length) {
@@ -82,17 +96,6 @@ const Details = () => {
       }
     }
   }, [allData]);
-
-  // ----------------- FETCH: GET IMAGE -----------------
-  const getCampImage = () => {
-    let storageRef: firebase.storage.Reference;
-    let fileRef: firebase.storage.Reference;
-    storageRef = app.storage().ref();
-    fileRef = storageRef.child(`images/${params.camp}`);
-    fileRef.getDownloadURL().then(function (url: string) {
-      setItemImage(url);
-    });
-  };
 
   // ----------------- FIRE FETCH: GET CAMP + IMAGE -----------------
   useEffect(() => {
@@ -197,143 +200,152 @@ const Details = () => {
   // ------------------------------------------------------------- JSX -------------------------------------------------------------
   return (
     <>
-      <div>
-        {!showEditComp && currentCamp && (
-          <div className={classes.container}>
-            <div>
-              {authorEmail === currentCamp.author && (
-                <div>
-                  {/* ---------------------------------------------------------- TOP BTN */}
+      {isLoading && (
+        <div className={classes.loadingCont}>
+          <div className={classes.loading}>Loading...</div>
+        </div>
+      )}
+      {!isLoading && (
+        <div>
+          {!showEditComp && currentCamp && (
+            <div className={classes.container}>
+              <div>
+                {authorEmail === currentCamp.author && (
+                  <div>
+                    {/* ---------------------------------------------------------- TOP BTN */}
 
-                  <div className={classes.cardButtons}>
-                    <Button
-                      variant="primary"
-                      type="button"
-                      className={classes.reviewBtn}
-                      size="lg"
-                      onClick={editHandler}
-                    >
-                      Update
-                    </Button>
-                    <Button
-                      variant="danger"
-                      type="button"
-                      className={classes.reviewBtn}
-                      size="lg"
-                      onClick={deleteHandler}
-                    >
-                      Delete
-                    </Button>
+                    <div className={classes.cardButtons}>
+                      <Button
+                        variant="primary"
+                        type="button"
+                        className={classes.reviewBtn}
+                        size="lg"
+                        onClick={editHandler}
+                      >
+                        Update
+                      </Button>
+                      <Button
+                        variant="danger"
+                        type="button"
+                        className={classes.reviewBtn}
+                        size="lg"
+                        onClick={deleteHandler}
+                      >
+                        Delete
+                      </Button>
+                    </div>
                   </div>
+                )}
+                {/* ---------------------------------------------------------- CARD */}
+                <div className={classes.card}>
+                  <Card style={{ width: "40rem" }}>
+                    <Card.Img variant="top" src={itemImage} />
+                    <Card.Body>
+                      <Card.Title className={classes.title}>
+                        {currentCamp.title}
+                      </Card.Title>
+                      <Card.Text className={classes.DescrAuthPrice}>
+                        {currentCamp.description}
+                      </Card.Text>
+                    </Card.Body>
+                    <ListGroup className="list-group-flush">
+                      <ListGroupItem className={classes.location}>
+                        {currentCamp.location}
+                      </ListGroupItem>
+                      <ListGroupItem className={classes.DescrAuthPrice}>
+                        Submitted by {currentCamp.author}
+                      </ListGroupItem>
+                      <ListGroupItem className={classes.DescrAuthPrice}>
+                        Price/night: ${currentCamp.price}
+                      </ListGroupItem>
+                    </ListGroup>
+                  </Card>
                 </div>
-              )}
-              {/* ---------------------------------------------------------- CARD */}
-              <div className={classes.card}>
-                <Card style={{ width: "40rem" }}>
-                  <Card.Img variant="top" src={itemImage} />
-                  <Card.Body>
-                    <Card.Title className={classes.title}>
-                      {currentCamp.title}
-                    </Card.Title>
-                    <Card.Text className={classes.DescrAuthPrice}>
-                      {currentCamp.description}
-                    </Card.Text>
-                  </Card.Body>
-                  <ListGroup className="list-group-flush">
-                    <ListGroupItem className={classes.location}>
-                      {currentCamp.location}
-                    </ListGroupItem>
-                    <ListGroupItem className={classes.DescrAuthPrice}>
-                      Submitted by {currentCamp.author}
-                    </ListGroupItem>
-                    <ListGroupItem className={classes.DescrAuthPrice}>
-                      Price/night: ${currentCamp.price}
-                    </ListGroupItem>
-                  </ListGroup>
-                </Card>
               </div>
-            </div>
-            {/* -------------------------------------------------------------------------REVIEW */}
+              {/* -------------------------------------------------------------------------REVIEW */}
 
-            <div className={classes.reviewContainer}>
-              {isLoggedin && (
-                <h1 className={classes.titleReview}>Leave a review</h1>
-              )}
-              {!isLoggedin && <h1 className={classes.titleReview}>Reviews</h1>}
+              <div className={classes.reviewContainer}>
+                {isLoggedin && (
+                  <h1 className={classes.titleReview}>Leave a review</h1>
+                )}
+                {!isLoggedin && (
+                  <h1 className={classes.titleReview}>Reviews</h1>
+                )}
 
-              {isLoggedin && (
-                <div>
-                  <p className={classes.textareaTitle}>Review text</p>
-                  <Form
-                    className={classes.reviewForm}
-                    noValidate
-                    validated={validated}
-                  >
-                    <Form.Group className="mb-3">
-                      <Form.Control
-                        as="textarea"
-                        rows={3}
-                        id="comment"
-                        onChange={getInputDataHandler}
-                        value={inputValue}
-                        required
-                      />
-                    </Form.Group>
-                    <Button
-                      variant="success"
-                      size="lg"
-                      type="button"
-                      className={classes.submitReviewBtn}
-                      onClick={sendFormDataHandler}
-                      disabled={commButtonDisabled}
+                {isLoggedin && (
+                  <div>
+                    <p className={classes.textareaTitle}>Review text</p>
+                    <Form
+                      className={classes.reviewForm}
+                      noValidate
+                      validated={validated}
                     >
-                      Submit
-                    </Button>
-                  </Form>
+                      <Form.Group className="mb-3">
+                        <Form.Control
+                          as="textarea"
+                          rows={3}
+                          id="comment"
+                          onChange={getInputDataHandler}
+                          value={inputValue}
+                          required
+                        />
+                      </Form.Group>
+                      <Button
+                        variant="success"
+                        size="lg"
+                        type="button"
+                        className={classes.submitReviewBtn}
+                        onClick={sendFormDataHandler}
+                        disabled={commButtonDisabled}
+                      >
+                        Submit
+                      </Button>
+                    </Form>
+                  </div>
+                )}
+                {allComments.length <= 0 && (
+                  <div className={classes.NoCommentsMsg}>
+                    No reviews available.
+                  </div>
+                )}
+                <div className={classes.commCont}>
+                  {allComments.length > 0 &&
+                    allComments.map((item: initialDataType, index: number) => {
+                      return (
+                        <Card key={index} className={classes.reviewCard}>
+                          <Card.Title className={classes.authorReview}>
+                            {item.author}
+                          </Card.Title>
+                          <Card.Text>{item.comment}</Card.Text>
+                          {authorEmail === item.author && (
+                            <div>
+                              <Button
+                                variant="danger"
+                                type="button"
+                                className={classes.deleteReviewButton}
+                                onClick={deleteCommentHandler}
+                                id={item.id}
+                              >
+                                Delete
+                              </Button>
+                            </div>
+                          )}
+                        </Card>
+                      );
+                    })}
                 </div>
-              )}
-              {allComments.length <= 0 && (
-                <div className={classes.NoCommentsMsg}>
-                  No reviews available.
-                </div>
-              )}
-              <div className={classes.commCont}>
-                {allComments.length > 0 &&
-                  allComments.map((item: initialDataType, index: number) => {
-                    return (
-                      <Card key={index} className={classes.reviewCard}>
-                        <Card.Title className={classes.authorReview}>
-                          {item.author}
-                        </Card.Title>
-                        <Card.Text>{item.comment}</Card.Text>
-                        {authorEmail === item.author && (
-                          <div>
-                            <Button
-                              variant="danger"
-                              type="button"
-                              className={classes.deleteReviewButton}
-                              onClick={deleteCommentHandler}
-                              id={item.id}
-                            >
-                              Delete
-                            </Button>
-                          </div>
-                        )}
-                      </Card>
-                    );
-                  })}
               </div>
             </div>
-          </div>
-        )}
-        {showEditComp && (
-          <Edit
-            campData={currentCamp}
-            campId={currentCampId}
-            getCampFunc={getCamp}
-          />
-        )}
-      </div>
+          )}
+          {showEditComp && (
+            <Edit
+              campData={currentCamp}
+              campId={currentCampId}
+              getCampFunc={getCamp}
+            />
+          )}
+        </div>
+      )}
     </>
   );
 };

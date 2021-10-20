@@ -8,6 +8,8 @@ import { CampCollection, State } from "../store/interface.model";
 
 const Camps = () => {
   const [path, setPath] = useState<string>("/campgrounds/login");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const dispatch = useDispatch();
   const isLoggedin: boolean = useSelector((state: State) => state.isLoggedin);
   const allData: CampCollection = useSelector((state: State) => state.allCamps);
@@ -17,12 +19,15 @@ const Camps = () => {
   // ----------------- FETCH CAMPS FROM DB -----------------
   const getAllCamps = async () => {
     const allCampsApi: string = process.env.REACT_APP_API_CAMPS || "";
+    setIsLoading(true);
     const response: Response = await fetch(allCampsApi, {
       method: "GET",
     });
     if (response.ok) {
       const data = await response.json();
+
       dispatch({ type: "setAllCamps", payload: data });
+      setIsLoading(false);
     } else {
       let errorMessage: string = "Getting all camps failed!";
       console.log(errorMessage);
@@ -67,6 +72,7 @@ const Camps = () => {
           </NavLink>
         </div>
       </div>
+      {isLoading && <div className={classes.loading}>Loading...</div>}
       {allCampsData()}
     </div>
   );

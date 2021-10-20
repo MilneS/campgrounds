@@ -11,6 +11,10 @@
 .button {
   margin-bottom: 20px;
 }
+.loading{
+  margin: 20px auto;
+  color: gray;
+}
 
 
 

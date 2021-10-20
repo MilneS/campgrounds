@@ -67,6 +67,15 @@
 .deleteReviewButton {
   font-size: 18px;
 }
+.loadingCont {
+  width: 100%;
+  display: flex;
+  margin-top: 200px;
+}
+.loading {
+  margin: auto;
+  color: gray;
+}
 
 @media not all and (min-resolution: 0.001dpcm) {
   @supports (-webkit-appearance: none) {
@@ -185,7 +194,7 @@
   }
   .reviewContainer {
     width: 300px;
-    margin:auto;
+    margin: auto;
     margin-top: 25px;
   }
   .titleReview {
@@ -196,5 +205,4 @@
     font-size: 13px;
     margin-bottom: 5px;
   }
-
 }
