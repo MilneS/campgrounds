@@ -34,6 +34,8 @@ const NavbarComp = () => {
   const btnHandler = () => {
     dispatch({ type: "logoutFromCampsBtn" });
     setExpanded(false);
+    dispatch({ type: "detailsComp" });
+
   };
 
   // ----------------- BURGER MENU -----------------

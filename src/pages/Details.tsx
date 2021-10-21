@@ -108,6 +108,7 @@ const Details = () => {
     let dbRef: firebase.database.Reference = app.database().ref();
     let storageRef: firebase.storage.Reference;
     storageRef = app.storage().ref();
+    setIsLoading(true);
     dbRef.child(`campgrounds/${params.camp}`).remove();
     storageRef
       .child(`images/${params.camp}`)
@@ -293,7 +294,7 @@ const Details = () => {
                       <Button
                         variant="success"
                         size="lg"
-                        type="button"
+                        type="submit"
                         className={classes.submitReviewBtn}
                         onClick={sendFormDataHandler}
                         disabled={commButtonDisabled}
