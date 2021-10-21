@@ -10,6 +10,9 @@
   margin-bottom: 30px;
   margin-top: 100px;
 }
+.file {
+  margin-bottom: 15px;
+}
 .button > * {
   margin-right: 10px;
 }
@@ -41,11 +44,8 @@
   }
   .file {
     font-size: 13px !important;
-    margin-bottom: 15px;
-
   }
   .button>* {
-    margin-top: 0px;
     font-size: 14px !important;
   }
   .h1 {
