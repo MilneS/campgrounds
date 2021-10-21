@@ -10,8 +10,8 @@
   margin-bottom: 30px;
   margin-top: 100px;
 }
-.button {
-  margin-top: 20px;
+.button > * {
+  margin-right: 10px;
 }
 
 @media not all and (min-resolution:.001dpcm) { 
@@ -44,7 +44,7 @@
     margin-bottom: 15px;
 
   }
-  .button {
+  .button>* {
     margin-top: 0px;
     font-size: 14px !important;
   }

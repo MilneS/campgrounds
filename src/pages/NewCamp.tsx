@@ -90,6 +90,9 @@ const NewCamp = () => {
     setValidated(true);
   };
 
+  const cancelHandler = (e: React.MouseEvent) => {
+    history.push("/campgrounds/camps");
+  };
   // ------------------------------------------------------------- JSX -------------------------------------------------------------
   return (
     <>
@@ -142,16 +145,25 @@ const NewCamp = () => {
               required
             />
           </Form.Group>
-          <div>
+          <div className={classes.button}>
             <Button
-              className={classes.button}
+              onClick={getFormDataHandler}
               variant="success"
               size="lg"
               type="button"
-              onClick={getFormDataHandler}
+              className="mb-3"
               disabled={buttonDisabled}
             >
               Add campground
+            </Button>
+            <Button
+              onClick={cancelHandler}
+              variant="secondary"
+              size="lg"
+              type="button"
+              className="mb-3"
+            >
+              Cancel
             </Button>
           </div>
         </Form>
