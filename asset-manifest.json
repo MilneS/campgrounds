@@ -1,27 +1,27 @@
 {
   "files": {
     "main.css": "/campgrounds/static/css/main.9af6bc7f.chunk.css",
-    "main.js": "/campgrounds/static/js/main.85688a11.chunk.js",
-    "main.js.map": "/campgrounds/static/js/main.85688a11.chunk.js.map",
+    "main.js": "/campgrounds/static/js/main.c871ace2.chunk.js",
+    "main.js.map": "/campgrounds/static/js/main.c871ace2.chunk.js.map",
     "runtime-main.js": "/campgrounds/static/js/runtime-main.bca245c4.js",
     "runtime-main.js.map": "/campgrounds/static/js/runtime-main.bca245c4.js.map",
     "static/css/2.818011ed.chunk.css": "/campgrounds/static/css/2.818011ed.chunk.css",
-    "static/js/2.48d3a98f.chunk.js": "/campgrounds/static/js/2.48d3a98f.chunk.js",
-    "static/js/2.48d3a98f.chunk.js.map": "/campgrounds/static/js/2.48d3a98f.chunk.js.map",
+    "static/js/2.58636de5.chunk.js": "/campgrounds/static/js/2.58636de5.chunk.js",
+    "static/js/2.58636de5.chunk.js.map": "/campgrounds/static/js/2.58636de5.chunk.js.map",
     "static/js/3.efbb6256.chunk.js": "/campgrounds/static/js/3.efbb6256.chunk.js",
     "static/js/3.efbb6256.chunk.js.map": "/campgrounds/static/js/3.efbb6256.chunk.js.map",
     "index.html": "/campgrounds/index.html",
     "static/css/2.818011ed.chunk.css.map": "/campgrounds/static/css/2.818011ed.chunk.css.map",
     "static/css/main.9af6bc7f.chunk.css.map": "/campgrounds/static/css/main.9af6bc7f.chunk.css.map",
-    "static/js/2.48d3a98f.chunk.js.LICENSE.txt": "/campgrounds/static/js/2.48d3a98f.chunk.js.LICENSE.txt",
+    "static/js/2.58636de5.chunk.js.LICENSE.txt": "/campgrounds/static/js/2.58636de5.chunk.js.LICENSE.txt",
     "static/media/Home.module.css": "/campgrounds/static/media/HomePic.db9da7fa.jpeg",
     "static/media/LoginPic.e44accc1.jpeg": "/campgrounds/static/media/LoginPic.e44accc1.jpeg"
   },
   "entrypoints": [
     "static/js/runtime-main.bca245c4.js",
     "static/css/2.818011ed.chunk.css",
-    "static/js/2.48d3a98f.chunk.js",
+    "static/js/2.58636de5.chunk.js",
     "static/css/main.9af6bc7f.chunk.css",
-    "static/js/main.85688a11.chunk.js"
+    "static/js/main.c871ace2.chunk.js"
   ]
 }
