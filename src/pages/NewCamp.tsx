@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { initialNewDataType, State, File } from "../store/interface.model";
 import { useHistory } from "react-router-dom";
-import { app } from "../firebase/firebase";
+import { database, storage } from "../firebase/firebase";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
@@ -14,6 +14,7 @@ const NewCamp = () => {
   const history = useHistory();
   // -------------------------------------------------------------------- REDUX
   const authorData = useSelector((state: State) => state.loginFormData);
+
   // -------------------------------------------------------------------- STATE
   const initialData = {
     title: "",
@@ -30,26 +31,31 @@ const NewCamp = () => {
   // ------------------------------------------------------------------------------------------ FUNCS -----------------------------------------
   // ----------------- FETCH: POST NEW CAMP -----------------
   const newCampDataHandler = async () => {
-    const newCampApi: string = process.env.REACT_APP_API_CAMPS || "";
-    const response: Response = await fetch(newCampApi, {
-      method: "POST",
-      body: JSON.stringify({
-        title: inputData.title,
-        location: inputData.location,
-        price: inputData.price,
-        description: inputData.description,
-        author: author ? author : authorData.email,
-      }),
-    });
-    if (response.ok) {
-      const data = await response.json();
-      const dataName: string = data.name;
+    const campId = `${new Date()}${
+      author?.split("@")[0] ?? authorData.email.split("@")[0]
+    }`;
 
-      return dataName;
-    } else {
-      let errorMessage: string = "Adding new camp failed!";
-      console.log(errorMessage);
+    database.ref(`camps/${campId}`).set({
+      title: inputData.title,
+      location: inputData.location,
+      price: inputData.price,
+      description: inputData.description,
+      author: author ? author : authorData.email,
+    });
+
+    if (imageAsFile && imageAsFile.name) {
+      const storageRef = storage.ref();
+      storageRef
+        .child(`images/${campId}`)
+        .put(imageAsFile)
+        .then((snapshot) => {
+          history.push("/campgrounds/camps");
+        });
     }
+
+    // *** ADD ERR HANDLING ***
+    //   let errorMessage: string = "Adding new camp failed!";
+    //   console.log(errorMessage);
   };
 
   // ------------- ON CHANGE: GET INPUT VALUE ----------------
@@ -71,18 +77,7 @@ const NewCamp = () => {
   const getFormDataHandler = (e: React.MouseEvent) => {
     e.preventDefault();
     setButtonDisabled(true);
-    newCampDataHandler().then((dataKey: string | undefined) => {
-      if (imageAsFile && imageAsFile.name) {
-        let storageRef: firebase.storage.Reference = app.storage().ref();
-        imageAsFile.dataKey = dataKey;
-        let fileRef: firebase.storage.Reference = storageRef.child(
-          `images/${imageAsFile.dataKey}`
-        );
-        fileRef.put(imageAsFile).then(() => {
-          history.push("/campgrounds/camps");
-        });
-      }
-    });
+    newCampDataHandler();
     const form = e.target as HTMLTextAreaElement;
     if (form.checkValidity() === false) {
       e.stopPropagation();

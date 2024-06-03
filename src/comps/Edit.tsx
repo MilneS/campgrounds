@@ -3,7 +3,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
-import { app } from "../firebase/firebase";
+import { database } from "../firebase/firebase";
 import { propsEdit } from "../store/interface.model";
 
 
@@ -31,9 +31,9 @@ const Edit = (props: propsEdit) => {
   };
 
   const sendUpdateHandler = (e: React.MouseEvent) => {
-    let dbRef: firebase.database.Reference = app.database().ref();
+    let dbRef= database.ref();
     dbRef
-      .child(`campgrounds/${campId}`)
+      .child(`camps/${campId}`)
       .update({
         title: enterredData.title,
         location: enterredData.location,

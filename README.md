@@ -2,6 +2,17 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## to add DB
+create a .env file and add the values from firebase for each key:
+REACT_APP_API_KEY=""
+REACT_APP_API_AUTH=""
+REACT_APP_API_DATABASE_URL=""
+REACT_APP_API_PROJECT_ID=""
+REACT_APP_API_STORAGE=""
+REACT_APP_API_MESSAGING_SENDER_ID=""
+REACT_APP_API_APP_ID=""
+REACT_APP_API_MEASUREMENT_ID=""
+
 ## Available Scripts
 
 In the project directory, you can run:

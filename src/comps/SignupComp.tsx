@@ -7,6 +7,7 @@ import pic from "../utils/LoginPic.jpeg";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import { auth } from "../firebase/firebase";
 
 const SignupComp = () => {
   const initialData = {
@@ -31,37 +32,30 @@ const SignupComp = () => {
 
   // --------------------------------------------------- FETCH: POST DAATA --------------
   const sendDataHandler = async () => {
-    const url: string = process.env.REACT_APP_API_SIGNUP_KEY || "";
-    const response: Response = await fetch(url, {
-      method: "POST",
-      body: JSON.stringify({
-        email: inputData.email,
-        password: inputData.password,
-        returnSecureToken: true,
-      }),
-      headers: { "Content-Type": "application/json" },
-    });
-    const data = await response.json();
-    if (response.ok) {
-      dispatch({ type: "loggedin" });
-      dispatch({ type: "idToken", payload: data.idToken });
-      localStorage.setItem("token", data.idToken);
-      localStorage.setItem("userEmail", data.email);
-      if (logginFromCampsBtn) {
-        history.replace("/campgrounds/newcamp")
-      } else {
-        history.push("/campgrounds/camps");
-        dispatch({ type: "logoutFromCampsBtn" });
-      }
-      setShowErrMsg(false);
-      return data;
-    } else {
-      if (data && data.error && data.error.message) {
-        const errorMessage: string = data.error.message;
-        setErrMsg(errorMessage);
-        setShowErrMsg(true);
-      }
-    }
+    auth
+      .createUserWithEmailAndPassword(inputData.email, inputData.password)
+      .then((userCredential: any) => {
+        const idToken = userCredential.user.ya;
+        dispatch({ type: "loggedin" });
+        dispatch({ type: "idToken", payload: idToken });
+        localStorage.setItem("token", idToken);
+        localStorage.setItem("userEmail", inputData.email);
+        if (logginFromCampsBtn) {
+          history.replace("/campgrounds/newcamp");
+        } else {
+          history.push("/campgrounds/camps");
+          dispatch({ type: "logoutFromCampsBtn" });
+        }
+        setShowErrMsg(false);
+        return inputData;
+      })
+      .catch((res) => {
+        if (res && res.error && res.error.message) {
+          const errorMessage: string = res.error.message;
+          setErrMsg(errorMessage);
+          setShowErrMsg(true);
+        }
+      });
   };
 
   // --------------------------------------------------- FIRE - FETCH: POST DAATA --------------

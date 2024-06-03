@@ -17,7 +17,7 @@ import {
   paramsType,
   initialDataType,
 } from "../store/interface.model";
-import { app } from "../firebase/firebase";
+import { database, storage } from "../firebase/firebase";
 
 const Details = () => {
   // -------------------------------------------------------------------- LOCAL STORAGE
@@ -54,36 +54,39 @@ const Details = () => {
   const [itemImage, setItemImage] = useState<string>();
   const [inputData, setInputData] = useState<initialDataType>(initialData);
   const [currentCamp, setCurrentCamp] = useState<Camp>(defaultData);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   // ------------------------------------------------------------------------------------------ FUNCS -----------------------------------------
 
   // ----------------- FETCH: GET CAMP -----------------
   const getCamp = async () => {
-    const allCampsApi: string = process.env.REACT_APP_API_CAMPS || "";
-    const response: Response = await fetch(allCampsApi, {
-      method: "GET",
+    var starCountRef = database.ref("camps/");
+    starCountRef.on("value", (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        dispatch({ type: "setAllCamps", payload: data });
+      } else {
+        let errorMessage: string = "Getting all camps failed!";
+        console.log(errorMessage);
+      }
     });
-    if (response.ok) {
-      const data = await response.json();
-      dispatch({ type: "setAllCamps", payload: data });
-    } else {
-      let errorMessage: string = "Getting all camps failed!";
-      console.log(errorMessage);
-    }
   };
 
   // ----------------- FETCH: GET IMAGE -----------------
   const getCampImage = () => {
-    let storageRef: firebase.storage.Reference;
-    let fileRef: firebase.storage.Reference;
-    storageRef = app.storage().ref();
-    fileRef = storageRef.child(`images/${params.camp}`);
-    setIsLoading(true);
-    fileRef.getDownloadURL().then(function (url: string) {
-      setItemImage(url);
-      setIsLoading(false);
-    });
+    storage
+      .ref(`images/${params.camp}`)
+      .getDownloadURL()
+      .then((url) => {
+        setItemImage(url);
+        setIsLoading(false);
+      })
+      .catch((error: Error) => {
+        setIsLoading(false);
+        console.log(
+          `Getting image failed on campCard ${JSON.stringify(error.message)}`
+        );
+      });
   };
 
   // ----------------- CURR CAMP DATA + ID -----------------
@@ -105,19 +108,17 @@ const Details = () => {
 
   // ----------------- FETCH: DELETE CAMP + IMAGE -----------------
   const deleteHandler = (e: React.MouseEvent) => {
-    let dbRef: firebase.database.Reference = app.database().ref();
-    let storageRef: firebase.storage.Reference;
-    storageRef = app.storage().ref();
+    let dbRef = database.ref();
     setIsLoading(true);
-    dbRef.child(`campgrounds/${params.camp}`).remove();
-    storageRef
-      .child(`images/${params.camp}`)
+    dbRef.child(`camps/${params.camp}`).remove();
+    const desertRef = storage.ref().child(`images/${params.camp}`);
+    desertRef
       .delete()
       .then(() => {
         dispatch({ type: "removeCamp", payload: params.camp });
         history.replace("/campgrounds/camps");
       })
-      .catch((error: Error) => {
+      .catch((error) => {
         console.log("error");
       });
   };
@@ -148,28 +149,20 @@ const Details = () => {
 
   // ----------------- FETCH: POST COMMENT -----------------
   const newCommentHandler = async () => {
-    const newCommentApi: string =
-      `${process.env.REACT_APP_API_COMMENTS}${currentCampId}/comments.json` ||
-      "";
-
-    if (inputData.comment.trim().length) {
-      const response: Response = await fetch(newCommentApi, {
-        method: "POST",
-        body: JSON.stringify({
-          author: author ? author : authorData.email,
-          comment: inputData.comment,
-        }),
-      });
-      if (response.ok) {
-        const data = await response.json();
-        getCamp();
-        return data;
-      } else {
-        let errorMessage: string = "Adding new camp failed!";
-        console.log(errorMessage);
-      }
-    }
+    const commentId = `${new Date()}${
+      author?.split("@")[0] ?? authorData.email.split("@")[0]
+    }`;
+    let dbRef = database.ref();
+    dbRef.child(`camps/${currentCampId}/comments/${commentId}`).update({
+      author: author ? author : authorData.email,
+      comment: inputData.comment,
+    });
+    getCamp();
   };
+
+  // *** ADD ERROR HANDLING ***
+  //     let errorMessage: string = "Adding new camp failed!";
+  //     console.log(errorMessage);
 
   // ----------------- ON SUBMIT: FIRE POST COMMENT + CLEAR INPUT -----------------
   const sendFormDataHandler = async (e: React.MouseEvent) => {
@@ -189,12 +182,10 @@ const Details = () => {
 
   // ----------------- ON CLICK: DELETE COMMENT -----------------
   const deleteCommentHandler = async (e: React.MouseEvent) => {
-    let dbRef: firebase.database.Reference = app.database().ref();
+    let dbRef = database.ref();
     const commentId: string = e.currentTarget.id;
 
-    await dbRef
-      .child(`campgrounds/${params.camp}/comments/${commentId}`)
-      .remove();
+    await dbRef.child(`camps/${params.camp}/comments/${commentId}`).remove();
     getCamp();
   };
 
