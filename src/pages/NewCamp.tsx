@@ -26,20 +26,23 @@ const NewCamp = () => {
   const [inputData, setInputData] = useState<initialNewDataType>(initialData);
   const [imageAsFile, setImageAsFile] = useState<File>();
   const [validated, setValidated] = useState<boolean>(false);
-  const [buttonDisabled, setButtonDisabled] = useState<boolean>(false);
+  const [buttonDisabled, setButtonDisabled] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   // ------------------------------------------------------------------------------------------ FUNCS -----------------------------------------
   // ----------------- FETCH: POST NEW CAMP -----------------
   const newCampDataHandler = async () => {
+    setIsLoading(true);
     const campId = `${new Date()}${
       author?.split("@")[0] ?? authorData.email.split("@")[0]
     }`;
+    const { title, location, price, description } = inputData;
 
     database.ref(`camps/${campId}`).set({
-      title: inputData.title,
-      location: inputData.location,
-      price: inputData.price,
-      description: inputData.description,
+      title,
+      location,
+      price,
+      description,
       author: author ? author : authorData.email,
     });
 
@@ -52,7 +55,6 @@ const NewCamp = () => {
           history.push("/campgrounds/camps");
         });
     }
-
     // *** ADD ERR HANDLING ***
     //   let errorMessage: string = "Adding new camp failed!";
     //   console.log(errorMessage);
@@ -60,6 +62,7 @@ const NewCamp = () => {
 
   // ------------- ON CHANGE: GET INPUT VALUE ----------------
   const getInputDataHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setButtonDisabled(false);
     setInputData({ ...inputData, [e.target.id]: e.target.value });
   };
 
@@ -68,100 +71,113 @@ const NewCamp = () => {
     if (e.target.files && e.target.files[0]) {
       const file: File = e.target.files[0];
       if (file) {
+        setButtonDisabled(false);
         setImageAsFile(file);
       }
     }
   };
 
   // ------------- ON SUBMIT: FIRE POST NEW CAMP ----------------
-  const getFormDataHandler = (e: React.MouseEvent) => {
+  const getFormDataHandler = (e: any) => {
     e.preventDefault();
     setButtonDisabled(true);
-    newCampDataHandler();
     const form = e.target as HTMLTextAreaElement;
     if (form.checkValidity() === false) {
+      e.preventDefault();
       e.stopPropagation();
+    } else {
+      newCampDataHandler();
     }
     setValidated(true);
   };
 
-  const cancelHandler = (e: React.MouseEvent) => {
+  const cancelHandler = () => {
     history.push("/campgrounds/camps");
   };
   // ------------------------------------------------------------- JSX -------------------------------------------------------------
   return (
     <>
       <div className={classes.container}>
-        <h1 className={classes.h1}>New CampGround</h1>
-        <Form className={classes.form} noValidate validated={validated}>
-          <Form.Group className="mb-3">
-            <Form.Label htmlFor="title">Title</Form.Label>
-            <Form.Control
-              type="text"
-              id="title"
-              onChange={getInputDataHandler}
-              required
-            />
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label htmlFor="location">Location</Form.Label>
-            <Form.Control
-              type="text"
-              id="location"
-              onChange={getInputDataHandler}
-              required
-            />
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label htmlFor="price">Campground price</Form.Label>
-            <Form.Control
-              type="number"
-              id="price"
-              onChange={getInputDataHandler}
-              required
-            />
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label htmlFor="description">Description</Form.Label>
-            <Form.Control
-              as="textarea"
-              rows={3}
-              id="description"
-              onChange={getInputDataHandler}
-              required
-            />
-          </Form.Group>
-          <Form.Group>
-            <Form.Control
-              type="file"
-              className={classes.file}
-              id="image"
-              onChange={getImageDataHandler}
-              required
-            />
-          </Form.Group>
-          <div className={classes.button}>
-            <Button
-              onClick={getFormDataHandler}
-              variant="success"
-              size="lg"
-              type="button"
-              className="mb-3"
-              disabled={buttonDisabled}
+        {isLoading ? (
+          <div className={classes.loadingCont}><div className={classes.loading}>Loading... This takes a while...</div></div>
+        ) : (
+          <>
+            <h1 className={classes.h1}>New CampGround</h1>
+            <Form
+              className={classes.form}
+              noValidate
+              validated={validated}
+              onSubmit={getFormDataHandler}
             >
-              Add campground
-            </Button>
-            <Button
-              onClick={cancelHandler}
-              variant="secondary"
-              size="lg"
-              type="button"
-              className="mb-3"
-            >
-              Cancel
-            </Button>
-          </div>
-        </Form>
+              <Form.Group className="mb-3">
+                <Form.Label htmlFor="title">Title</Form.Label>
+                <Form.Control
+                  type="text"
+                  id="title"
+                  onChange={getInputDataHandler}
+                  required
+                />
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Label htmlFor="location">Location</Form.Label>
+                <Form.Control
+                  type="text"
+                  id="location"
+                  onChange={getInputDataHandler}
+                  required
+                />
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Label htmlFor="price">Campground price</Form.Label>
+                <Form.Control
+                  type="number"
+                  id="price"
+                  onChange={getInputDataHandler}
+                  required
+                />
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Label htmlFor="description">Description</Form.Label>
+                <Form.Control
+                  as="textarea"
+                  rows={3}
+                  id="description"
+                  onChange={getInputDataHandler}
+                  required
+                />
+              </Form.Group>
+              <Form.Group>
+                <Form.Control
+                  type="file"
+                  className={classes.file}
+                  id="image"
+                  onChange={getImageDataHandler}
+                  required
+                />
+              </Form.Group>
+              <div className={classes.button}>
+                <Button
+                  variant="success"
+                  size="lg"
+                  type="submit"
+                  className="mb-3"
+                  disabled={buttonDisabled}
+                >
+                  Add campground
+                </Button>
+                <Button
+                  onClick={cancelHandler}
+                  variant="secondary"
+                  size="lg"
+                  type="button"
+                  className="mb-3"
+                >
+                  Cancel
+                </Button>
+              </div>
+            </Form>
+          </>
+        )}
       </div>
     </>
   );

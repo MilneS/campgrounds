@@ -16,6 +16,15 @@
 .button > * {
   margin-right: 10px;
 }
+.loadingCont {
+  width: 100%;
+  display: flex;
+  margin-top: 200px;
+}
+.loading {
+  margin: auto;
+  color: gray;
+}
 
 @media not all and (min-resolution:.001dpcm) { 
   @supports (-webkit-appearance: none) {

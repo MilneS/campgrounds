@@ -192,12 +192,11 @@ const Details = () => {
   // ------------------------------------------------------------- JSX -------------------------------------------------------------
   return (
     <>
-      {isLoading && (
+      {isLoading ? (
         <div className={classes.loadingCont}>
           <div className={classes.loading}>Loading...</div>
         </div>
-      )}
-      {!isLoading && (
+      ) : (
         <div>
           {!showEditComp && currentCamp && (
             <div className={classes.container}>
