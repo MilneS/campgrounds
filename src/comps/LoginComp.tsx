@@ -15,18 +15,22 @@ const LoginComp = () => {
     password: "",
   };
   const [inputData, setInputData] = useState(initialData);
-  const [errMsg, setErrMsg] = useState<string>();
   const [showErrMsg, setShowErrMsg] = useState<boolean>(false);
+  const [validated, setValidated] = useState<boolean>(false);
   const logginFromCampsBtn: boolean = useSelector(
     (state: State) => state.logginFromCamps
   );
   const history = useHistory();
   const dispatch = useDispatch();
+  const errMsg = "Invalid credentials";
 
   // ------------------------------------------------------------------------------------------ FUNCS -----------------------------------------
 
   // --------------------------------------------------- GET ENTERRED DATA --------------
   const getInputDataHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (showErrMsg) {
+      setShowErrMsg(false);
+    }
     setInputData({ ...inputData, [e.target.id]: e.currentTarget.value });
   };
 
@@ -50,19 +54,23 @@ const LoginComp = () => {
         return inputData;
       })
       .catch((res) => {
-        if (res && res.error && res.error.message) {
-          const errorMessage: string = res.error.message;
-          setErrMsg(errorMessage);
-          setShowErrMsg(true);
-        }
+        setShowErrMsg(true);
       });
   };
 
   // --------------------------------------------------- FIRE - FETCH: POST DAATA --------------
-  const getFormDataHandler = (e: React.MouseEvent) => {
+  const getFormDataHandler = (e: any) => {
     e.preventDefault();
-    dispatch({ type: "loginFormData", payload: inputData });
-    sendDataHandler();
+
+    const form = e.target as HTMLTextAreaElement;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    } else {
+      sendDataHandler();
+      dispatch({ type: "loginFormData", payload: inputData });
+    }
+    setValidated(true);
   };
 
   // --------------------------------------------------- SWITCH TO SIGNUP COMP --------------
@@ -80,7 +88,7 @@ const LoginComp = () => {
             <p className={classes.login}>Login</p>
           </Card.Title>
           {showErrMsg && <p className={classes.errorMsg}>{errMsg}</p>}
-          <Form>
+          <Form onSubmit={getFormDataHandler} noValidate validated={validated}>
             <Form.Group className="mb-3">
               <Form.Control
                 id="email"
@@ -99,7 +107,6 @@ const LoginComp = () => {
             </Form.Group>
             <div className="d-grid gap-2">
               <Button
-                onClick={getFormDataHandler}
                 variant="success"
                 size="lg"
                 type="submit"
