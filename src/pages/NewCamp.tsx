@@ -78,7 +78,7 @@ const NewCamp = () => {
   };
 
   // ------------- ON SUBMIT: FIRE POST NEW CAMP ----------------
-  const getFormDataHandler = (e: any) => {
+  const getFormDataHandler = (e: React.FormEvent) => {
     e.preventDefault();
     setButtonDisabled(true);
     const form = e.target as HTMLTextAreaElement;

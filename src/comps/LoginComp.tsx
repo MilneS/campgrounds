@@ -59,12 +59,10 @@ const LoginComp = () => {
   };
 
   // --------------------------------------------------- FIRE - FETCH: POST DAATA --------------
-  const getFormDataHandler = (e: any) => {
+  const getFormDataHandler = (e: React.FormEvent) => {
     e.preventDefault();
-
     const form = e.target as HTMLTextAreaElement;
     if (form.checkValidity() === false) {
-      e.preventDefault();
       e.stopPropagation();
     } else {
       sendDataHandler();

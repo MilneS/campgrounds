@@ -17,6 +17,7 @@ const SignupComp = () => {
   const [inputData, setInputData] = useState(initialData);
   const [errMsg, setErrMsg] = useState<string>();
   const [showErrMsg, setShowErrMsg] = useState<boolean>(false);
+  const [validated, setValidated] = useState<boolean>(false);
   const logginFromCampsBtn: boolean = useSelector(
     (state: State) => state.logginFromCamps
   );
@@ -27,6 +28,9 @@ const SignupComp = () => {
 
   // --------------------------------------------------- GET ENTERRED DATA --------------
   const getInputDataHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (showErrMsg) {
+      setShowErrMsg(false);
+    }
     setInputData({ ...inputData, [e.target.id]: e.currentTarget.value });
   };
 
@@ -50,19 +54,24 @@ const SignupComp = () => {
         return inputData;
       })
       .catch((res) => {
-        if (res && res.error && res.error.message) {
-          const errorMessage: string = res.error.message;
-          setErrMsg(errorMessage);
+        if (res.message) {
+          setErrMsg(res.message);
           setShowErrMsg(true);
         }
       });
   };
 
   // --------------------------------------------------- FIRE - FETCH: POST DAATA --------------
-  const getFormDataHandler = (e: React.MouseEvent) => {
+  const getFormDataHandler = (e: React.FormEvent) => {
     e.preventDefault();
-    dispatch({ type: "loginFormData", payload: inputData });
-    sendDataHandler();
+    const form = e.target as HTMLTextAreaElement;
+    if (form.checkValidity() === false) {
+      e.stopPropagation();
+    } else {
+      sendDataHandler();
+      dispatch({ type: "loginFormData", payload: inputData });
+    }
+    setValidated(true);
   };
 
   // --------------------------------------------------- SWITCH TO LOGIN COM --------------
@@ -80,7 +89,7 @@ const SignupComp = () => {
             <p className={classes.signup}>Sign up</p>
           </Card.Title>
           {showErrMsg && <p className={classes.errorMsg}>{errMsg}</p>}
-          <Form>
+          <Form onSubmit={getFormDataHandler} noValidate validated={validated}>
             <Form.Group className="mb-3">
               <Form.Control
                 type="email"
@@ -99,7 +108,6 @@ const SignupComp = () => {
             </Form.Group>
             <div className="d-grid gap-2">
               <Button
-                onClick={getFormDataHandler}
                 variant="success"
                 size="lg"
                 type="submit"
