@@ -67,7 +67,7 @@ const LoginComp = () => {
     } else {
       sendDataHandler();
       dispatch({ type: "loginFormData", payload: inputData });
-    }
+    } 
     setValidated(true);
   };
 
