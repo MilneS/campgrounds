@@ -1,6 +1,6 @@
 import classes from "./Home.module.css";
 import { NavLink } from "react-router-dom";
-
+ 
 const Home = () => {
   return (
     <div className={classes.background}>
