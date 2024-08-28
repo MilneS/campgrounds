@@ -52,7 +52,7 @@ const Camps = () => {
       ? setPath("/campgrounds/newcamp")
       : setPath("/campgrounds/login");
   }, []);
-
+ 
   // ------------------------------------------------------------- JSX -------------------------------------------------------------
   return (
     <div className={classes.container}>
