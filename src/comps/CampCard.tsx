@@ -49,7 +49,7 @@ const CampCard = (props: propsCampCard) => {
             >
               View
             </Button>
-          </NavLink>
+          </NavLink> 
         </div>
       </div>
     </div>
