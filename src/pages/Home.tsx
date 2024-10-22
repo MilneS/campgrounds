@@ -14,7 +14,7 @@ const Home = () => {
             <NavLink to="/campgrounds/login" className={classes.loginLink}>
               Login
             </NavLink>
-          </ul>
+          </ul> 
         </div>
         <div className={classes.middleContainer}>
           <h1 className={classes.title}>CampGrounds</h1>
