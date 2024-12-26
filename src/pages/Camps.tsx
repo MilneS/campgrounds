@@ -54,7 +54,7 @@ const Camps = () => {
   }, []);
  
   // ------------------------------------------------------------- JSX -------------------------------------------------------------
-  return (
+  return ( 
     <div className={classes.container}>
       <div className={classes.titleContainer}>
         <h1 className={classes.h1}>All CampGrounds</h1>
